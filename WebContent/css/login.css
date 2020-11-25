@@ -111,9 +111,6 @@ input:focus :-ms-input-placeholder {
   -webkit-transition: 250ms background ease-in;
   transition: 250ms background ease-in;
 }
-.footerDate {
-	color: #f0ffff;
-}
 
 .footerCopy {
 	color: #f0ffff;
