@@ -20,7 +20,7 @@
 			autofocus="true" required="true" placeholder="ユーザー名"><br>
 		<input type="password" class="login-password" name="passWord"
 			required="true" placeholder="パスワード"><br> <input
-			type="submit" name="Login" value="Login" class="login-submit">
+			type="submit" name="Login" value="ログイン" class="login-submit">
 	</form>
 	<div class="underlay-photo"></div>
 	<div class="underlay-black"></div>
