@@ -6,15 +6,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Your Shelf</title>
+<title>YourShelf</title>
 <link rel="stylesheet" type="text/css" href="/YourShelf/css/loginOK.css">
 </head>
 <body>
 <div class="mainmenu">
 <p>
-<span class="fa-stack fa-lg">
+
 <p class="welcomeuser">○○さんログイン中</p>
-</span>
+
 </p>
 <a href="/〇〇〇/◇◇◇" class="history">貸出履歴へ</a>
 <a href="/〇〇〇/◇◇◇" class="search">書籍検索へ</a>

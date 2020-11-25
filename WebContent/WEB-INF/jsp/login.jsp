@@ -6,20 +6,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Your Shelf</title>
+<title>YourShelf</title>
 <link rel="stylesheet" type="text/css" href="/YourShelf/css/login.css">
 </head>
 <body>
 	<form class="login-form" action="/〇〇〇/◇◇◇" method="post">
 		<p>
 			<span class="fa-stack fa-lg">
-			<p class="logintoyouself">Login to Yourshelf</p>
+			<p class="logintoyouself">YourShelfへログイン</p>
 			</span>
 		</p>
 		<input type="text" class="login-username" name="userName"
-			autofocus="true" required="true" placeholder="Username"><br>
+			autofocus="true" required="true" placeholder="ユーザー名"><br>
 		<input type="password" class="login-password" name="passWord"
-			required="true" placeholder="Password"><br> <input
+			required="true" placeholder="パスワード"><br> <input
 			type="submit" name="Login" value="Login" class="login-submit">
 	</form>
 	<div class="underlay-photo"></div>
