@@ -1,19 +1,18 @@
-package model;
+package javabeans;
 
-public class AdminDataDTO {
-	private int booksId;
-	private int isbn; //13桁の書籍コード
-	private String boughtDate;
-	private int count;
-	private String checkedOutDate;
+import java.io.Serializable;
 
-	public AdminDataDTO(int booksId, int isbn, String boughtDate, int count, String checkedOutDate) {
-		this.booksId = booksId;
-		this.isbn = isbn;
-		this.boughtDate = boughtDate;
-		this.count = count;
-		this.checkedOutDate = checkedOutDate;
+public class AdminDataDTO implements Serializable{
+	private int booksId;			//主キー(オートインクリメント)
+	private int isbn; 				//13桁の書籍コード
+	private String boughtDate; 		//日付データ
+	private int count; 				//貸出された回数
+	private String checkedOutDate;	//貸出日
+
+	public AdminDataDTO() {
+		//デフォルトコンストラクタ
 	}
+
 	public int getBooksId() {
 		return booksId;
 	}
@@ -29,6 +28,27 @@ public class AdminDataDTO {
 	public String getCheckedOutDate() {
 		return checkedOutDate;
 	}
+
+	public void setBooksId(int booksId) {
+		this.booksId = booksId;
+	}
+
+	public void setIsbn(int isbn) {
+		this.isbn = isbn;
+	}
+
+	public void setBoughtDate(String boughtDate) {
+		this.boughtDate = boughtDate;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public void setCheckedOutDate(String checkedOutDate) {
+		this.checkedOutDate = checkedOutDate;
+	}
+
 
 
 }

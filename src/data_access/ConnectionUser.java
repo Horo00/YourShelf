@@ -1,28 +1,18 @@
-package model;
+package data_access;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class ConnectionUser {
-	Connection getConnection() {
+	static Connection getConnection() throws NamingException, SQLException {
 		InitialContext context;
 		DataSource source = null;
-
-		try {
 			context = new InitialContext();
 			source = (DataSource) context.lookup("java:/comp/env/jdbc:db");
-			try(Connection connection = source.getConnection()){
-				return connection;
-			}catch (SQLException e) {
-				// TODO: 何か
-				return null; //とりあえず
-			}
-		} catch (Exception e) {
-			// TODO: 何か
-			return null; //とりあえず
-		}
+			return source.getConnection();
 	}
 }
