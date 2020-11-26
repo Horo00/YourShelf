@@ -61,7 +61,7 @@ public class AddUser extends HttpServlet {
 				//UserDAO dao = new UserDAO();
 				//dao.addUser(userName, passWord);
 
-				//セッションスコープに氏名とパスワードを保存
+				//セッションスコープに氏名を保存
 				HttpSession session = request.getSession();
 				session.setAttribute("userName", userName);//氏名
 
