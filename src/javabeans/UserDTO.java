@@ -4,16 +4,24 @@ import java.io.Serializable;
 
 public class UserDTO implements Serializable{
 	private int id;
-	private String password;
 	private String name;
+	private String password;
 
 	public UserDTO() {
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
-	public UserDTO(String password, String name) {
+	public UserDTO(String name, String password) {
 		this.password = password;
 		this.name = name;
+	}
+
+
+
+	public UserDTO(int id, String name, String password) {
+		this.id = id;
+		this.name = name;
+		this.password = password;
 	}
 
 	public int getId() {
