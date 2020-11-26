@@ -16,10 +16,10 @@
 <p class="welcomeuser">○○さんログイン中</p>
 
 </p>
-<a href="/〇〇〇/◇◇◇" class="history">貸出履歴へ</a>
-<a href="/〇〇〇/◇◇◇" class="search">書籍検索へ</a>
+<a href="/〇〇〇/◇◇◇" class="userhistory">貸出履歴</a>
+<a href="/〇〇〇/◇◇◇" class="viewbook">登録書籍一覧</a>
 <a href="/〇〇〇/◇◇◇" class="return">書籍返却</a>
-<a href="/〇〇〇/◇◇◇" class="backtotop">Top画面へ戻る</a>
+<a href="/〇〇〇/◇◇◇" class="logout">ログアウト</a>
 </div>
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>

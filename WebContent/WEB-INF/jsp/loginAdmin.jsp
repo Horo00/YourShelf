@@ -7,17 +7,18 @@
 <head>
 <meta charset="UTF-8">
 <title>YourShelf</title>
-<link rel="stylesheet" type="text/css" href="/YourShelf/css/loginOK.css">
+<link rel="stylesheet" type="text/css" href="/YourShelf/css/loginAdmin.css">
 </head>
 <body>
 <div class="mainmenu">
 <p>
-<p class="welcomeuser">管理者にてログイン中</p>
+<p class="welcomeuser">担当者ログイン中</p>
 </p>
-<a href="/〇〇〇/◇◇◇" class="history">後日設定</a>
-<a href="/〇〇〇/◇◇◇" class="search">後日設定</a>
-<a href="/〇〇〇/◇◇◇" class="return">後日設定</a>
-<a href="/〇〇〇/◇◇◇" class="backtotop">Top画面へ戻る</a>
+<a href="/〇〇〇/◇◇◇" class="viewuser">登録ユーザー確認</a>
+<a href="/〇〇〇/◇◇◇" class="limitover">返却期限切れ確認</a>
+<a href="/〇〇〇/◇◇◇" class="viewbook">登録書籍一覧</a>
+<a href="/〇〇〇/◇◇◇" class="addbook">書籍登録</a>
+<a href="/〇〇〇/◇◇◇" class="logout">ログアウト</a>
 </div>
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>

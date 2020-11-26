@@ -16,6 +16,7 @@
 </p>
 <a href="/〇〇〇/◇◇◇" class="login">ログイン</a>
 <a href="/〇〇〇/◇◇◇" class="adduser">ユーザー登録</a>
+<a href="/〇〇〇/◇◇◇" class="viewbook">登録書籍一覧</a>
 </div>
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>
