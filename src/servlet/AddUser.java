@@ -32,7 +32,11 @@ public class AddUser extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		//■GET通信
+		//■GET通信（ページに直接アクセス）**********************************
+		//TOP画面にフォワード
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/YourShelf/Index.java");
+		dispatcher.forward(request, response);
+
 	}
 
 	/**
