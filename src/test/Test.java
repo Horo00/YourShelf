@@ -3,6 +3,7 @@ package test;
 import data_access.AdminDataDAO;
 import data_access.UserDAO;
 import javabeans.Book;
+import javabeans.UserDTO;
 
 public class Test {
 	public static void main(String[] args) {
@@ -24,7 +25,7 @@ public class Test {
 
 		Book book = new Book();
 		book.setIsbn("1234567890124");
-		
+
 
 		AdminDataDAO adminDao = new AdminDataDAO();
 		if(adminDao.addBook(book)) {
@@ -32,5 +33,7 @@ public class Test {
 		} else {
 			System.out.println("失敗");
 		}
+		UserDTO dto = dao.addUser("さわい","pass");
+		System.out.println(dto);
 	}
 }

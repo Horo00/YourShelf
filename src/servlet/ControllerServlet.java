@@ -38,9 +38,29 @@ public class ControllerServlet extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		//■Get通信(トップ画面から/ログイン失敗画面から）********************************
-		//◇ログイン画面にフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-		dispatcher.forward(request, response);
+		//リクエストパラメータの取得
+		request.setCharacterEncoding("UTF-8");
+		String value = request.getParameter("value");
+
+//		★TOPメニューから飛んできた際の振り分け
+//						switch(value) {
+//						case:"null"  //valueにデータが入っていない場合
+//						//◇ログイン画面にフォワード
+//						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+//						dispatcher.forward(request, response);
+//						case:〇〇  //ログイン
+//						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+//						dispatcher.forward(request, response);
+//						break;
+//						case:〇〇  //新規登録
+//						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
+//						dispatcher.forward(request, response);
+//						break;
+//						case:〇〇  //書籍一覧
+//						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewBook.jsp");
+//						dispatcher.forward(request, response);
+//						break;
+//						}
 	}
 
 	/**
@@ -61,10 +81,9 @@ public class ControllerServlet extends HttpServlet {
 		String password = request.getParameter("password");
 
 		//ログイン処理の実行
-				Login login = new Login(name, password);
-				LoginLogic bo = new LoginLogic();
-				UserDTO userDTO = bo.execute(login);
-
+		Login login = new Login(name, password);
+		LoginLogic bo = new LoginLogic();
+		UserDTO userDTO = bo.execute(login);
 
 		//userDTOデータの有無によって処理を分岐
 		if (userDTO != null) {//ログイン成功
@@ -72,14 +91,20 @@ public class ControllerServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("userDTO", userDTO);
 
-			//ログイン成功画面へフォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/loginOK.jsp");
-			dispatcher.forward(request, response);
-
-		} else {//ログイン失敗
-				//ログイン画面にリダイレクト
-			response.sendRedirect("/YourShelf/LoginServlet");
-		}
+			switch (name) {//氏名によってログイン画面を分岐
+			case "admin":
+				//ログイン成功画面(管理者)へフォワード
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginAdmin.jsp");
+				dispatcher.forward(request, response);
+				break;
+			default:
+				//ログイン成功画面(一般USER)へフォワード
+				dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginOK.jsp");
+				dispatcher.forward(request, response);
+			}
+		}//ログイン失敗
+		//ログイン画面にリダイレクト
+		response.sendRedirect("/YourShelf/ControllerServlet");
 	}
 
 }
