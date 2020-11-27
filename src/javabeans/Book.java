@@ -59,6 +59,4 @@ public class Book {
 	public void setCheckedOut(boolean isCheckedOut) {
 		this.isCheckedOut = isCheckedOut;
 	}
-
-
 }

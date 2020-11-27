@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.NamingException;
 
@@ -42,6 +45,32 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		//何かしらアップデートができなければnullを返す
+		return null;
+	}
+
+	public List<UserDTO> getUserList() {
+		final String SQL = "SELECT id,name,password FROM USER";
+		try(Connection connection = ConnectionUser.getConnection();
+				Statement statement = connection.createStatement()){
+
+			List<UserDTO> lists = new ArrayList<>();
+
+			ResultSet rs = statement.executeQuery(SQL);
+			while (rs.next()) {
+				int		id		= rs.getInt		("id");
+				String	name	= rs.getString	("name");
+				String	password = rs.getString	("password");
+
+				lists.add(new UserDTO(id, name, password));
+			}
+			return lists;
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (NamingException e1) {
+			// TODO 自動生成された catch ブロック
+			e1.printStackTrace();
+		}
 		return null;
 	}
 
@@ -100,6 +129,6 @@ public class UserDAO {
 		}
 		return null;
 	}
-	
-	
+
+
 }
