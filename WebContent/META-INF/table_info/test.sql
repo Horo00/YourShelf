@@ -18,7 +18,7 @@ CREATE TABLE admindata
 	books_id int unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT '所蔵本の主キーID',
 	-- bookshistoryのisbnと同じ
 	-- 
-	isbn int unsigned NOT NULL COMMENT 'bookshistoryのisbnと同じ
+	isbn varchar(13) NOT NULL COMMENT 'bookshistoryのisbnと同じ
 ',
 	boughtdate date NOT NULL,
 	-- 貸出された回数
@@ -34,7 +34,7 @@ CREATE TABLE all_books
 (
 	-- ISBNを主キーとした書籍テーブル。
 	-- 購入書籍の情報を格納
-	isbn int unsigned NOT NULL COMMENT 'ISBNを主キーとした書籍テーブル。
+	isbn varchar(13) NOT NULL COMMENT 'ISBNを主キーとした書籍テーブル。
 購入書籍の情報を格納',
 	-- 本のタイトル
 	title varchar(255) NOT NULL COMMENT '本のタイトル',
@@ -50,7 +50,7 @@ CREATE TABLE all_books
 
 CREATE TABLE lending_book
 (
-	isbn int unsigned NOT NULL,
+	isbn varchar(13) NOT NULL,
 	-- 貸出中かどうかのチェック
 	-- [0>貸出中でない]
 	-- [1>貸出中]

@@ -1,6 +1,9 @@
 package javabeans;
 
 public class Book {
+	private String isbn;
+
+
 	private String title;
 	private String writer;
 	private int count;
@@ -11,7 +14,13 @@ public class Book {
 	public Book() {
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
+	public String getIsbn() {
+		return isbn;
+	}
 
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
 	public String getTitle() {
 		return title;
 	}
