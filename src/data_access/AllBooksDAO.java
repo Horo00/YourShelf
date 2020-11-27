@@ -47,4 +47,8 @@ public class AllBooksDAO {
 
 		return null;
 	}
+
+	public void searchBookInfo(Book book) {
+
+	}
 }

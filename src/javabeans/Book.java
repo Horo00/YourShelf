@@ -1,6 +1,7 @@
 package javabeans;
 
 public class Book {
+	private int booksId;
 	private String isbn;
 	private String title;
 	private String authors;
@@ -11,6 +12,14 @@ public class Book {
 
 	public Book() {
 		// TODO 自動生成されたコンストラクター・スタブ
+	}
+
+
+	public int getBooksId() {
+		return booksId;
+	}
+	public void setBooksId(int booksId) {
+		this.booksId = booksId;
 	}
 	public String getIsbn() {
 		return isbn;
