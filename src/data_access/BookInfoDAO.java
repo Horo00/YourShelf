@@ -11,7 +11,7 @@ import javabeans.Book;
 import javabeans.LendingBookDTO;
 import javabeans.LimitOverBooks;
 
-public class AllBooksDAO {
+public class BookInfoDAO {
 
 	ConnectionShelf connector;
 
@@ -19,7 +19,7 @@ public class AllBooksDAO {
 
 		//SQLを設定
 		//①ISBN/②本のタイトル/③作者/④出版社/⑤画像ＵＲＬ
-		final String SQL = "INSERT INTO all_books(isbn,title,authors,publisher,image_url) VALUES(?,?,?,?,?)";
+		final String SQL = "INSERT INTO book_info(isbn,title,authors,publisher,image_url) VALUES(?,?,?,?,?)";
 
 		connector = new ConnectionAdmin();
 

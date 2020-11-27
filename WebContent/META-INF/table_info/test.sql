@@ -35,12 +35,12 @@ CREATE TABLE having_book
 	-- 所蔵本の主キーID
 	books_id int unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT '所蔵本の主キーID',
 	-- bookshistoryのisbnと同じ
-	--
+	-- 
 	isbn varchar(13) NOT NULL COMMENT 'bookshistoryのisbnと同じ
 ',
+	boughtdate date NOT NULL,
 	-- 貸出された回数
 	count smallint unsigned DEFAULT 0 COMMENT '貸出された回数',
-	boughtdate date NOT NULL,
 	-- 個人の貸出日
 	checkedout_date date COMMENT '個人の貸出日',
 	-- 0で貸し出し中でない
@@ -71,9 +71,9 @@ CREATE TABLE user
 (
 	-- オートインクリメントの主キーです
 	id int unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'オートインクリメントの主キーです',
-	password varchar(255) NOT NULL,
 	-- ユーザーネーム（本名）
 	name varchar(255) NOT NULL COMMENT 'ユーザーネーム（本名）',
+	password varchar(255) NOT NULL,
 	PRIMARY KEY (id),
 	UNIQUE (id)
 );

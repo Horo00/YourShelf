@@ -12,7 +12,7 @@ import javax.naming.NamingException;
 
 import javabeans.Book;
 
-public class AdminDataDAO {
+public class HavingBookDAO {
 
 	ConnectionShelf connector;
 
@@ -20,7 +20,7 @@ public class AdminDataDAO {
 		//SQLを設定
 		//1:ISBN
 		final String SQL =
-				"INSERT INTO admindata(books_id,isbn,boughtdate,count,checkedout_date) VALUES(NULL,?,date(now()),0,NULL)";
+				"INSERT INTO having_book(books_id,isbn,boughtdate,count,checkedout_date,is_lending) VALUES(NULL,?,date(now()),0,NULL,0)";
 
 		connector = new ConnectionAdmin();
 
@@ -32,7 +32,7 @@ public class AdminDataDAO {
 			//アップデートできたかのチェック。１なら成功
 			int isSuccess = statement.executeUpdate();
 			if (isSuccess == 1) {
-				AllBooksDAO dao = new AllBooksDAO();
+				BookInfoDAO dao = new BookInfoDAO();
 				dao.addBookInfo(book);
 				return true;
 			}
@@ -45,7 +45,7 @@ public class AdminDataDAO {
 	}
 
 	public List<Book> searchBook() {
-		final String SQL ="SELECT books_id,admindata.isbn,count,title,authors,publisher,image_url  FROM admindata JOIN all_books ON admindata.isbn = all_books.isbn";
+		final String SQL ="SELECT books_id,having_book.isbn,count,title,authors,publisher,image_url  FROM having_book JOIN all_books ON having_book.isbn = all_books.isbn";
 		connector = new ConnectionUser();
 
 		try(Connection connection = connector.getConnection();
@@ -73,5 +73,22 @@ public class AdminDataDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public boolean lendBook(Book book) throws SQLException, NamingException {
+
+		//SQLの設定
+		//①books_id
+		final String SQL = "UPDATE having_book SET count = count + 1,checkedout_date = date(now()),is_lending = 1 WHERE books_id = ?";
+		connector = new ConnectionUser();
+
+		try(Connection connection = connector.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SQL)) {
+
+			statement.setInt(1, book.getBooksId());
+
+			int isSuccess = statement.executeUpdate();
+			return isSuccess == 1;
+		}
 	}
 }
