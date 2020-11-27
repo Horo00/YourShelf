@@ -82,7 +82,7 @@ public class Book {
 		this.count = count;
 		return this;
 	}
-
+	
 	public Book publisher(String publisher) {
 		this.publisher = publisher;
 		return this;

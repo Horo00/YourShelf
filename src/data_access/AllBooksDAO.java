@@ -9,6 +9,7 @@ import javax.naming.NamingException;
 
 import javabeans.Book;
 import javabeans.LendingBookDTO;
+import javabeans.LimitOverBooks;
 
 public class AllBooksDAO {
 
@@ -41,9 +42,9 @@ public class AllBooksDAO {
 			e1.printStackTrace();
 		}
 	}
-	
-	public List<Book> getLimitOverBookList(List<LendingBookDTO> dto) {
-		
+
+	public List<LimitOverBooks> getLimitOverBookList(List<LendingBookDTO> dto) {
+
 		return null;
 	}
 }
