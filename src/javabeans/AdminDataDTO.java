@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class AdminDataDTO implements Serializable{
 	private int booksId;			//主キー(オートインクリメント)
-	private int isbn; 				//13桁の書籍コード
+	private String isbn; 				//13桁の書籍コード
 	private String boughtDate; 		//日付データ
 	private int count; 				//貸出された回数
 	private String checkedOutDate;	//貸出日
@@ -16,7 +16,7 @@ public class AdminDataDTO implements Serializable{
 	public int getBooksId() {
 		return booksId;
 	}
-	public int getIsbn() {
+	public String getIsbn() {
 		return isbn;
 	}
 	public String getBoughtDate() {
@@ -33,7 +33,7 @@ public class AdminDataDTO implements Serializable{
 		this.booksId = booksId;
 	}
 
-	public void setIsbn(int isbn) {
+	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 

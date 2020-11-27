@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class LendingBookDTO implements Serializable{
 	private int booksId;
 	private int id;
-	private int isbn;
+	private String isbn;
 	private boolean isLending;
 	private String checkedoutDate;
 	private String retrunDate;
@@ -30,11 +30,11 @@ public class LendingBookDTO implements Serializable{
 		this.id = id;
 	}
 
-	public int getIsbn() {
+	public String getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(int isbn) {
+	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 

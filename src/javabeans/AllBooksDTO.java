@@ -3,7 +3,7 @@ package javabeans;
 import java.io.Serializable;
 
 public class AllBooksDTO implements Serializable{
-	private int isbn; // 主キー
+	private String isbn; // 主キー
 	private String title;
 	private String authors;
 	private String publisher;
@@ -13,11 +13,11 @@ public class AllBooksDTO implements Serializable{
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
-	public int getIsbn() {
+	public String getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(int isbn) {
+	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 

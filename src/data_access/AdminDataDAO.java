@@ -28,6 +28,8 @@ public class AdminDataDAO {
 			//アップデートできたかのチェック。１なら成功
 			int isSuccess = statement.executeUpdate();
 			if (isSuccess == 1) {
+				AllBooksDAO dao = new AllBooksDAO();
+				dao.addBookInfo(book);
 				return true;
 			}
 		} catch (SQLException e) {

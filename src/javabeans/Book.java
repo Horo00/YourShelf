@@ -2,12 +2,10 @@ package javabeans;
 
 public class Book {
 	private String isbn;
-
-
 	private String title;
-	private String writer;
+	private String authors;
 	private int count;
-	private String company;
+	private String publisher;
 	private String imgUrl;
 	private boolean isCheckedOut;
 
@@ -29,28 +27,12 @@ public class Book {
 		this.title = title;
 	}
 
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-
 	public int getCount() {
 		return count;
 	}
 
 	public void setCount(int count) {
 		this.count = count;
-	}
-
-	public String getCompany() {
-		return company;
-	}
-
-	public void setCompany(String company) {
-		this.company = company;
 	}
 
 	public String getImgUrl() {
@@ -68,4 +50,43 @@ public class Book {
 	public void setCheckedOut(boolean isCheckedOut) {
 		this.isCheckedOut = isCheckedOut;
 	}
+	public String getAuthors() {
+		return authors;
+	}
+	public void setAuthors(String authors) {
+		this.authors = authors;
+	}
+	public String getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public Book isbn(String isbn) {
+		this.isbn = isbn;
+		return this;
+	}
+
+	public Book title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	public Book authors(String authors) {
+		this.authors = authors;
+		return this;
+	}
+
+	public Book count(int count) {
+		this.count = count;
+		return this;
+	}
+
+	public Book publisher(String publisher) {
+		this.publisher = publisher;
+		return this;
+	}
+
+
 }

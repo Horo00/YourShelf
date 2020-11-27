@@ -24,6 +24,7 @@ public class Test {
 
 		Book book = new Book();
 		book.setIsbn("1234567890124");
+		
 
 		AdminDataDAO adminDao = new AdminDataDAO();
 		if(adminDao.addBook(book)) {

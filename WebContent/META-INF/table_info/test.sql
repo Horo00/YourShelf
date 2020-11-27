@@ -50,6 +50,11 @@ CREATE TABLE all_books
 
 CREATE TABLE lending_book
 (
+	lending_book_id int unsigned zerofill NOT NULL AUTO_INCREMENT,
+	-- 所蔵本の主キーID
+	books_id int unsigned zerofill NOT NULL COMMENT '所蔵本の主キーID',
+	-- オートインクリメントの主キーです
+	id int unsigned zerofill NOT NULL COMMENT 'オートインクリメントの主キーです',
 	isbn varchar(13) NOT NULL,
 	-- 貸出中かどうかのチェック
 	-- [0>貸出中でない]
@@ -61,10 +66,8 @@ CREATE TABLE lending_book
 	checkedout_date date NOT NULL COMMENT '貸出日',
 	-- 返却された日にupdateされる日付
 	return_date date COMMENT '返却された日にupdateされる日付',
-	-- 所蔵本の主キーID
-	books_id int unsigned zerofill NOT NULL COMMENT '所蔵本の主キーID',
-	-- オートインクリメントの主キーです
-	id int unsigned zerofill NOT NULL COMMENT 'オートインクリメントの主キーです',
+	PRIMARY KEY (lending_book_id),
+	UNIQUE (lending_book_id),
 	UNIQUE (books_id),
 	UNIQUE (id)
 );
