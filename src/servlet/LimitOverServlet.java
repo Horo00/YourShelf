@@ -1,6 +1,5 @@
 package servlet;
 
-import java.awt.print.Book;
 import java.io.IOException;
 import java.util.List;
 
@@ -49,9 +48,8 @@ public class LimitOverServlet extends HttpServlet {
 		} else {//返却期限切れ一覧からのアクセスした場合
 
 			//期限切れの一覧情報を取得
-
 			List<LendingBookDTO> list=LendingBookDAO.getLendingBookList();
-			List<Book> bookList=AllBooksDAO.getLimitOverBookList(list);
+			List<LimitOverBooks> bookList=AllBooksDAO.getLimitOverBookList(list);
 
 			//期限切れ一覧情報をセッションスコープに保存
 			HttpSession session = request.getSession();
