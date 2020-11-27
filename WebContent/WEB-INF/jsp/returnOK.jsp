@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="return">
-<h1 class="message">書籍を返却しました。</h1>
+<h3 class="message">書籍を返却しました。</h1>
 <p class="returnlist">返却書籍の選択</p>
 <table class="list" border="1">
         <tr>
