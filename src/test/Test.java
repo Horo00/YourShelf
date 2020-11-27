@@ -9,7 +9,7 @@ public class Test {
 //		String result = dao.test("川田9", "password");
 //		System.out.println(result);
 
-		UserDTO dto = dao.addUser("川田2","pass");
+		UserDTO dto = dao.addUser("さわい","pass");
 		System.out.println(dto);
 	}
 }
