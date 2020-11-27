@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.Login;
+import javabeans.UserDTO;
 import model.LoginLogic;
 
 /**
@@ -42,8 +42,6 @@ public class ControllerServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -58,29 +56,29 @@ public class ControllerServlet extends HttpServlet {
 
 		//リクエストパラメータの取得
 		request.setCharacterEncoding("UTF-8");
-		String userId = request.getParameter("userId");
-		String pass = request.getParameter("pass");
+		String name = request.getParameter("name");
+		String password = request.getParameter("password");
 
 		//ログイン処理の実行
-		Login login = new Login(userId, pass);
-		LoginLogic bo = new LoginLogic();
-		boolean result = bo.execute(login);
+				Login login = new Login(name, password);
+				LoginLogic bo = new LoginLogic();
+				UserDTO userDTO = bo.execute(login);
 
-		//ログイン処理の成否によって処理を分岐
-		if (result) {//ログイン成功
+
+		//userDTOデータの有無によって処理を分岐
+		if (userDTO != null) {//ログイン成功
 			//データをセッションスコープに保存
 			HttpSession session = request.getSession();
-			session.setAttribute("userId", userId);
+			session.setAttribute("userDTO", userDTO);
 
 			//ログイン成功画面へフォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/loginOK.jsp");
 			dispatcher.forward(request, response);
 
-		}else {//ログイン失敗
-			//ログイン画面にリダイレクト
+		} else {//ログイン失敗
+				//ログイン画面にリダイレクト
 			response.sendRedirect("/YourShelf/LoginServlet");
 		}
-
 	}
 
 }
