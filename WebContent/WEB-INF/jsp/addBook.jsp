@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="addbook">
-<p class="booksearch">登録する書籍の検索</p>
+<p class="booksearch">新規書籍の検索</p>
 <form action="/YourShelf/AddBookServlet" method="post">
 <input type="text" name="isbn" placeholder="ISBN" class="search-isbn"><br>
 <input type="text" name="title" placeholder="検索キーワード" class="search-keyword"><br>
