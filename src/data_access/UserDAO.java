@@ -14,6 +14,8 @@ import javabeans.Login;
 import javabeans.UserDTO;
 
 public class UserDAO {
+	ConnectionShelf connector;
+
 	/**
 	 * @param userName
 	 * @param password
@@ -23,8 +25,9 @@ public class UserDAO {
 	public UserDTO addUser(String userName, String password) {
 		//idはオートインクリメントなためデフォルト入力値はnull
 		final String SQL = "INSERT INTO USER(id,name,password) VALUES(NULL,?,?)";
+		connector = new ConnectionUser();
 
-		try (Connection connection = ConnectionUser.getConnection();
+		try (Connection connection = connector.getConnection();
 				PreparedStatement statement = connection.prepareStatement(SQL)) {
 
 			statement.setString(1, userName);
@@ -48,9 +51,17 @@ public class UserDAO {
 		return null;
 	}
 
+
+	/**
+	 * @return List<UserDTO>
+	 * 管理者専用メソッド
+	 * 全ユーザーの情報を取得する
+	 */
 	public List<UserDTO> getUserList() {
 		final String SQL = "SELECT id,name,password FROM USER";
-		try(Connection connection = ConnectionUser.getConnection();
+		connector = new ConnectionAdmin();
+
+		try(Connection connection = connector.getConnection();
 				Statement statement = connection.createStatement()){
 
 			List<UserDTO> lists = new ArrayList<>();
@@ -65,10 +76,8 @@ public class UserDAO {
 			}
 			return lists;
 		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (NamingException e1) {
-			// TODO 自動生成された catch ブロック
 			e1.printStackTrace();
 		}
 		return null;
@@ -80,7 +89,9 @@ public class UserDAO {
 	 */
 	private void setUserId(UserDTO dto) {
 		final String SQL = "SELECT id FROM USER WHERE name = ? AND password = ?";
-		try(Connection connection = ConnectionUser.getConnection();
+		connector = new ConnectionUser();
+
+		try(Connection connection = connector.getConnection();
 				PreparedStatement statement = connection.prepareStatement(SQL)){
 
 			statement.setString(1, dto.getName());
@@ -107,7 +118,9 @@ public class UserDAO {
 	 */
 	public UserDTO findByLogin(Login login) {
 		final String SQL = "SELECT id,name,password FROM USER WHERE name = ? AND password = ?";
-		try(Connection connection = ConnectionUser.getConnection();
+		connector = new ConnectionUser();
+
+		try(Connection connection = connector.getConnection();
 				PreparedStatement statement = connection.prepareStatement(SQL)){
 
 			statement.setString(1, login.getName());
@@ -129,6 +142,4 @@ public class UserDAO {
 		}
 		return null;
 	}
-
-
 }
