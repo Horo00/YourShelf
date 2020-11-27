@@ -138,7 +138,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2020-11-25 08:44:02</creation_date>
-			<updated_date>2020-11-27 14:25:28</updated_date>
+			<updated_date>2020-11-27 23:05:42</updated_date>
 			<model_property>
 				<name>プロジェクト名</name>
 				<value></value>
@@ -504,8 +504,8 @@
 			<width>276</width>
 				<font_name>Yu Gothic UI</font_name>
 				<font_size>9</font_size>
-			<x>300</x>
-			<y>12</y>
+			<x>120</x>
+			<y>24</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -638,8 +638,8 @@
 			<width>274</width>
 				<font_name>Yu Gothic UI</font_name>
 				<font_size>9</font_size>
-			<x>612</x>
-			<y>10</y>
+			<x>480</x>
+			<y>36</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -852,8 +852,8 @@
 			<width>217</width>
 				<font_name>Yu Gothic UI</font_name>
 				<font_size>9</font_size>
-			<x>132</x>
-			<y>204</y>
+			<x>492</x>
+			<y>276</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -1048,12 +1048,12 @@
 		</table>
 		<table>
 			<id>4</id>
-			<height>170</height>
-			<width>264</width>
+			<height>191</height>
+			<width>292</width>
 				<font_name>Yu Gothic UI</font_name>
 				<font_size>9</font_size>
-			<x>444</x>
-			<y>264</y>
+			<x>120</x>
+			<y>252</y>
 			<color>
 				<r>128</r>
 				<g>128</g>

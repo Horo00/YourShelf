@@ -2,9 +2,9 @@ SET SESSION FOREIGN_KEY_CHECKS=0;
 
 /* Drop Tables */
 
+DROP TABLE IF EXISTS book_info;
+DROP TABLE IF EXISTS having_book;
 DROP TABLE IF EXISTS lending_book;
-DROP TABLE IF EXISTS admindata;
-DROP TABLE IF EXISTS all_books;
 DROP TABLE IF EXISTS user;
 
 
@@ -12,25 +12,7 @@ DROP TABLE IF EXISTS user;
 
 /* Create Tables */
 
-CREATE TABLE admindata
-(
-	-- 所蔵本の主キーID
-	books_id int unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT '所蔵本の主キーID',
-	-- bookshistoryのisbnと同じ
-	-- 
-	isbn varchar(13) NOT NULL COMMENT 'bookshistoryのisbnと同じ
-',
-	boughtdate date NOT NULL,
-	-- 貸出された回数
-	count smallint unsigned DEFAULT 0 COMMENT '貸出された回数',
-	-- 個人の貸出日
-	checkedout_date date COMMENT '個人の貸出日',
-	PRIMARY KEY (books_id),
-	UNIQUE (books_id)
-);
-
-
-CREATE TABLE all_books
+CREATE TABLE book_info
 (
 	-- ISBNを主キーとした書籍テーブル。
 	-- 購入書籍の情報を格納
@@ -48,28 +30,40 @@ CREATE TABLE all_books
 );
 
 
+CREATE TABLE having_book
+(
+	-- 所蔵本の主キーID
+	books_id int unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT '所蔵本の主キーID',
+	-- bookshistoryのisbnと同じ
+	--
+	isbn varchar(13) NOT NULL COMMENT 'bookshistoryのisbnと同じ
+',
+	-- 貸出された回数
+	count smallint unsigned DEFAULT 0 COMMENT '貸出された回数',
+	boughtdate date NOT NULL,
+	-- 個人の貸出日
+	checkedout_date date COMMENT '個人の貸出日',
+	-- 0で貸し出し中でない
+	-- 1で貸し出し中
+	is_lending tinyint COMMENT '0で貸し出し中でない
+1で貸し出し中',
+	PRIMARY KEY (books_id),
+	UNIQUE (books_id)
+);
+
+
 CREATE TABLE lending_book
 (
 	lending_book_id int unsigned zerofill NOT NULL AUTO_INCREMENT,
-	-- 所蔵本の主キーID
-	books_id int unsigned zerofill NOT NULL COMMENT '所蔵本の主キーID',
 	-- オートインクリメントの主キーです
 	id int unsigned zerofill NOT NULL COMMENT 'オートインクリメントの主キーです',
 	isbn varchar(13) NOT NULL,
-	-- 貸出中かどうかのチェック
-	-- [0>貸出中でない]
-	-- [1>貸出中]
-	is_lending tinyint unsigned NOT NULL COMMENT '貸出中かどうかのチェック
-[0>貸出中でない]
-[1>貸出中]',
 	-- 貸出日
 	checkedout_date date NOT NULL COMMENT '貸出日',
 	-- 返却された日にupdateされる日付
 	return_date date COMMENT '返却された日にupdateされる日付',
 	PRIMARY KEY (lending_book_id),
-	UNIQUE (lending_book_id),
-	UNIQUE (books_id),
-	UNIQUE (id)
+	UNIQUE (lending_book_id)
 );
 
 
@@ -87,14 +81,6 @@ CREATE TABLE user
 
 
 /* Create Foreign Keys */
-
-ALTER TABLE lending_book
-	ADD FOREIGN KEY (books_id)
-	REFERENCES admindata (books_id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
 
 ALTER TABLE lending_book
 	ADD FOREIGN KEY (id)
