@@ -1,9 +1,11 @@
 package javabeans;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class LendingBook extends Book{
+public class LendingBook extends Book implements Serializable{
 	private int userId;
+	private int lendingBookId;
 	private Date checkedoutDate;
 
 	public LendingBook() {}
@@ -17,6 +19,12 @@ public class LendingBook extends Book{
 		this.userId = userId;
 	}
 
+	public int getLendingBookId() {
+		return lendingBookId;
+	}
+	public void setLendingBookId(int lendingBookId) {
+		this.lendingBookId = lendingBookId;
+	}
 	public Date getCheckedoutDate() {
 		return checkedoutDate;
 	}

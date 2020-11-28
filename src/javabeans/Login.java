@@ -1,6 +1,8 @@
 package javabeans;
 
-public class Login {
+import java.io.Serializable;
+
+public class Login implements Serializable{
 	private String name;
 	private String password;
 

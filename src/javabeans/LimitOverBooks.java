@@ -1,6 +1,8 @@
 package javabeans;
 
-public class LimitOverBooks extends LendingBook{
+import java.io.Serializable;
+
+public class LimitOverBooks extends LendingBook implements Serializable{
 
 	public LimitOverBooks() {	}
 }

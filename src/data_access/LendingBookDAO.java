@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,105 @@ public class LendingBookDAO {
 
 	ConnectionShelf connector;
 
+	/**
+	 * @return 
+	 */
 	public List<LendingBookDTO> getLendingBookList() {
+
+		return null;
+	}
+
+	/**
+	 * @return 全ユーザーの貸し出し簿のデータ
+	 * 管理者のみ使えるメソッド
+	 * 過去の貸し出し履歴を全て取得する
+	 * 取得する値:貸し出し簿ID,ユーザーID,ISBN,貸出日、返却日
+	 * 				タイトル、作者、出版社、画像URL
+	 * ユーザー専用メソッドとオーバーロード
+	 */
+	public List<LendBookHistroy> getBookHistroy() {
+		//SQLの設定
+		final String SQL = "SELECT lending_book_id,id,isbn,checkedout_date,return_date FROM lending_book";
+		connector = new ConnectionAdmin();
+
+		try (Connection connection = connector.getConnection();
+				Statement statement = connection.createStatement()) {
+
+			List<LendBookHistroy> lists = new ArrayList<>();
+
+			ResultSet rs = statement.executeQuery(SQL);
+			while (rs.next()) {
+				LendBookHistroy book = new LendBookHistroy();
+				book.setLendingBookId(rs.getInt("lending_book_id"));
+				book.setUserId(rs.getInt("id"));
+				book.setIsbn(rs.getString("isbn"));
+				book.setCheckedoutDate(rs.getDate("checkedout_date"));
+				book.setReturnDate(rs.getDate("return_date"));
+
+				//本の詳細を取得し、bookインスタンスにセットする
+				BookInfoDAO dao = new BookInfoDAO();
+				dao.searchBookInfo(book);
+
+				lists.add(book);
+			}
+			//要素が空でなければリストを返す
+			if (!lists.isEmpty()) {
+				return lists;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e1) {
+			e1.printStackTrace();
+		}
+		//何もない場合やエラーの場合nullを返す
+		return null;
+	}
+
+	/**
+	 * @param user
+	 * @return 該当ユーザーの貸し出し簿のデータ
+	 * ユーザーが使えるメソッド
+	 * 自分の過去の貸し出し履歴を取得する
+	 * 	 * 取得する値:貸し出し簿ID,ISBN,貸出日、返却日
+	 * 				タイトル、作者、出版社、画像URL
+	 * 管理者専用メソッドとオーバーロード
+	 */
+	public List<LendBookHistroy> getBookHistroy(UserDTO user) {
+		//SQLの設定
+		final String SQL = "SELECT lending_book_id,isbn,checkedout_date,return_date FROM lending_book WHERE id = ?";
+		connector = new ConnectionUser();
+
+		try (Connection connection = connector.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SQL)) {
+
+			statement.setInt(1, user.getId());
+
+			ResultSet rs = statement.executeQuery();
+			List<LendBookHistroy> lists = new ArrayList<>();
+
+			while (rs.next()) {
+				LendBookHistroy book = new LendBookHistroy();
+				book.setLendingBookId(rs.getInt("lending_book_id"));
+				book.setIsbn(rs.getString("isbn"));
+				book.setCheckedoutDate(rs.getDate("checkedout_date"));
+				book.setReturnDate(rs.getDate("return_date"));
+
+				//本の詳細を取得し、bookインスタンスにセットする
+				BookInfoDAO dao = new BookInfoDAO();
+				dao.searchBookInfo(book);
+
+				lists.add(book);
+			}
+			//要素が空でなければリストを返す
+			if (!lists.isEmpty()) {
+				return lists;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e1) {
+			e1.printStackTrace();
+		}
+		//何もない場合やエラーの場合nullを返す
 		return null;
 	}
 
@@ -83,7 +182,7 @@ public class LendingBookDAO {
 	 */
 	public boolean returnBook(LendingBook book) {
 		//SQLの設定
-		//①該当書籍を借りているユーザーID
+		//①該当書籍の貸し出し簿のID
 		final String SQL = "UPDATE lending_book SET return_date = date(now()) WHERE lending_book_id = ?";
 
 		connector = new ConnectionUser();
@@ -95,7 +194,7 @@ public class LendingBookDAO {
 
 			try (PreparedStatement statement = connection.prepareStatement(SQL)) {
 
-				statement.setInt(1, book.getUserId());
+				statement.setInt(1, book.getLendingBookId());
 
 				int successCount = statement.executeUpdate();
 

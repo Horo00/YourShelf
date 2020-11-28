@@ -1,6 +1,8 @@
 package javabeans;
 
-public class Book {
+import java.io.Serializable;
+
+public class Book implements Serializable{
 	private int booksId;
 	private String isbn;
 	private String title;

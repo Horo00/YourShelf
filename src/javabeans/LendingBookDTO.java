@@ -2,6 +2,7 @@ package javabeans;
 
 import java.io.Serializable;
 
+//このクラスは使わないかも
 public class LendingBookDTO implements Serializable{
 	private int booksId;
 	private int id;
