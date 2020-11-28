@@ -8,6 +8,7 @@ import java.util.List;
 import javax.naming.NamingException;
 
 import javabeans.Book;
+import javabeans.LendingBook;
 import javabeans.LendingBookDTO;
 import javabeans.UserDTO;
 
@@ -19,6 +20,14 @@ public class LendingBookDAO {
 		return null;
 	}
 
+	/**
+	 * @param user
+	 * @param book
+	 * @return 成功->true
+	 * 本の貸し出しボタンが押されればユーザー情報と本の情報を貸し出し簿テーブルに登録
+	 * 所有本一覧テーブルの該当書籍の貸し出し中カラムを[貸し出し中(1)]に書き換える
+	 * 両方のテーブル処理が終わってからコミットを行う(トランザクション処理)
+	 */
 	public boolean lendBook(UserDTO user, Book book) {
 		//SQLの設定
 		//①userId
@@ -37,18 +46,21 @@ public class LendingBookDAO {
 				statement.setInt(1, user.getId());
 				statement.setString(2, book.getIsbn());
 
-				statement.executeUpdate();
+				int successCount = statement.executeUpdate();
 
-				//having_bookDBにアップデート処理を行う
-				HavingBookDAO dao = new HavingBookDAO();
-				boolean isSuccess = dao.lendBook(book);
-				if (isSuccess) {
-					connection.commit();
-					return true;
-				} else {
-					//失敗時はロールバックを行う
-					connection.rollback();
+				//貸し出し簿への処理成功時
+				if (successCount == 1) {
+					//having_bookDBにアップデート処理を行う
+					HavingBookDAO dao = new HavingBookDAO();
+					boolean isSuccess = dao.lendBook(book);
+					if (isSuccess) {
+						//成功時のみコミットを行う
+						connection.commit();
+						return true;
+					}
 				}
+				//失敗時はロールバックを行う
+				connection.rollback();
 			} catch (SQLException e) {
 				connection.rollback();
 				e.printStackTrace();
@@ -57,6 +69,49 @@ public class LendingBookDAO {
 			e1.printStackTrace();
 		} catch (NamingException e1) {
 			e1.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean returnBook(LendingBook book) {
+		//SQLの設定
+		//①該当書籍を借りているユーザーID
+		final String SQL = "UPDATE lending_book SET return_date = date(now()) WHERE lending_book_id = ?";
+
+		connector = new ConnectionUser();
+
+		try (Connection connection = connector.getConnection()) {
+
+			//トランザクション処理のためオートコミットをオフにする
+			connection.setAutoCommit(false);
+
+			try (PreparedStatement statement = connection.prepareStatement(SQL)) {
+
+				statement.setInt(1, book.getUserId());
+
+				int successCount = statement.executeUpdate();
+
+				//貸し出し簿への処理成功時
+				if (successCount == 1) {
+					//having_bookDBにアップデート処理を行う
+					HavingBookDAO dao = new HavingBookDAO();
+					boolean isSuccess = dao.returnBook(book);
+					if (isSuccess) {
+						//成功時のみコミットを行う
+						connection.commit();
+						return true;
+					}
+				}
+				//失敗時はロールバックを行う
+				connection.rollback();
+			}catch (SQLException e) {
+				connection.rollback();
+				e.printStackTrace();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
+			e.printStackTrace();
 		}
 		return false;
 	}

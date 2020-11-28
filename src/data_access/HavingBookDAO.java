@@ -11,6 +11,7 @@ import java.util.List;
 import javax.naming.NamingException;
 
 import javabeans.Book;
+import javabeans.LendingBook;
 
 public class HavingBookDAO {
 
@@ -78,8 +79,27 @@ public class HavingBookDAO {
 	public boolean lendBook(Book book) throws SQLException, NamingException {
 
 		//SQLの設定
+		//貸し出し回数を１回増やす
+		//貸し出し中の項目を「貸し出し中(1)」にする
 		//①books_id
 		final String SQL = "UPDATE having_book SET count = count + 1,checkedout_date = date(now()),is_lending = 1 WHERE books_id = ?";
+		connector = new ConnectionUser();
+
+		try(Connection connection = connector.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SQL)) {
+
+			statement.setInt(1, book.getBooksId());
+
+			int isSuccess = statement.executeUpdate();
+			return isSuccess == 1;
+		}
+	}
+
+	public boolean returnBook(LendingBook book) throws SQLException, NamingException {
+		//SQLの設定
+		//所有書籍の貸し出し中の項目を「非貸し出し中(0)」にする
+		//①books_id
+		final String SQL = "UPDATE having_book SET is_lending = 0 WHERE books_id = ?";
 		connector = new ConnectionUser();
 
 		try(Connection connection = connector.getConnection();
