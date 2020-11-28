@@ -10,9 +10,7 @@ public class Book {
 	private String imgUrl;
 	private boolean isCheckedOut;
 
-	public Book() {
-		// TODO 自動生成されたコンストラクター・スタブ
-	}
+	public Book() {}
 
 
 	public int getBooksId() {

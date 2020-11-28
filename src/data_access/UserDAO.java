@@ -84,23 +84,23 @@ public class UserDAO {
 	}
 
 	/**
-	 * @param dto
+	 * @param user
 	 * UserDTOのnameとpasswordの値からDBに保管されているid値を取得、セットする
 	 */
-	private void setUserId(UserDTO dto) {
+	private void setUserId(UserDTO user) {
 		final String SQL = "SELECT id FROM USER WHERE name = ? AND password = ?";
 		connector = new ConnectionUser();
 
 		try(Connection connection = connector.getConnection();
 				PreparedStatement statement = connection.prepareStatement(SQL)){
 
-			statement.setString(1, dto.getName());
-			statement.setString(2, dto.getPassword());
+			statement.setString(1, user.getName());
+			statement.setString(2, user.getPassword());
 
 			ResultSet rs = statement.executeQuery();
 
 			if(rs.next()) {
-				dto.setId(rs.getInt("id"));
+				user.setId(rs.getInt("id"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -2,6 +2,7 @@ package data_access;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -49,6 +50,29 @@ public class BookInfoDAO {
 	}
 
 	public void searchBookInfo(Book book) {
+		//SQLの設定
+		//引数で受け取ったbookフィールドのisbnを参照し本の情報を受け取る
+		//①isbn
+		final String SQL = "SELECT title,authors,publisher,image_url FROM book_info WHERE isbn = ?";
+		connector = new ConnectionUser();
+		
+		try(Connection connection = connector.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SQL)){
 
+			statement.setString(1, book.getIsbn());
+
+			ResultSet rs = statement.executeQuery();
+
+			if(rs.next()) {
+				book.setTitle(rs.getString("title"));
+				book.setAuthors(rs.getString("authors"));
+				book.setPublisher(rs.getString("publisher"));
+				book.setImgUrl(rs.getString("image_url"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
 	}
 }

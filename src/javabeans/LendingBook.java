@@ -1,8 +1,10 @@
 package javabeans;
 
+import java.util.Date;
+
 public class LendingBook extends Book{
 	private int userId;
-	private String checkedoutDate;
+	private Date checkedoutDate;
 
 	public LendingBook() {}
 
@@ -15,11 +17,11 @@ public class LendingBook extends Book{
 		this.userId = userId;
 	}
 
-	public String getCheckedoutDate() {
+	public Date getCheckedoutDate() {
 		return checkedoutDate;
 	}
 
-	public void setCheckedoutDate(String checkedoutDate) {
+	public void setCheckedoutDate(Date checkedoutDate) {
 		this.checkedoutDate = checkedoutDate;
 	}
 
@@ -28,7 +30,7 @@ public class LendingBook extends Book{
 		return this;
 	}
 
-	public LendingBook checkedoutDate(String checkedoutDate) {
+	public LendingBook checkedoutDate(Date checkedoutDate) {
 		this.checkedoutDate = checkedoutDate;
 		return this;
 	}

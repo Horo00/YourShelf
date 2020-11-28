@@ -2,12 +2,15 @@ package data_access;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.NamingException;
 
 import javabeans.Book;
+import javabeans.LendBookHistroy;
 import javabeans.LendingBook;
 import javabeans.LendingBookDTO;
 import javabeans.UserDTO;
@@ -32,8 +35,8 @@ public class LendingBookDAO {
 		//SQLの設定
 		//①userId
 		//②isbn
-		final String SQL = "INSERT INTO lending_book(lending_book_id,id,isbn,checkedout_date) VALUES(NULL,?,?,date(now()))";
-
+		final String SQL =
+				"INSERT INTO lending_book(lending_book_id,id,isbn,checkedout_date) VALUES(NULL,?,?,date(now()))";
 		connector = new ConnectionUser();
 
 		try (Connection connection = connector.getConnection()) {
@@ -76,7 +79,8 @@ public class LendingBookDAO {
 	public boolean returnBook(LendingBook book) {
 		//SQLの設定
 		//①該当書籍を借りているユーザーID
-		final String SQL = "UPDATE lending_book SET return_date = date(now()) WHERE lending_book_id = ?";
+		final String SQL =
+				"UPDATE lending_book SET return_date = date(now()) WHERE lending_book_id = ?";
 
 		connector = new ConnectionUser();
 
@@ -114,5 +118,40 @@ public class LendingBookDAO {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public List<LendBookHistroy> lendBookHistory(UserDTO user){
+		//SQLの設定
+		//isbnと貸出日を取得
+		//①user_id
+		final String SQL =
+				"SELECT isbn,checkedout_date,return_date FROM lending_book WHERE id = ?";
+		connector = new ConnectionUser();
+
+		try(Connection connection = connector.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SQL)){
+
+			statement.setInt(1, user.getId());
+
+			ResultSet rs = statement.executeQuery();
+
+			List<LendBookHistroy> lists = new ArrayList<>();
+			if(rs.next()) {
+				LendBookHistroy book = new LendBookHistroy();
+				book.setIsbn(rs.getString("isbn"));
+				book.setCheckedoutDate(rs.getDate("checkedout_date"));
+				book.setReturnDate(rs.getDate("return_date"));
+				
+				BookInfoDAO dao = new BookInfoDAO();
+				dao.searchBookInfo((Book)book);
+				lists.add(book);
+			}
+			return lists;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
