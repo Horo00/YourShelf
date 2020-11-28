@@ -35,8 +35,7 @@ public class LendingBookDAO {
 		//SQLの設定
 		//①userId
 		//②isbn
-		final String SQL =
-				"INSERT INTO lending_book(lending_book_id,id,isbn,checkedout_date) VALUES(NULL,?,?,date(now()))";
+		final String SQL = "INSERT INTO lending_book(lending_book_id,id,isbn,checkedout_date) VALUES(NULL,?,?,date(now()))";
 		connector = new ConnectionUser();
 
 		try (Connection connection = connector.getConnection()) {
@@ -76,11 +75,16 @@ public class LendingBookDAO {
 		return false;
 	}
 
+	/**
+	 * @param book
+	 * @return 成功->true
+	 * 貸し出し簿テーブルのアップデート及び所有書籍テーブルのアップデートを行う
+	 * トランザクション処理を行い、両方とも成功で書き換え&trueを返す
+	 */
 	public boolean returnBook(LendingBook book) {
 		//SQLの設定
 		//①該当書籍を借りているユーザーID
-		final String SQL =
-				"UPDATE lending_book SET return_date = date(now()) WHERE lending_book_id = ?";
+		final String SQL = "UPDATE lending_book SET return_date = date(now()) WHERE lending_book_id = ?";
 
 		connector = new ConnectionUser();
 
@@ -108,7 +112,7 @@ public class LendingBookDAO {
 				}
 				//失敗時はロールバックを行う
 				connection.rollback();
-			}catch (SQLException e) {
+			} catch (SQLException e) {
 				connection.rollback();
 				e.printStackTrace();
 			}
@@ -120,33 +124,44 @@ public class LendingBookDAO {
 		return false;
 	}
 
-	public List<LendBookHistroy> lendBookHistory(UserDTO user){
+	/**
+	 * @param user
+	 * @return List<LendBookHistory>
+	 * 要素が空、もしくは接続失敗でnullを返す
+	 * isbn,貸出日、返却日、タイトル、作者、出版社、画像URLを1オブジェクトに格納する
+	 */
+	public List<LendBookHistroy> searchLendBookHistory(UserDTO user) {
 		//SQLの設定
-		//isbnと貸出日を取得
+		//isbnと貸出日、返却日を取得
 		//①user_id
-		final String SQL =
-				"SELECT isbn,checkedout_date,return_date FROM lending_book WHERE id = ?";
+		final String SQL = "SELECT isbn,checkedout_date,return_date FROM lending_book WHERE id = ?";
 		connector = new ConnectionUser();
 
-		try(Connection connection = connector.getConnection();
-				PreparedStatement statement = connection.prepareStatement(SQL)){
+		try (Connection connection = connector.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SQL)) {
 
 			statement.setInt(1, user.getId());
 
 			ResultSet rs = statement.executeQuery();
 
 			List<LendBookHistroy> lists = new ArrayList<>();
-			if(rs.next()) {
+			while (rs.next()) {
 				LendBookHistroy book = new LendBookHistroy();
+				//bookインスタンスにISBN、貸出日、返却日の情報をセット
 				book.setIsbn(rs.getString("isbn"));
 				book.setCheckedoutDate(rs.getDate("checkedout_date"));
 				book.setReturnDate(rs.getDate("return_date"));
-				
+
 				BookInfoDAO dao = new BookInfoDAO();
-				dao.searchBookInfo((Book)book);
+				//ISBNから本の細かい情報を取得
+				dao.searchBookInfo(book);
+
 				lists.add(book);
 			}
-			return lists;
+			//要素が空でなければListを返す
+			if (!lists.isEmpty()) {
+				return lists;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (NamingException e) {

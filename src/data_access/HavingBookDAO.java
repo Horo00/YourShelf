@@ -17,6 +17,14 @@ public class HavingBookDAO {
 
 	ConnectionShelf connector;
 
+	/**
+	 * @param book
+	 * @return 成功->true
+	 * 購入書籍を所有書籍テーブルに加える。
+	 * 同時に新規書籍の場合、書籍の詳細情報を書籍情報テーブルにも加える。
+	 * 所有書籍テーブルへの追加が成功であればtrue
+	 * 但し書籍情報テーブルの追加成功は問わない
+	 */
 	public boolean addBook(Book book) {
 		//SQLを設定
 		//1:ISBN
@@ -30,11 +38,16 @@ public class HavingBookDAO {
 
 			statement.setString(1, book.getIsbn());
 
-			//アップデートできたかのチェック。１なら成功
+			//アップデートできたかのチェック。1件の追加なので戻り値が１なら成功
 			int isSuccess = statement.executeUpdate();
 			if (isSuccess == 1) {
+				//書籍情報テーブルに本の情報を書き加える
+				//ただし、isbnが被っていた場合この処理は失敗する
+				//失敗は仕様上問題ないため、
+				//この処理の成功失敗に関わらず呼び出し元にはtrueを返す
 				BookInfoDAO dao = new BookInfoDAO();
 				dao.addBookInfo(book);
+
 				return true;
 			}
 		} catch (SQLException e) {
@@ -45,6 +58,10 @@ public class HavingBookDAO {
 		return false;
 	}
 
+	/**
+	 * @return List<Book>
+	 * 所有書籍一覧を返す
+	 */
 	public List<Book> searchBook() {
 		final String SQL ="SELECT books_id,having_book.isbn,count,title,authors,publisher,image_url  FROM having_book JOIN all_books ON having_book.isbn = all_books.isbn";
 		connector = new ConnectionUser();
@@ -76,6 +93,15 @@ public class HavingBookDAO {
 		return null;
 	}
 
+	/**
+	 * @param book
+	 * @return 成功->true
+	 * @throws SQLException
+	 * @throws NamingException
+	 * LendingBookDAOのlendBook()メソッドからのみ呼び出される。
+	 * ここで投げられる例外はそこで処理する
+	 * トランザクション処理を行っているためこの処理失敗で前項メソッドも失敗になる
+	 */
 	public boolean lendBook(Book book) throws SQLException, NamingException {
 
 		//SQLの設定
@@ -90,11 +116,21 @@ public class HavingBookDAO {
 
 			statement.setInt(1, book.getBooksId());
 
+			//アップデート処理。1件のみの処理なので戻り値が1なら成功
 			int isSuccess = statement.executeUpdate();
 			return isSuccess == 1;
 		}
 	}
 
+	/**
+	 * @param book
+	 * @return 成功->true
+	 * @throws SQLException
+	 * @throws NamingException
+	 * LendingBookDAOのreturnBook()メソッドからのみ呼び出される。
+	 * ここで投げられる例外はそこで処理する
+	 * トランザクション処理を行っているためこの処理失敗で前項メソッドも失敗になる
+	 */
 	public boolean returnBook(LendingBook book) throws SQLException, NamingException {
 		//SQLの設定
 		//所有書籍の貸し出し中の項目を「非貸し出し中(0)」にする
@@ -107,6 +143,7 @@ public class HavingBookDAO {
 
 			statement.setInt(1, book.getBooksId());
 
+			//アップデート処理。1件のみの処理なので戻り値が1なら成功
 			int isSuccess = statement.executeUpdate();
 			return isSuccess == 1;
 		}

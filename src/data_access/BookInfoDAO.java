@@ -16,6 +16,11 @@ public class BookInfoDAO {
 
 	ConnectionShelf connector;
 
+	/**
+	 * @param book
+	 * 引数で受け取ったbookの情報を書籍情報テーブルに書き加える。
+	 * isbnが被る可能性があるのでトランザクション処理は行わない。
+	 */
 	public void addBookInfo(Book book) {
 
 		//SQLを設定
@@ -49,13 +54,18 @@ public class BookInfoDAO {
 		return null;
 	}
 
+	/**
+	 * @param book
+	 * 引数で受け取ったbookインスタンスに本の詳細をsetする
+	 * setする項目:タイトル・作者・出版社・画像url
+	 */
 	public void searchBookInfo(Book book) {
 		//SQLの設定
 		//引数で受け取ったbookフィールドのisbnを参照し本の情報を受け取る
 		//①isbn
 		final String SQL = "SELECT title,authors,publisher,image_url FROM book_info WHERE isbn = ?";
 		connector = new ConnectionUser();
-		
+
 		try(Connection connection = connector.getConnection();
 				PreparedStatement statement = connection.prepareStatement(SQL)){
 
