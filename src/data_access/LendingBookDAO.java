@@ -13,7 +13,6 @@ import javax.naming.NamingException;
 import javabeans.Book;
 import javabeans.LendBookHistroy;
 import javabeans.LendingBook;
-import javabeans.LendingBookDTO;
 import javabeans.UserDTO;
 
 public class LendingBookDAO {
@@ -21,10 +20,47 @@ public class LendingBookDAO {
 	ConnectionShelf connector;
 
 	/**
-	 * @return 
+	 * @return 該当ユーザーの現在借りている本のデータ
+	 * 	 取得する値:貸し出し簿ID,ISBN,貸出日
+	 * 				タイトル、作者、出版社、画像URL
 	 */
-	public List<LendingBookDTO> getLendingBookList() {
+	public List<LendingBook> getLendingBookList(UserDTO user) {
+		//SQLの設定
+		//①ユーザーID
+		final String SQL =
+				"SELECT lending_book_id,isbn,checkedout_date FROM lending_book WHERE id = ?";
+		connector = new ConnectionUser();
 
+		try (Connection connection = connector.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SQL)) {
+
+			statement.setInt(1, user.getId());
+
+			ResultSet rs = statement.executeQuery();
+			List<LendingBook> lists = new ArrayList<>();
+
+			while (rs.next()) {
+				LendingBook book = new LendingBook();
+				book.setLendingBookId(rs.getInt("lending_book_id"));
+				book.setIsbn(rs.getString("isbn"));
+				book.setCheckedoutDate(rs.getDate("checkedout_date"));
+
+				//本の詳細を取得し、bookインスタンスにセットする
+				BookInfoDAO dao = new BookInfoDAO();
+				dao.searchBookInfo(book);
+
+				lists.add(book);
+			}
+			//要素が空でなければリストを返す
+			if (!lists.isEmpty()) {
+				return lists;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e1) {
+			e1.printStackTrace();
+		}
+		//何もない場合やエラーの場合nullを返す
 		return null;
 	}
 
@@ -79,12 +115,13 @@ public class LendingBookDAO {
 	 * @return 該当ユーザーの貸し出し簿のデータ
 	 * ユーザーが使えるメソッド
 	 * 自分の過去の貸し出し履歴を取得する
-	 * 	 * 取得する値:貸し出し簿ID,ISBN,貸出日、返却日
+	 * 	 取得する値:貸し出し簿ID,ISBN,貸出日、返却日(あれば)
 	 * 				タイトル、作者、出版社、画像URL
 	 * 管理者専用メソッドとオーバーロード
 	 */
 	public List<LendBookHistroy> getBookHistroy(UserDTO user) {
 		//SQLの設定
+		//①ユーザーID
 		final String SQL = "SELECT lending_book_id,isbn,checkedout_date,return_date FROM lending_book WHERE id = ?";
 		connector = new ConnectionUser();
 
