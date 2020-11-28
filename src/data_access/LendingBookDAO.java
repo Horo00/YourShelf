@@ -19,16 +19,66 @@ public class LendingBookDAO {
 
 	ConnectionShelf connector;
 
+
+
+	/**
+	 * @return 全ユーザーの現在借りている本のデータ
+	 * 	 取得する値:貸し出し簿ID,ISBN,貸出日
+	 * 				タイトル、作者、出版社、画像URL
+	 * 	ユーザー専用メソッドとオーバーロード
+	 * 	※基本的に２週間期限切れを調べるために使う。
+	 * (但しここでは貸し出し中の書籍のみ検索)
+	 */
+	public List<LendingBook> getLendingBookList() {
+		//SQLの設定
+		//返却日がnull(まだ返却されていない)ところを抜き出す
+		final String SQL =
+				"SELECT lending_book_id,isbn,checkedout_date FROM lending_book WHERE return_date is NULL";
+		connector = new ConnectionUser();
+
+		try (Connection connection = connector.getConnection();
+				Statement statement = connection.createStatement()) {
+
+			ResultSet rs = statement.executeQuery(SQL);
+			List<LendingBook> lists = new ArrayList<>();
+
+			while (rs.next()) {
+				LendingBook book = new LendingBook();
+				book.setLendingBookId(rs.getInt("lending_book_id"));
+				book.setIsbn(rs.getString("isbn"));
+				book.setCheckedoutDate(rs.getDate("checkedout_date"));
+
+				//本の詳細を取得し、bookインスタンスにセットする
+				BookInfoDAO dao = new BookInfoDAO();
+				dao.searchBookInfo(book);
+
+				lists.add(book);
+			}
+			//要素が空でなければリストを返す
+			if (!lists.isEmpty()) {
+				return lists;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e1) {
+			e1.printStackTrace();
+		}
+		//何もない場合やエラーの場合nullを返す
+		return null;
+	}
+
 	/**
 	 * @return 該当ユーザーの現在借りている本のデータ
 	 * 	 取得する値:貸し出し簿ID,ISBN,貸出日
 	 * 				タイトル、作者、出版社、画像URL
+	 * 管理者専用メソッドとオーバーロード
 	 */
 	public List<LendingBook> getLendingBookList(UserDTO user) {
 		//SQLの設定
+		//返却日がnull(まだ返却されていない)ところを抜き出す
 		//①ユーザーID
 		final String SQL =
-				"SELECT lending_book_id,isbn,checkedout_date FROM lending_book WHERE id = ?";
+				"SELECT lending_book_id,isbn,checkedout_date FROM lending_book WHERE id = ? AND return_date is NULL;";
 		connector = new ConnectionUser();
 
 		try (Connection connection = connector.getConnection();
