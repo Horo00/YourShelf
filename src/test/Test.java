@@ -1,33 +1,37 @@
 package test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import data_access.LendingBookDAO;
-import data_access.UserDAO;
-import javabeans.Book;
-import javabeans.LendBookHistroy;
-import javabeans.LendingBook;
+import javabeans.Login;
 import javabeans.UserDTO;
+import model.LoginLogic;
 
 public class Test {
 	public static void main(String[] args) {
-		UserDAO dao = new UserDAO();
-		UserDTO dto = new UserDTO(1, "川", "pass");
-		Book book = new Book();
+		Login login = new Login("川田5", "password");
+		UserDTO user = LoginLogic.execute(login);
+
+		if(user != null) {
+			System.out.println("成功" + user.getPassword());
+		} else {
+			System.out.println("失敗" +login.getPassword());
+		}
+
+//		AddUserLogic.add("川田5", "password");
+//		UserDAO dao = new UserDAO();
+//		UserDTO dto = new UserDTO(1, "川", "pass");
+//		Book book = new Book();
 //		LendingBook book = new LendingBook();
 //		book.isbn("1234567890125")
 //			.title("sample")
 //			.authors("川田!");
 //		HavingBookDAO dao2 = new HavingBookDAO();
 //		dao2.addBook(book);
-		LendingBookDAO dao3 = new LendingBookDAO();
-
-		List<LendBookHistroy> list = new ArrayList<>();
-		list = dao3.getBookHistroy();
-		for (LendBookHistroy lendingBook : list) {
-			System.out.println(lendingBook.getReturnScheduleDate());
-		}
+//		LendingBookDAO dao3 = new LendingBookDAO();
+//
+//		List<LendBookHistroy> list = new ArrayList<>();
+//		list = dao3.getBookHistroy();
+//		for (LendBookHistroy lendingBook : list) {
+//			System.out.println(lendingBook.getReturnScheduleDate());
+//		}
 //		list = dao2.searchBook();
 //		book.setBooksId(1);
 //		book.setLendingBookId(6);
@@ -43,9 +47,9 @@ public class Test {
 //		LendingBookDAO dao2 = new LendingBookDAO();
 //		lists = dao2.getBookHistroy();
 //
-		for (LendingBook lendingBook : list) {
-			System.out.println(lendingBook.getIsbn());
-		}
+//		for (LendingBook lendingBook : list) {
+//			System.out.println(lendingBook.getIsbn());
+//		}
 
 //				UserDTO dto = dao.addUser("川田", "pass");
 //				System.out.println(dto.getId());
