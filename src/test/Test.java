@@ -1,30 +1,32 @@
 package test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javabeans.Book;
+import data_access.UserDAO;
+import javabeans.Login;
+import javabeans.UserDTO;
 
 public class Test {
 	public static void main(String[] args) {
-		List<Book> listsBooks = new ArrayList<Book>();
-		if (listsBooks == null) {
-			System.out.println("空");
-		}
-		if(listsBooks.isEmpty()) {
-			System.out.println("enpty");
-		}
-		//		UserDAO dao = new UserDAO();
-		////
-		//		UserDTO dto = dao.addUser("川田11","pass");
-		//		System.out.println(dto.getId());
-		//
-		//		java.util.List<UserDTO> lists = dao.getUserList();
-		//		System.out.println(lists);
+		//		List<Book> listsBooks = new ArrayList<Book>();
+		//		if (listsBooks == null) {
+		//			System.out.println("空");
+		//		}
+		//		if(listsBooks.isEmpty()) {
+		//			System.out.println("enpty");
+		//		}
+		UserDAO dao = new UserDAO();
 
-		//		Login login = new Login("川田", "password");
-		//		UserDTO dto =dao.findByLogin(login);
-		//
+//				UserDTO dto = dao.addUser("川田", "pass");
+//				System.out.println(dto.getId());
+
+//		java.util.List<UserDTO> lists = dao.getUserList();
+//		System.out.println(lists);
+		
+		
+
+				Login login = new Login("川田", "pass");
+				UserDTO dto2 =dao.findByLogin(login);
+				System.out.println(dto2.getId());
+				
 		//		System.out.println(dto);
 		//		Test2 test = new Test2();
 		//
