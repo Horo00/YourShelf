@@ -1,21 +1,22 @@
 package javabeans;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 
-public class LendBookHistroy extends LendingBook implements Serializable{
-	private Date returnDate;
+import helper.TimeHelper;
 
-	public Date getReturnDate() {
+public class LendBookHistroy extends LendingBook implements Serializable {
+
+	private LocalDate returnDate;
+
+	public LocalDate getReturnDate() {
 		return returnDate;
 	}
 
 	public void setReturnDate(Date returnDate) {
-		this.returnDate = returnDate;
-	}
-
-	public LendBookHistroy returnDate(Date returnDate) {
-		this.returnDate = returnDate;
-		return this;
+		if (returnDate != null) {
+			this.returnDate = TimeHelper.dateToLocalDate(returnDate);
+		}
 	}
 }

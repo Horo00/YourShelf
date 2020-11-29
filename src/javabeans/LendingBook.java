@@ -1,12 +1,16 @@
 package javabeans;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
+
+import helper.TimeHelper;
 
 public class LendingBook extends Book implements Serializable{
 	private int userId;
 	private int lendingBookId;
-	private Date checkedoutDate;
+	private LocalDate checkedoutDate;
+	private LocalDate returnScheduleDate;
 
 	public LendingBook() {}
 
@@ -25,22 +29,24 @@ public class LendingBook extends Book implements Serializable{
 	public void setLendingBookId(int lendingBookId) {
 		this.lendingBookId = lendingBookId;
 	}
-	public Date getCheckedoutDate() {
+	public LocalDate getCheckedoutDate() {
 		return checkedoutDate;
 	}
 
 	public void setCheckedoutDate(Date checkedoutDate) {
-		this.checkedoutDate = checkedoutDate;
+		this.checkedoutDate = TimeHelper.dateToLocalDate(checkedoutDate);
+		setReturnScheduleDate(this.checkedoutDate);
+	}
+	public void setReturnScheduleDate(LocalDate returnScheduleDate) {
+		this.returnScheduleDate = TimeHelper.LimitCalc(returnScheduleDate);
 	}
 
-	public LendingBook userId(int userId) {
-		this.userId = userId;
-		return this;
+	public LocalDate getReturnScheduleDate() {
+		return returnScheduleDate;
 	}
 
-	public LendingBook checkedoutDate(Date checkedoutDate) {
+	public void setCheckedoutDate(LocalDate checkedoutDate) {
 		this.checkedoutDate = checkedoutDate;
-		return this;
 	}
 
 }

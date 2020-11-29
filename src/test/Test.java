@@ -3,9 +3,10 @@ package test;
 import java.util.ArrayList;
 import java.util.List;
 
-import data_access.HavingBookDAO;
+import data_access.LendingBookDAO;
 import data_access.UserDAO;
 import javabeans.Book;
+import javabeans.LendBookHistroy;
 import javabeans.LendingBook;
 import javabeans.UserDTO;
 
@@ -15,14 +16,19 @@ public class Test {
 		UserDTO dto = new UserDTO(1, "川", "pass");
 		Book book = new Book();
 //		LendingBook book = new LendingBook();
-		book.isbn("1234567890125")
-			.title("sample")
-			.authors("川田!");
-		HavingBookDAO dao2 = new HavingBookDAO();
-		dao2.addBook(book);
-		
-		List<LendingBook> list = new ArrayList<>();
-		list = dao2.searchBook();
+//		book.isbn("1234567890125")
+//			.title("sample")
+//			.authors("川田!");
+//		HavingBookDAO dao2 = new HavingBookDAO();
+//		dao2.addBook(book);
+		LendingBookDAO dao3 = new LendingBookDAO();
+
+		List<LendBookHistroy> list = new ArrayList<>();
+		list = dao3.getBookHistroy();
+		for (LendBookHistroy lendingBook : list) {
+			System.out.println(lendingBook.getReturnScheduleDate());
+		}
+//		list = dao2.searchBook();
 //		book.setBooksId(1);
 //		book.setLendingBookId(6);
 //		LendingBookDAO dao2 = new LendingBookDAO();
