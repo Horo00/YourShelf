@@ -18,6 +18,7 @@ public class BookInfoDAO {
 
 	/**
 	 * @param book
+	 * HavingBookDAOのaddBook()メソッドからのみ呼び出されるメソッド
 	 * 引数で受け取ったbookの情報を書籍情報テーブルに書き加える。
 	 * isbnが被る可能性があるのでトランザクション処理は行わない。
 	 */
@@ -32,20 +33,18 @@ public class BookInfoDAO {
 		try (Connection connection = connector.getConnection();
 				PreparedStatement statement = connection.prepareStatement(SQL)) {
 
-			statement.setString(1,book.getIsbn() );
-			statement.setString(2,book.getTitle() );
-			statement.setString(3,book.getAuthors() );
-			statement.setString(4,book.getPublisher() );
-			statement.setString(5,book.getImgUrl() );
+			statement.setString(1, book.getIsbn());
+			statement.setString(2, book.getTitle());
+			statement.setString(3, book.getAuthors());
+			statement.setString(4, book.getPublisher());
+			statement.setString(5, book.getImgUrl());
 
 			statement.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
-		} catch (NamingException e1) {
-			// TODO 自動生成された catch ブロック
-			e1.printStackTrace();
+		} catch (NamingException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -66,14 +65,14 @@ public class BookInfoDAO {
 		final String SQL = "SELECT title,authors,publisher,image_url FROM book_info WHERE isbn = ?";
 		connector = new ConnectionUser();
 
-		try(Connection connection = connector.getConnection();
-				PreparedStatement statement = connection.prepareStatement(SQL)){
+		try (Connection connection = connector.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SQL)) {
 
 			statement.setString(1, book.getIsbn());
 
 			ResultSet rs = statement.executeQuery();
 
-			if(rs.next()) {
+			if (rs.next()) {
 				book.setTitle(rs.getString("title"));
 				book.setAuthors(rs.getString("authors"));
 				book.setPublisher(rs.getString("publisher"));

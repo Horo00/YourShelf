@@ -1,17 +1,28 @@
 package test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import data_access.HavingBookDAO;
 import data_access.UserDAO;
+import javabeans.Book;
+import javabeans.LendingBook;
 import javabeans.UserDTO;
 
 public class Test {
 	public static void main(String[] args) {
 		UserDAO dao = new UserDAO();
 		UserDTO dto = new UserDTO(1, "川", "pass");
-//		Book book = new Book();
+		Book book = new Book();
 //		LendingBook book = new LendingBook();
-//		book.isbn("1234567890123")
-//			.title("sample")
-//			.authors("川田");
+		book.isbn("1234567890125")
+			.title("sample")
+			.authors("川田!");
+		HavingBookDAO dao2 = new HavingBookDAO();
+		dao2.addBook(book);
+		
+		List<LendingBook> list = new ArrayList<>();
+		list = dao2.searchBook();
 //		book.setBooksId(1);
 //		book.setLendingBookId(6);
 //		LendingBookDAO dao2 = new LendingBookDAO();
@@ -26,9 +37,9 @@ public class Test {
 //		LendingBookDAO dao2 = new LendingBookDAO();
 //		lists = dao2.getBookHistroy();
 //
-//		for (LendingBook lendingBook : lists) {
-//			System.out.println(lendingBook.getCheckedoutDate());
-//		}
+		for (LendingBook lendingBook : list) {
+			System.out.println(lendingBook.getIsbn());
+		}
 
 //				UserDTO dto = dao.addUser("川田", "pass");
 //				System.out.println(dto.getId());

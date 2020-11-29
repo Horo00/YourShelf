@@ -62,25 +62,25 @@ public class HavingBookDAO {
 	 * @return List<Book>
 	 * 所有書籍一覧を返す
 	 */
-	public List<Book> searchBook() {
-		final String SQL ="SELECT books_id,having_book.isbn,count,title,authors,publisher,image_url  FROM having_book JOIN all_books ON having_book.isbn = all_books.isbn";
+	public List<LendingBook> searchBook() {
+		final String SQL =
+				"SELECT books_id,isbn,count,checkedout_date,is_lending FROM having_book";
 		connector = new ConnectionUser();
 
 		try(Connection connection = connector.getConnection();
 				Statement statement = connection.createStatement()){
 
-			List<Book> lists = new ArrayList<>();
+			List<LendingBook> lists = new ArrayList<>();
 
 			ResultSet rs = statement.executeQuery(SQL);
 			while (rs.next()) {
-				Book book = new Book();
+				LendingBook book = new LendingBook();
 				book.setBooksId	(rs.getInt("books_id"));
 				book.setIsbn	(rs.getString("isbn"));
 				book.setCount	(rs.getInt("count"));
-				book.setTitle	(rs.getString("title"));
-				book.setAuthors	(rs.getString("authors"));
-				book.setPublisher(rs.getString("publisher"));
-				book.setImgUrl	(rs.getString("image_url"));
+
+				BookInfoDAO dao = new BookInfoDAO();
+				dao.searchBookInfo(book);
 
 				lists.add(book);
 			}
