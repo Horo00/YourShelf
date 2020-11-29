@@ -1,32 +1,41 @@
 package test;
 
 import data_access.UserDAO;
-import javabeans.Login;
 import javabeans.UserDTO;
 
 public class Test {
 	public static void main(String[] args) {
-		//		List<Book> listsBooks = new ArrayList<Book>();
-		//		if (listsBooks == null) {
-		//			System.out.println("空");
-		//		}
-		//		if(listsBooks.isEmpty()) {
-		//			System.out.println("enpty");
-		//		}
 		UserDAO dao = new UserDAO();
+		UserDTO dto = new UserDTO(1, "川", "pass");
+//		Book book = new Book();
+//		LendingBook book = new LendingBook();
+//		book.isbn("1234567890123")
+//			.title("sample")
+//			.authors("川田");
+//		book.setBooksId(1);
+//		book.setLendingBookId(6);
+//		LendingBookDAO dao2 = new LendingBookDAO();
+//		if(dao2.returnBook((LendingBook)book)) {
+//			System.out.println("成功");
+//		}else {
+//			System.out.println("失敗");
+//		}
+
+//
+//		List<LendBookHistroy> lists = new ArrayList<>();
+//		LendingBookDAO dao2 = new LendingBookDAO();
+//		lists = dao2.getBookHistroy();
+//
+//		for (LendingBook lendingBook : lists) {
+//			System.out.println(lendingBook.getCheckedoutDate());
+//		}
 
 //				UserDTO dto = dao.addUser("川田", "pass");
 //				System.out.println(dto.getId());
 
 //		java.util.List<UserDTO> lists = dao.getUserList();
 //		System.out.println(lists);
-		
-		
 
-				Login login = new Login("川田", "pass");
-				UserDTO dto2 =dao.findByLogin(login);
-				System.out.println(dto2.getId());
-				
 		//		System.out.println(dto);
 		//		Test2 test = new Test2();
 		//

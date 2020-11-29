@@ -23,6 +23,7 @@ public class LendingBookDAO {
 
 	/**
 	 * @return 全ユーザーの現在借りている本のデータ
+	 * [管理者専用メソッド]
 	 * 	 取得する値:貸し出し簿ID,ISBN,貸出日
 	 * 				タイトル、作者、出版社、画像URL
 	 * 	ユーザー専用メソッドとオーバーロード
@@ -69,6 +70,7 @@ public class LendingBookDAO {
 
 	/**
 	 * @return 該当ユーザーの現在借りている本のデータ
+	 * [ユーザー専用メソッド]
 	 * 	 取得する値:貸し出し簿ID,ISBN,貸出日
 	 * 				タイトル、作者、出版社、画像URL
 	 * 管理者専用メソッドとオーバーロード
@@ -308,51 +310,5 @@ public class LendingBookDAO {
 			e.printStackTrace();
 		}
 		return false;
-	}
-
-	/**
-	 * @param user
-	 * @return List<LendBookHistory>
-	 * 要素が空、もしくは接続失敗でnullを返す
-	 * isbn,貸出日、返却日、タイトル、作者、出版社、画像URLを1オブジェクトに格納する
-	 */
-	public List<LendBookHistroy> searchLendBookHistory(UserDTO user) {
-		//SQLの設定
-		//isbnと貸出日、返却日を取得
-		//①user_id
-		final String SQL = "SELECT isbn,checkedout_date,return_date FROM lending_book WHERE id = ?";
-		connector = new ConnectionUser();
-
-		try (Connection connection = connector.getConnection();
-				PreparedStatement statement = connection.prepareStatement(SQL)) {
-
-			statement.setInt(1, user.getId());
-
-			ResultSet rs = statement.executeQuery();
-
-			List<LendBookHistroy> lists = new ArrayList<>();
-			while (rs.next()) {
-				LendBookHistroy book = new LendBookHistroy();
-				//bookインスタンスにISBN、貸出日、返却日の情報をセット
-				book.setIsbn(rs.getString("isbn"));
-				book.setCheckedoutDate(rs.getDate("checkedout_date"));
-				book.setReturnDate(rs.getDate("return_date"));
-
-				BookInfoDAO dao = new BookInfoDAO();
-				//ISBNから本の細かい情報を取得
-				dao.searchBookInfo(book);
-
-				lists.add(book);
-			}
-			//要素が空でなければListを返す
-			if (!lists.isEmpty()) {
-				return lists;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 }
