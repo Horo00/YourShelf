@@ -22,13 +22,13 @@ public class LendingBookDAO {
 
 
 	/**
-	 * @return 全ユーザーの現在借りている本のデータ
-	 * [管理者専用メソッド]
+	 *  [管理者専用メソッド]
 	 * 	 取得する値:貸し出し簿ID,ISBN,貸出日
 	 * 				タイトル、作者、出版社、画像URL
 	 * 	ユーザー専用メソッドとオーバーロード
 	 * 	※基本的に２週間期限切れを調べるために使う。
 	 * (但しここでは貸し出し中の書籍のみ検索)
+	 * @return List 全ユーザーの現在借りている本のデータ
 	 */
 	public List<LendingBook> getLendingBookList() {
 		//SQLの設定
@@ -69,11 +69,12 @@ public class LendingBookDAO {
 	}
 
 	/**
-	 * @return 該当ユーザーの現在借りている本のデータ
 	 * [ユーザー専用メソッド]
 	 * 	 取得する値:貸し出し簿ID,ISBN,貸出日
 	 * 				タイトル、作者、出版社、画像URL
 	 * 管理者専用メソッドとオーバーロード
+	 * @param user
+	 * @return List 該当ユーザーの現在借りている本のデータ
 	 */
 	public List<LendingBook> getLendingBookList(UserDTO user) {
 		//SQLの設定
@@ -117,12 +118,12 @@ public class LendingBookDAO {
 	}
 
 	/**
-	 * @return 全ユーザーの貸し出し簿のデータ
 	 * 管理者のみ使えるメソッド
 	 * 過去の貸し出し履歴を全て取得する
 	 * 取得する値:貸し出し簿ID,ユーザーID,ISBN,貸出日、返却日
 	 * 				タイトル、作者、出版社、画像URL
 	 * ユーザー専用メソッドとオーバーロード
+	 * @return List 全ユーザーの貸し出し簿のデータ
 	 */
 	public List<LendBookHistroy> getBookHistroy() {
 		//SQLの設定
@@ -163,13 +164,13 @@ public class LendingBookDAO {
 	}
 
 	/**
-	 * @param user
-	 * @return 該当ユーザーの貸し出し簿のデータ
 	 * ユーザーが使えるメソッド
 	 * 自分の過去の貸し出し履歴を取得する
 	 * 	 取得する値:貸し出し簿ID,ISBN,貸出日、返却日(あれば)
 	 * 				タイトル、作者、出版社、画像URL
 	 * 管理者専用メソッドとオーバーロード
+	 * @param user
+	 * @return List 該当ユーザーの貸し出し簿のデータ
 	 */
 	public List<LendBookHistroy> getBookHistroy(UserDTO user) {
 		//SQLの設定
@@ -212,12 +213,12 @@ public class LendingBookDAO {
 	}
 
 	/**
-	 * @param user
-	 * @param book
-	 * @return 成功->true
 	 * 本の貸し出しボタンが押されればユーザー情報と本の情報を貸し出し簿テーブルに登録
 	 * 所有本一覧テーブルの該当書籍の貸し出し中カラムを[貸し出し中(1)]に書き換える
 	 * 両方のテーブル処理が終わってからコミットを行う(トランザクション処理)
+	 * @param user
+	 * @param book
+	 * @return boolean 成功->true
 	 */
 	public boolean lendBook(UserDTO user, Book book) {
 		//SQLの設定
@@ -264,10 +265,10 @@ public class LendingBookDAO {
 	}
 
 	/**
-	 * @param book
-	 * @return 成功->true
 	 * 貸し出し簿テーブルのアップデート及び所有書籍テーブルのアップデートを行う
 	 * トランザクション処理を行い、両方とも成功で書き換え&trueを返す
+	 * @param book
+	 * @return boolean 成功->true
 	 */
 	public boolean returnBook(LendingBook book) {
 		//SQLの設定

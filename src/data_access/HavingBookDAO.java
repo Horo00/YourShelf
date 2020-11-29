@@ -18,12 +18,12 @@ public class HavingBookDAO {
 	ConnectionShelf connector;
 
 	/**
-	 * @param book
-	 * @return 成功->true
 	 * 購入書籍を所有書籍テーブルに加える。
 	 * 同時に新規書籍の場合、書籍の詳細情報を書籍情報テーブルにも加える。
 	 * 所有書籍テーブルへの追加が成功であればtrue
 	 * 但し書籍情報テーブルの追加成功は問わない
+	 * @param book
+	 * @return boolean 成功->true
 	 */
 	public boolean addBook(Book book) {
 		//SQLを設定
@@ -59,8 +59,8 @@ public class HavingBookDAO {
 	}
 
 	/**
-	 * @return List<Book>
-	 * 所有書籍一覧を返す
+	 *  所有書籍一覧を返す
+	 * @return List <Book>
 	 */
 	public List<LendingBook> searchBook() {
 		final String SQL =
@@ -94,13 +94,13 @@ public class HavingBookDAO {
 	}
 
 	/**
-	 * @param book
-	 * @return 成功->true
-	 * @throws SQLException
-	 * @throws NamingException
 	 * LendingBookDAOのlendBook()メソッドからのみ呼び出される。
 	 * ここで投げられる例外はそこで処理する
 	 * トランザクション処理を行っているためこの処理失敗で前項メソッドも失敗になる
+	 * @param book
+	 * @return boolean 成功->true
+	 * @throws SQLException
+	 * @throws NamingException
 	 */
 	public boolean lendBook(Book book) throws SQLException, NamingException {
 
@@ -123,13 +123,13 @@ public class HavingBookDAO {
 	}
 
 	/**
-	 * @param book
-	 * @return 成功->true
-	 * @throws SQLException
-	 * @throws NamingException
 	 * LendingBookDAOのreturnBook()メソッドからのみ呼び出される。
 	 * ここで投げられる例外はそこで処理する
 	 * トランザクション処理を行っているためこの処理失敗で前項メソッドも失敗になる
+	 * @param book
+	 * @return boolean 成功->true
+	 * @throws SQLException
+	 * @throws NamingException
 	 */
 	public boolean returnBook(LendingBook book) throws SQLException, NamingException {
 		//SQLの設定

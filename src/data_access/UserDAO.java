@@ -17,10 +17,10 @@ public class UserDAO {
 	ConnectionShelf connector;
 
 	/**
+	 * 新規登録時のユーザー登録(INSERT)メソッド
 	 * @param userName
 	 * @param password
 	 * @return UserDTO
-	 * 新規登録時のユーザー登録(INSERT)メソッド
 	 */
 	public UserDTO addUser(String userName, String password) {
 		//idはオートインクリメントなためデフォルト入力値はnull
@@ -56,9 +56,9 @@ public class UserDAO {
 	}
 
 	/**
-	 * @return List<UserDTO>
 	 * 管理者専用メソッド
 	 * 全ユーザーの情報を取得する
+	 * @return List<UserDTO>
 	 */
 	public List<UserDTO> getUserList() {
 		final String SQL = "SELECT id,name,password FROM USER";
@@ -87,11 +87,11 @@ public class UserDAO {
 	}
 
 	/**
-	 * @param login
-	 * @return UserDTO
 	 * ログイン時に入力されたパラメータから該当するユーザーを抽出
 	 * 抽出されたユーザーでUserDTOのインスタンスを作成し、リターンする
 	 * 該当するユーザーがいなければnullを返す
+	 * @param login
+	 * @return UserDTO
 	 */
 	public UserDTO findByLogin(Login login) {
 		final String SQL = "SELECT id,name,password FROM USER WHERE name = ? AND password = ?";

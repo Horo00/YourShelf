@@ -17,10 +17,10 @@ public class BookInfoDAO {
 	ConnectionShelf connector;
 
 	/**
-	 * @param book
 	 * HavingBookDAOのaddBook()メソッドからのみ呼び出されるメソッド
 	 * 引数で受け取ったbookの情報を書籍情報テーブルに書き加える。
 	 * isbnが被る可能性があるのでトランザクション処理は行わない。
+	 * @param book
 	 */
 	public void addBookInfo(Book book) {
 
@@ -54,9 +54,9 @@ public class BookInfoDAO {
 	}
 
 	/**
-	 * @param book
 	 * 引数で受け取ったbookインスタンスに本の詳細をsetする
 	 * setする項目:タイトル・作者・出版社・画像url
+	 * @param book
 	 */
 	public void searchBookInfo(Book book) {
 		//SQLの設定
