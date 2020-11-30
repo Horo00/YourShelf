@@ -1,3 +1,4 @@
+
 <%--[checkOut.jsp] 一般ユーザ画面遷移先の表示: <ログイン> / <新規登録>--%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -22,4 +23,5 @@
 <footer>
 <p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
 </footer>
+
 </html>
