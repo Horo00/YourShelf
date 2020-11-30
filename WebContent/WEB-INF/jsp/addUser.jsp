@@ -19,7 +19,6 @@
 <input class="add-pass-check" type="password" name="password" required placeholder="確認用パスワード"><br>
 <input class="add-submit" type="submit" value="登録">
 </form>
-
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>
 </body>
