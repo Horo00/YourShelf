@@ -82,7 +82,7 @@ public class UserDAO {
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-		//何かしらアップデートができなければnullを返す
+		//名前が重複していたり何かしらアップデートができなければnullを返す
 		return null;
 	}
 

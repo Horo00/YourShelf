@@ -10,6 +10,8 @@ public class Book implements Serializable{
 	private int count;
 	private String publisher;
 	private String imgUrl;
+
+	//借りられているかどうか。falseで非貸出中。trueで貸出中
 	private boolean isCheckedOut;
 
 	public Book() {}
