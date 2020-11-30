@@ -2,23 +2,16 @@ package javabeans;
 
 import java.io.Serializable;
 
+//使わないかも
 public class BookInfoDTO implements Serializable{
-	private String isbn; // 主キー
-	private String title;
+
+	private String title;// 主キー
 	private String authors;
 	private String publisher;
 	private String imageUrl;
 
 	public BookInfoDTO() {
 		// TODO 自動生成されたコンストラクター・スタブ
-	}
-
-	public String getIsbn() {
-		return isbn;
-	}
-
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
 	}
 
 	public String getTitle() {

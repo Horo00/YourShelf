@@ -148,7 +148,7 @@ public class JsonData extends HttpServlet implements EnvSet{
 			        	//実際に得られるデータ数
 			        	count = jsonArray.length();
 
-			        	//取り出すデータ①ISBN/②本のタイトル/③作者/④出版社/⑤画像ＵＲＬ
+			        	//取り出すデータ①本のタイトル/②作者/③出版社/④画像ＵＲＬ
 			        	for (int i = 0; i < count; i++) {
 			        		//各検索結果
 			        		JSONObject item = jsonArray.getJSONObject(i);
@@ -156,20 +156,11 @@ public class JsonData extends HttpServlet implements EnvSet{
 			        		//volumeInfoに関するデータの取得
 			        		JSONObject volumeInfo = item.getJSONObject("volumeInfo");
 
-			        		//①ISBNの取得
-			        		if(isbn.equals("")) {
-			        			JSONArray identifiers = null;
-			        			try {
-			        				identifiers = volumeInfo.getJSONArray("industryIdentifiers");
-			        				isbn = identifiers.getJSONObject(0).getString("identifier");
-			        			} catch (JSONException e) {
-									isbn ="未登録";
-								}
-			        		}
-			        		//②titleの取得
+
+			        		//①titleの取得
 			        		String booktitle = volumeInfo.getString("title");
 
-			        		//③authorsの取得
+			        		//②authorsの取得
 			        		JSONArray authors = null;
 			        		String firstAuthor = null;
 			        		try{
@@ -179,7 +170,7 @@ public class JsonData extends HttpServlet implements EnvSet{
 			        			firstAuthor = "未登録";
 			        		}
 
-			        		//④publisherの取得
+			        		//③publisherの取得
 			        		String publisher = null;
 			        		try{
 				        		publisher = volumeInfo.getString("publisher");
@@ -188,7 +179,7 @@ public class JsonData extends HttpServlet implements EnvSet{
 			        			publisher = "未登録";
 			        		}
 
-			        		//⑤画像URLの取得
+			        		//④画像URLの取得
 			        		JSONObject imageLinks = null;
 			        		String imageUrl = null;
 			        		try{
@@ -201,8 +192,7 @@ public class JsonData extends HttpServlet implements EnvSet{
 
 			        		//検索結果データの追加
 			        		//要修正
-			        		list.add(new Book(isbn, booktitle, firstAuthor, publisher, imageUrl));
-			        		isbn = "";
+			        		list.add(new Book(booktitle, firstAuthor, publisher, imageUrl));
 			        	}
 
 			        	//検索結果データのソート

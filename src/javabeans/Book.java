@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class Book implements Serializable{
 	private int booksId;
-	private String isbn;
 	private String title;
 	private String authors;
 	private int count;
@@ -16,9 +15,8 @@ public class Book implements Serializable{
 
 	public Book() {}
 
+	public Book( String title, String authors, String publisher, String imgUrl) {
 
-	public Book(String isbn, String title, String authors, String publisher, String imgUrl) {
-		this.isbn = isbn;
 		this.title = title;
 		this.authors = authors;
 		this.publisher = publisher;
@@ -31,13 +29,6 @@ public class Book implements Serializable{
 	}
 	public void setBooksId(int booksId) {
 		this.booksId = booksId;
-	}
-	public String getIsbn() {
-		return isbn;
-	}
-
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
 	}
 	public String getTitle() {
 		return title;
@@ -83,10 +74,6 @@ public class Book implements Serializable{
 		this.publisher = publisher;
 	}
 
-	public Book isbn(String isbn) {
-		this.isbn = isbn;
-		return this;
-	}
 
 	public Book title(String title) {
 		this.title = title;
