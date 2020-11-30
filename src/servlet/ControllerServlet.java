@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,30 +38,43 @@ public class ControllerServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 
-		//■Get通信(トップ画面から/ログイン失敗画面から）********************************
+		//■Get通信(トップ画面/一般ユーザー[書籍一覧]/ログイン失敗画面から）********************************
 		//リクエストパラメータの取得
 		request.setCharacterEncoding("UTF-8");
 		String value = request.getParameter("value");
 
-//		★TOPメニューから飛んできた際の振り分け
-//						switch(value) {
-//						case:"null"  //valueにデータが入っていない場合
-//						//◇ログイン画面にフォワード
-//						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-//						dispatcher.forward(request, response);
-//						case:〇〇  //ログイン
-//						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-//						dispatcher.forward(request, response);
-//						break;
-//						case:〇〇  //新規登録
-//						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
-//						dispatcher.forward(request, response);
-//						break;
-//						case:〇〇  //書籍一覧
-//						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewBook.jsp");
-//						dispatcher.forward(request, response);
-//						break;
-//						}
+		//★TOPメニュー/一般ユーザー[書籍一覧]から飛んできた際の振り分け
+						switch(value) {
+						case "null":  //valueにデータが入っていない場合
+						//◇ログイン画面にフォワード
+						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+						dispatcher.forward(request, response);
+						break;
+
+						case "〇〇":  //TOPメニュー[ログイン]
+						dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+						dispatcher.forward(request, response);
+						break;
+
+						case "〇〇":  //TOPメニュー[新規登録]
+						dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
+						dispatcher.forward(request, response);
+						break;
+
+						case "〇〇":  //TOPメニュー[書籍一覧]/一般ユーザー[書籍一覧]
+						//書籍一覧データを取得
+						HavingBookDAO dao=new HavingBookDAO();
+						List<LendingBook> lists=dao.searchBook();
+
+						//書籍一覧データをセッションスコープに保存
+						HttpSession session = request.getSession();
+						session.setAttribute("lists", lists);
+
+						//書籍一覧表示画面にフォワード
+						dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewBook.jsp");
+						dispatcher.forward(request, response);
+						break;
+						}
 	}
 
 	/**
@@ -71,7 +85,7 @@ public class ControllerServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 
-		//■Post通信（ログイン画面から）*************************************************
+		//■Post通信（ログイン画面から）***************************************************************
 		//◇ログイン成功⇒データをセッションに保存後、ログイン成功画面にフォワード
 		//◇ログイン失敗⇒ログイン画面にリダイレクト
 
@@ -85,7 +99,7 @@ public class ControllerServlet extends HttpServlet {
 		LoginLogic bo = new LoginLogic();
 		UserDTO userDTO = bo.execute(login);
 
-		//userDTOデータの有無によって処理を分岐
+		//userDTOデータの有無によって処理を分岐---------------------------------------------
 		if (userDTO != null) {//ログイン成功
 			//データをセッションスコープに保存
 			HttpSession session = request.getSession();
