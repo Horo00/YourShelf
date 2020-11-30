@@ -34,7 +34,7 @@
 
 		<%-- 以下foreach文 --%>
 			<tr>
-			<td></td>
+			<td><img src="http://books.google.com/books/content?id=EKR4QgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"></td>
 			<td>機動戦士ガンダム 逆襲のシャア―ベルトーチカ・チルドレン</td>
 			<td>富野由悠季</td>
 			<td>角川文庫―スニーカー文庫</td>
