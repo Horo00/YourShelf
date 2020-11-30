@@ -2,9 +2,9 @@ SET SESSION FOREIGN_KEY_CHECKS=0;
 
 /* Drop Tables */
 
+DROP TABLE IF EXISTS lending_book;
 DROP TABLE IF EXISTS book_info;
 DROP TABLE IF EXISTS having_book;
-DROP TABLE IF EXISTS lending_book;
 DROP TABLE IF EXISTS user;
 
 
@@ -14,10 +14,6 @@ DROP TABLE IF EXISTS user;
 
 CREATE TABLE book_info
 (
-	-- ISBNを主キーとした書籍テーブル。
-	-- 購入書籍の情報を格納
-	isbn varchar(13) NOT NULL COMMENT 'ISBNを主キーとした書籍テーブル。
-購入書籍の情報を格納',
 	-- 本のタイトル
 	title varchar(255) NOT NULL COMMENT '本のタイトル',
 	-- 作者名。なければ不明
@@ -25,8 +21,8 @@ CREATE TABLE book_info
 	publisher varchar(255) DEFAULT '不明',
 	-- 画像URL
 	image_url varchar(255) COMMENT '画像URL',
-	PRIMARY KEY (isbn),
-	UNIQUE (isbn)
+	PRIMARY KEY (title),
+	UNIQUE (title)
 );
 
 
@@ -34,10 +30,7 @@ CREATE TABLE having_book
 (
 	-- 所蔵本の主キーID
 	books_id int unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT '所蔵本の主キーID',
-	-- bookshistoryのisbnと同じ
-	-- 
-	isbn varchar(13) NOT NULL COMMENT 'bookshistoryのisbnと同じ
-',
+	title varchar(255) NOT NULL,
 	boughtdate date NOT NULL,
 	-- 貸出された回数
 	count smallint unsigned DEFAULT 0 COMMENT '貸出された回数',
@@ -48,22 +41,26 @@ CREATE TABLE having_book
 	is_lending tinyint COMMENT '0で貸し出し中でない
 1で貸し出し中',
 	PRIMARY KEY (books_id),
-	UNIQUE (books_id)
+	UNIQUE (books_id),
+	UNIQUE (title)
 );
 
 
 CREATE TABLE lending_book
 (
-	lending_book_id int unsigned zerofill NOT NULL AUTO_INCREMENT,
 	-- オートインクリメントの主キーです
-	id int unsigned zerofill NOT NULL COMMENT 'オートインクリメントの主キーです',
-	isbn varchar(13) NOT NULL,
+	lending_book_id int unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT 'オートインクリメントの主キーです',
+	-- ユーザーテーブルの主キー
+	id int unsigned zerofill NOT NULL COMMENT 'ユーザーテーブルの主キー',
+	-- 本のタイトル
+	title varchar(255) NOT NULL COMMENT '本のタイトル',
 	-- 貸出日
 	checkedout_date date NOT NULL COMMENT '貸出日',
 	-- 返却された日にupdateされる日付
 	return_date date COMMENT '返却された日にupdateされる日付',
 	PRIMARY KEY (lending_book_id),
-	UNIQUE (lending_book_id)
+	UNIQUE (lending_book_id),
+	UNIQUE (title)
 );
 
 
@@ -75,12 +72,21 @@ CREATE TABLE user
 	name varchar(255) NOT NULL COMMENT 'ユーザーネーム（本名）',
 	password varchar(255) NOT NULL,
 	PRIMARY KEY (id),
-	UNIQUE (id)
+	UNIQUE (id),
+	UNIQUE (name)
 );
 
 
 
 /* Create Foreign Keys */
+
+ALTER TABLE lending_book
+	ADD FOREIGN KEY (title)
+	REFERENCES book_info (title)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
 
 ALTER TABLE lending_book
 	ADD FOREIGN KEY (id)

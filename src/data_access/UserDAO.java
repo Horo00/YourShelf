@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.naming.NamingException;
@@ -14,7 +15,37 @@ import javabeans.Login;
 import javabeans.UserDTO;
 
 public class UserDAO {
+
 	ConnectionShelf connector;
+
+	/**
+	 * ユーザーの名前一覧のハッシュセット。名前重複確認に使う
+	 * @return HashSet<String> ユーザーネームのセット。要素がない場合はnull
+	 */
+	public HashSet<String> getUserNameSet(){
+		final String SQL = "SELECT name FROM USER";
+		connector = new ConnectionUser();
+
+		try(Connection connection = connector.getConnection();
+				Statement statement = connection.createStatement()){
+
+			HashSet<String> set = new HashSet<String>();
+
+			ResultSet rs = statement.executeQuery(SQL);
+			while (rs.next()) {
+				String name = rs.getString("name");
+				set.add(name);
+			}
+			return set;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+
 
 	/**
 	 * 新規登録時のユーザー登録(INSERT)メソッド

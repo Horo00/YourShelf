@@ -15,6 +15,15 @@ public class Book implements Serializable{
 	public Book() {}
 
 
+	public Book(String isbn, String title, String authors, String publisher, String imgUrl) {
+		this.isbn = isbn;
+		this.title = title;
+		this.authors = authors;
+		this.publisher = publisher;
+		this.imgUrl = imgUrl;
+	}
+
+
 	public int getBooksId() {
 		return booksId;
 	}

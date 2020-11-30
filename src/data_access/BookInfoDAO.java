@@ -9,7 +9,7 @@ import java.util.List;
 import javax.naming.NamingException;
 
 import javabeans.Book;
-import javabeans.LendingBookDTO;
+import javabeans.LendingBook;
 import javabeans.LimitOverBooks;
 
 public class BookInfoDAO {
@@ -48,7 +48,7 @@ public class BookInfoDAO {
 		}
 	}
 
-	public List<LimitOverBooks> getLimitOverBookList(List<LendingBookDTO> dto) {
+	public List<LimitOverBooks> getLimitOverBookList(List<LendingBook> dto) {
 
 		return null;
 	}
