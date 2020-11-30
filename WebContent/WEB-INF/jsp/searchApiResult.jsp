@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <title>書籍検索結果</title>
 <link rel="stylesheet" type="text/css" href="/YourShelf/css/searchApiResult.css">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
 </head>
 <body>
 <div class="apiresult">

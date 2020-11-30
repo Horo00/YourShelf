@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>ユーザー登録画面</title>
 <link rel="stylesheet" type="text/css" href="/YourShelf/css/addUser.css">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
 </head>
 <body>
 <form action="/YourShelf/AddUserServlet" method="post" class="adduser-form">

@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>YourShelf</title>
 <link rel="stylesheet" type="text/css" href="/YourShelf/css/userHistory.css">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
 </head>
 <body>
 <div class="history">
