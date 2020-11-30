@@ -13,11 +13,11 @@
 <body>
 <div class="mainmenu">
 <p class="welcomeuser">担当者ログイン中</p>
-<a href="/〇〇〇/◇◇◇" class="viewuser">登録ユーザー確認</a>
-<a href="/〇〇〇/◇◇◇" class="limitover">返却期限切れ確認</a>
-<a href="/〇〇〇/◇◇◇" class="viewbook">登録書籍一覧</a>
-<a href="/〇〇〇/◇◇◇" class="addbook">書籍登録</a>
-<a href="/〇〇〇/◇◇◇" class="logout">ログアウト</a>
+<a href="/YourShelf/ViewUserServlet" class="viewuser">登録ユーザー確認</a>
+<a href="/YourShelf/LimitOverServlet" class="limitover">返却期限切れ確認</a>
+<a href="/YourShelf/〇〇〇/◇◇◇" class="viewbook">登録書籍一覧</a>
+<a href="/YourShelf/AddBookServlet" class="addbook">書籍登録</a>
+<a href="/YourShelf/LogoutServlet" class="logout">ログアウト</a>
 </div>
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>

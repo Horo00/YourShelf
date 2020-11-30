@@ -14,7 +14,7 @@
 <div class="nonusermenu">
 <p class="nonuser">YourShelfにログインしていません</p>
 <a href="/YourShelf/LoginServlet" class="login">ログイン</a>
-<a href="/YourShelf/AddUserServlet" class="adduser">新規ユーザー登録</a>
+<a href="/YourShelf/AddUser" class="adduser">新規ユーザー登録</a>
 </div>
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>
