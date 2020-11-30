@@ -20,7 +20,7 @@
 <%-- <c:choose> --%>
 
 <%-- <c:when test="${empty ◇◇}"> --%>
-<%-- <p>該当書籍はありません</p> --%>
+<%-- <p class="nonlist">該当書籍はありません</p> --%>
 <%-- </c:when> --%>
 <%-- <c:otherwise> --%>
 		<table class="list" border="1">
