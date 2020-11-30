@@ -13,8 +13,9 @@ import javax.servlet.http.HttpSession;
 
 import data_access.BookInfoDAO;
 import data_access.LendingBookDAO;
-import javabeans.LendingBookDTO;
+import javabeans.LendingBook;
 import javabeans.LimitOverBooks;
+import javabeans.UserDTO;
 
 /**
  * Servlet implementation class LimitOverServlet
@@ -43,21 +44,27 @@ public class LimitOverServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String value = request.getParameter("value");
 
+		HttpSession session = request.getSession();
+		UserDTO dto = (UserDTO)session.getAttribute("userDTO");
+
 		//アクセス元により分岐-------------------------------------------------------
-		if (value == null) {//直接アクセスした場合
+		if (dto.getId() != 0) {//管理者でログインしていない場合
 			//TOP画面へリダイレクト
 			response.sendRedirect("/YourShelf/Index");
 
 		} else {//管理者ログイン画面[返却期限切れ一覧]からのアクセスした場合
-			//期限切れの一覧情報を取得
+			//期限切れの一覧情報を取得するための流れ
+
+			//現在貸し出し中の本のリストを抜き取る
 			LendingBookDAO dao = new LendingBookDAO();
-			List<LendingBookDTO> list=dao.getLendingBookList();
+			List<LendingBook> books = dao.getLendingBookList();
+
+			//貸し出し中のリストの中から期限切れだけを抜き取る
 			BookInfoDAO dao2 = new BookInfoDAO();
-			List<LimitOverBooks> bookList=dao2.getLimitOverBookList(list);
+			List<LimitOverBooks> overBooks = dao2.getLimitOverBookList(books);
 
 			//期限切れ一覧情報をセッションスコープに保存
-			HttpSession session = request.getSession();
-			session.setAttribute("bookList",bookList);
+			session.setAttribute("overBooks",overBooks);
 
 			//期限切れ一覧表示画面へフォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/limitOver.jsp");
