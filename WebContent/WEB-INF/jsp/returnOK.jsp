@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="return">
-<h3 class="message">書籍を返却しました。</h1>
+<h3 class="message">機動戦士ガンダム 閃光のハサウェイ〈上〉を返却しました。</h3>
 <p class="returnlist">返却書籍の選択</p>
 <table class="list" border="1">
         <tr>

@@ -13,6 +13,8 @@
 </head>
 <body>
 <div class="viewbook">
+<h3 class="message">機動戦士ガンダム 閃光のハサウェイ〈上〉を借りました。</h3>
+<p class="sub-messsage">返却期限は2020/12/15です。</p>
 <p class="viewbooklist">登録書籍一覧</p>
 <%-- <c:choose> --%>
 

@@ -43,7 +43,7 @@ input:focus :-ms-input-placeholder {
   padding: .5rem;
 }
 
-.add-username, .add-pass {
+.add-username, .add-pass, .add-pass-check {
   background: transparent;
   border: 0 solid;
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
@@ -55,7 +55,7 @@ input:focus :-ms-input-placeholder {
   transition: 250ms background ease-in;
   width: calc(100% - 3rem);
 }
-.add-username:focus, .add-pass:focus {
+.add-username:focus, .add-pass:focus, .add-pass-check:focus {
   background: white;
   color: black;
   -webkit-transition: 250ms background ease-in;
@@ -66,7 +66,7 @@ input:focus :-ms-input-placeholder {
   color: #f0ffff;
 }
 
-.add-submit, .reset-submit {
+.add-submit, .reset-submit, .name-check {
   border: 1px solid white;
   background: transparent;
   color: white;
@@ -77,7 +77,7 @@ input:focus :-ms-input-placeholder {
   -webkit-transition: 250ms background ease-in;
   transition: 250ms background ease-in;
 }
-.add-submit:hover, .add-submit:focus, .reset-submit:hover, .reset-submit:focus {
+.add-submit:hover, .add-submit:focus, .reset-submit:hover, .reset-submit:focus, .name-check:hover, .name-check:focus {
   background: white;
   color: black;
   -webkit-transition: 250ms background ease-in;

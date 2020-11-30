@@ -12,8 +12,10 @@
 <body>
 <form action="/YourShelf/AddUserServlet" method="post" class="adduser-form">
 <p class="adduser">登録情報の入力</p>
-<input class="add-username" type="text" name="name" placeholder="ユーザー名" required><br>
-<input class="add-pass" type="password" name="password" required placeholder="パスワード"><br>
+<input class="add-username" type="text" name="name" placeholder="ユーザー名" required>
+<input class="name-check" type="submit" value="ユーザー名の使用状況確認"><br>
+<input class="add-pass" type="password" name="password" required placeholder="パスワード">
+<input class="add-pass-check" type="password" name="password" required placeholder="確認用パスワード"><br>
 <input class="add-submit" type="submit" value="登録">
 </form>
 
