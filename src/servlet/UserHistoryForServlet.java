@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import javabeans.AllBooksDTO;
+import data_access.BookInfoDAO;
+import javabeans.BookInfoDTO;
 
 /**
  * Servlet implementation class UserHistoryForServlet
@@ -47,8 +48,8 @@ public class UserHistoryForServlet extends HttpServlet {
 
 				} else {//全ユーザー情報一覧画面からのアクセスした場合
 					//value=index番号のため、Index番号のユーザーに対応する「借りた履歴」を取得する
-					AllBooksDAO dao = new AllBooksDAO();
-					List<AllBooksDTO> AllBooksDTO = dao.searchBookList(value);//※index番号のユーザーの一覧を取得するメソッド
+					BookInfoDAO dao = new BookInfoDAO();
+					List<BookInfoDTO> AllBooksDTO = dao.searchBookList(value);//※index番号のユーザーの一覧を取得するメソッド
 
 					//if(AllBooksDTO!=null) {//データの取得に成功した場合
 					//取得した借りた履歴一覧情報をセッションスコープに保存

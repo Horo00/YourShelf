@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 import javax.naming.NamingException;
 
@@ -11,29 +15,66 @@ import javabeans.Login;
 import javabeans.UserDTO;
 
 public class UserDAO {
+
+	ConnectionShelf connector;
+
 	/**
+	 * ユーザーの名前一覧のハッシュセット。名前重複確認に使う
+	 * @return HashSet<String> ユーザーネームのセット。要素がない場合はnull
+	 */
+	public HashSet<String> getUserNameSet(){
+		final String SQL = "SELECT name FROM USER";
+		connector = new ConnectionUser();
+
+		try(Connection connection = connector.getConnection();
+				Statement statement = connection.createStatement()){
+
+			HashSet<String> set = new HashSet<String>();
+
+			ResultSet rs = statement.executeQuery(SQL);
+			while (rs.next()) {
+				String name = rs.getString("name");
+				set.add(name);
+			}
+			return set;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+
+
+	/**
+	 * 新規登録時のユーザー登録(INSERT)メソッド
 	 * @param userName
 	 * @param password
 	 * @return UserDTO
-	 * 新規登録時のユーザー登録(INSERT)メソッド
 	 */
 	public UserDTO addUser(String userName, String password) {
 		//idはオートインクリメントなためデフォルト入力値はnull
 		final String SQL = "INSERT INTO USER(id,name,password) VALUES(NULL,?,?)";
+		connector = new ConnectionUser();
 
-		try (Connection connection = ConnectionUser.getConnection();
-				PreparedStatement statement = connection.prepareStatement(SQL)) {
+		try (Connection connection = connector.getConnection();
+				//第二引数にRETURN_GENERATED_KEYSを設定する
+				PreparedStatement statement = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)) {
 
 			statement.setString(1, userName);
 			statement.setString(2, password);
 
-			//アップデートできたかのチェック。１なら成功
-			int isSuccess = statement.executeUpdate();
-			if (isSuccess == 1) {
-				//アップデート成功の場合UserDTOを作成し、リターンする
-				UserDTO dto = new UserDTO(userName, password);
-				//dtoにID値をセット
-				setUserId(dto);
+			statement.executeUpdate();
+
+			// getGeneratedKeys()により、Auto_IncrementされたIDを取得する
+			ResultSet rs = statement.getGeneratedKeys();
+
+			if (rs.next()) {
+				//取得したidをもとにdtoを作成し、それをリターンする
+				int id = rs.getInt(1);
+				UserDTO dto = new UserDTO(id,userName, password);
+
 				return dto;
 			}
 		} catch (SQLException e) {
@@ -46,60 +87,67 @@ public class UserDAO {
 	}
 
 	/**
-	 * @param dto
-	 * UserDTOのnameとpasswordの値からDBに保管されているid値を取得、セットする
+	 * 管理者専用メソッド
+	 * 全ユーザーの情報を取得する
+	 * @return List<UserDTO>
 	 */
-	private void setUserId(UserDTO dto) {
-		final String SQL = "SELECT id FROM USER WHERE name = ? AND password = ?";
-		try(Connection connection = ConnectionUser.getConnection();
-				PreparedStatement statement = connection.prepareStatement(SQL)){
+	public List<UserDTO> getUserList() {
+		final String SQL = "SELECT id,name,password FROM USER";
+		connector = new ConnectionAdmin();
 
-			statement.setString(1, dto.getName());
-			statement.setString(2, dto.getPassword());
+		try (Connection connection = connector.getConnection();
+				Statement statement = connection.createStatement()) {
 
-			ResultSet rs = statement.executeQuery();
+			List<UserDTO> lists = new ArrayList<>();
 
-			if(rs.next()) {
-				dto.setId(rs.getInt("id"));
+			ResultSet rs = statement.executeQuery(SQL);
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				String password = rs.getString("password");
+
+				lists.add(new UserDTO(id, name, password));
 			}
+			return lists;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (NamingException e) {
-			e.printStackTrace();
+		} catch (NamingException e1) {
+			e1.printStackTrace();
 		}
+		return null;
 	}
 
 	/**
-	 * @param login
-	 * @return UserDTO
 	 * ログイン時に入力されたパラメータから該当するユーザーを抽出
 	 * 抽出されたユーザーでUserDTOのインスタンスを作成し、リターンする
 	 * 該当するユーザーがいなければnullを返す
+	 * @param login
+	 * @return UserDTO
 	 */
 	public UserDTO findByLogin(Login login) {
 		final String SQL = "SELECT id,name,password FROM USER WHERE name = ? AND password = ?";
-		try(Connection connection = ConnectionUser.getConnection();
-				PreparedStatement statement = connection.prepareStatement(SQL)){
+		connector = new ConnectionUser();
+
+		try (Connection connection = connector.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SQL)) {
 
 			statement.setString(1, login.getName());
 			statement.setString(2, login.getPassword());
 
 			ResultSet rs = statement.executeQuery();
 
-			if(rs.next()) {
-				int		id		= rs.getInt		("id");
-				String	name	= rs.getString	("name");
-				String	password = rs.getString	("password");
+			if (rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				String password = rs.getString("password");
 
-				return new UserDTO(id,name,password);
+				return new UserDTO(id, name, password);
 			}
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	
 }

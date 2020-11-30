@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import data_access.BookInfoDAO;
+import data_access.LendingBookDAO;
 import javabeans.LendingBookDTO;
+import javabeans.LimitOverBooks;
 
 /**
  * Servlet implementation class LimitOverServlet
@@ -47,8 +50,10 @@ public class LimitOverServlet extends HttpServlet {
 
 		} else {//管理者ログイン画面[返却期限切れ一覧]からのアクセスした場合
 			//期限切れの一覧情報を取得
-			List<LendingBookDTO> list=LendingBookDAO.getLendingBookList();
-			List<LimitOverBooks> bookList=AllBooksDAO.getLimitOverBookList(list);
+			LendingBookDAO dao = new LendingBookDAO();
+			List<LendingBookDTO> list=dao.getLendingBookList();
+			BookInfoDAO dao2 = new BookInfoDAO();
+			List<LimitOverBooks> bookList=dao2.getLimitOverBookList(list);
 
 			//期限切れ一覧情報をセッションスコープに保存
 			HttpSession session = request.getSession();
