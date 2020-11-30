@@ -2,14 +2,14 @@ package javabeans;
 
 import java.io.Serializable;
 
-public class AdminDataDTO implements Serializable{
+public class HavingBookDTO implements Serializable{
 	private int booksId;			//主キー(オートインクリメント)
 	private String isbn; 				//13桁の書籍コード
 	private String boughtDate; 		//日付データ
 	private int count; 				//貸出された回数
 	private String checkedOutDate;	//貸出日
 
-	public AdminDataDTO() {
+	public HavingBookDTO() {
 		//デフォルトコンストラクタ
 	}
 

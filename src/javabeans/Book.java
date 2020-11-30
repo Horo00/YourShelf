@@ -1,6 +1,9 @@
 package javabeans;
 
-public class Book {
+import java.io.Serializable;
+
+public class Book implements Serializable{
+	private int booksId;
 	private String isbn;
 	private String title;
 	private String authors;
@@ -9,8 +12,23 @@ public class Book {
 	private String imgUrl;
 	private boolean isCheckedOut;
 
-	public Book() {
-		// TODO 自動生成されたコンストラクター・スタブ
+	public Book() {}
+
+
+	public Book(String isbn, String title, String authors, String publisher, String imgUrl) {
+		this.isbn = isbn;
+		this.title = title;
+		this.authors = authors;
+		this.publisher = publisher;
+		this.imgUrl = imgUrl;
+	}
+
+
+	public int getBooksId() {
+		return booksId;
+	}
+	public void setBooksId(int booksId) {
+		this.booksId = booksId;
 	}
 	public String getIsbn() {
 		return isbn;
