@@ -12,11 +12,7 @@
 </head>
 <body>
 <div class="mainmenu">
-<p>
-
 <p class="welcomeuser">○○さんログイン中</p>
-
-</p>
 <a href="/〇〇〇/◇◇◇" class="userhistory">貸出履歴</a>
 <a href="/〇〇〇/◇◇◇" class="viewbook">登録書籍一覧</a>
 <a href="/〇〇〇/◇◇◇" class="return">書籍返却</a>

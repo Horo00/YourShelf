@@ -12,9 +12,7 @@
 </head>
 <body>
 <div class="mainmenu">
-<p>
 <p class="welcomeuser">担当者ログイン中</p>
-</p>
 <a href="/〇〇〇/◇◇◇" class="viewuser">登録ユーザー確認</a>
 <a href="/〇〇〇/◇◇◇" class="limitover">返却期限切れ確認</a>
 <a href="/〇〇〇/◇◇◇" class="viewbook">登録書籍一覧</a>
