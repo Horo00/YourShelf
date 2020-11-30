@@ -29,14 +29,14 @@ public class HavingBookDAO {
 		//SQLを設定
 		//1:ISBN
 		final String SQL =
-				"INSERT INTO having_book(books_id,isbn,boughtdate,count,checkedout_date,is_lending) VALUES(NULL,?,date(now()),0,NULL,0)";
+				"INSERT INTO having_book(books_id,title,boughtdate,count,checkedout_date,is_lending) VALUES(NULL,?,date(now()),0,NULL,0)";
 
 		connector = new ConnectionAdmin();
 
 		try (Connection connection = connector.getConnection();
 				PreparedStatement statement = connection.prepareStatement(SQL)) {
 
-			statement.setString(1, book.getIsbn());
+			statement.setString(1, book.getTitle());
 
 			//アップデートできたかのチェック。1件の追加なので戻り値が１なら成功
 			int isSuccess = statement.executeUpdate();
@@ -64,7 +64,7 @@ public class HavingBookDAO {
 	 */
 	public List<LendingBook> searchBook() {
 		final String SQL =
-				"SELECT books_id,isbn,count,checkedout_date,is_lending FROM having_book";
+				"SELECT books_id,title,count,checkedout_date,is_lending FROM having_book";
 		connector = new ConnectionUser();
 
 		try(Connection connection = connector.getConnection();
@@ -76,8 +76,10 @@ public class HavingBookDAO {
 			while (rs.next()) {
 				LendingBook book = new LendingBook();
 				book.setBooksId	(rs.getInt("books_id"));
-				book.setIsbn	(rs.getString("isbn"));
+				book.setTitle	(rs.getString("title"));
 				book.setCount	(rs.getInt("count"));
+				book.setCheckedoutDate(rs.getDate("checkedout_date"));
+				book.setCheckedOut(rs.getInt("is_lending") == 1);
 
 				BookInfoDAO dao = new BookInfoDAO();
 				dao.searchBookInfo(book);

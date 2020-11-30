@@ -23,19 +23,19 @@ public class LendingBookDAO {
 
 	/**
 	 *  [管理者専用メソッド]
-	 * 	 取得する値:貸し出し簿ID,ISBN,貸出日
+	 * 	 取得する値:貸し出し簿ID,タイトル,貸出日
 	 * 				タイトル、作者、出版社、画像URL
 	 * 	ユーザー専用メソッドとオーバーロード
 	 * 	※基本的に２週間期限切れを調べるために使う。
 	 * (但しここでは貸し出し中の書籍のみ検索)
-	 * @return List 全ユーザーの現在借りている本のデータ
+	 * @return List<LendingBook> 全ユーザーの現在借りている本のデータ
 	 */
 	public List<LendingBook> getLendingBookList() {
 		//SQLの設定
 		//返却日がnull(まだ返却されていない)ところを抜き出す
 		final String SQL =
-				"SELECT lending_book_id,isbn,checkedout_date FROM lending_book WHERE return_date is NULL";
-		connector = new ConnectionUser();
+				"SELECT lending_book_id,id,title,checkedout_date FROM lending_book WHERE return_date is NULL";
+		connector = new ConnectionAdmin();
 
 		try (Connection connection = connector.getConnection();
 				Statement statement = connection.createStatement()) {
@@ -46,7 +46,8 @@ public class LendingBookDAO {
 			while (rs.next()) {
 				LendingBook book = new LendingBook();
 				book.setLendingBookId(rs.getInt("lending_book_id"));
-				book.setIsbn(rs.getString("isbn"));
+				book.setUserId(rs.getInt("id"));
+				book.setTitle(rs.getString("title"));
 				book.setCheckedoutDate(rs.getDate("checkedout_date"));
 
 				//本の詳細を取得し、bookインスタンスにセットする
@@ -70,7 +71,7 @@ public class LendingBookDAO {
 
 	/**
 	 * [ユーザー専用メソッド]
-	 * 	 取得する値:貸し出し簿ID,ISBN,貸出日
+	 * 	 取得する値:貸し出し簿ID,タイトル,貸出日
 	 * 				タイトル、作者、出版社、画像URL
 	 * 管理者専用メソッドとオーバーロード
 	 * @param user
@@ -81,7 +82,7 @@ public class LendingBookDAO {
 		//返却日がnull(まだ返却されていない)ところを抜き出す
 		//①ユーザーID
 		final String SQL =
-				"SELECT lending_book_id,isbn,checkedout_date FROM lending_book WHERE id = ? AND return_date is NULL;";
+				"SELECT lending_book_id,title,checkedout_date FROM lending_book WHERE id = ? AND return_date is NULL;";
 		connector = new ConnectionUser();
 
 		try (Connection connection = connector.getConnection();
@@ -95,7 +96,7 @@ public class LendingBookDAO {
 			while (rs.next()) {
 				LendingBook book = new LendingBook();
 				book.setLendingBookId(rs.getInt("lending_book_id"));
-				book.setIsbn(rs.getString("isbn"));
+				book.setTitle(rs.getString("title"));
 				book.setCheckedoutDate(rs.getDate("checkedout_date"));
 
 				//本の詳細を取得し、bookインスタンスにセットする
@@ -127,7 +128,7 @@ public class LendingBookDAO {
 	 */
 	public List<LendBookHistroy> getBookHistroy() {
 		//SQLの設定
-		final String SQL = "SELECT lending_book_id,id,isbn,checkedout_date,return_date FROM lending_book";
+		final String SQL = "SELECT lending_book_id,id,title,checkedout_date,return_date FROM lending_book";
 		connector = new ConnectionAdmin();
 
 		try (Connection connection = connector.getConnection();
@@ -140,7 +141,7 @@ public class LendingBookDAO {
 				LendBookHistroy book = new LendBookHistroy();
 				book.setLendingBookId(rs.getInt("lending_book_id"));
 				book.setUserId(rs.getInt("id"));
-				book.setIsbn(rs.getString("isbn"));
+				book.setTitle(rs.getString("title"));
 				book.setCheckedoutDate(rs.getDate("checkedout_date"));
 				book.setReturnDate(rs.getDate("return_date"));
 
@@ -166,7 +167,7 @@ public class LendingBookDAO {
 	/**
 	 * [ユーザー専用メソッド]
 	 * 自分の過去の貸し出し履歴を取得する
-	 * 	 取得する値:貸し出し簿ID,ISBN,貸出日、返却日(あれば)
+	 * 	 取得する値:貸し出し簿ID,タイトル,貸出日、返却日(あれば)
 	 * 				タイトル、作者、出版社、画像URL
 	 * 管理者専用メソッドとオーバーロード
 	 * @param user
@@ -175,7 +176,7 @@ public class LendingBookDAO {
 	public List<LendBookHistroy> getBookHistroy(UserDTO user) {
 		//SQLの設定
 		//①ユーザーID
-		final String SQL = "SELECT lending_book_id,isbn,checkedout_date,return_date FROM lending_book WHERE id = ?";
+		final String SQL = "SELECT lending_book_id,title,checkedout_date,return_date FROM lending_book WHERE id = ?";
 		connector = new ConnectionUser();
 
 		try (Connection connection = connector.getConnection();
@@ -189,7 +190,7 @@ public class LendingBookDAO {
 			while (rs.next()) {
 				LendBookHistroy book = new LendBookHistroy();
 				book.setLendingBookId(rs.getInt("lending_book_id"));
-				book.setIsbn(rs.getString("isbn"));
+				book.setTitle(rs.getString("title"));
 				book.setCheckedoutDate(rs.getDate("checkedout_date"));
 				book.setReturnDate(rs.getDate("return_date"));
 
@@ -224,7 +225,7 @@ public class LendingBookDAO {
 		//SQLの設定
 		//①userId
 		//②isbn
-		final String SQL = "INSERT INTO lending_book(lending_book_id,id,isbn,checkedout_date) VALUES(NULL,?,?,date(now()))";
+		final String SQL = "INSERT INTO lending_book(lending_book_id,id,title,checkedout_date) VALUES(NULL,?,?,date(now()))";
 		connector = new ConnectionUser();
 
 		try (Connection connection = connector.getConnection()) {
@@ -235,7 +236,7 @@ public class LendingBookDAO {
 			try (PreparedStatement statement = connection.prepareStatement(SQL)) {
 
 				statement.setInt(1, user.getId());
-				statement.setString(2, book.getIsbn());
+				statement.setString(2, book.getTitle());
 
 				int successCount = statement.executeUpdate();
 
@@ -286,6 +287,7 @@ public class LendingBookDAO {
 
 				statement.setInt(1, book.getLendingBookId());
 
+				//アップデート処理。一件のみのアップデートなので戻り値1で成功
 				int successCount = statement.executeUpdate();
 
 				//貸し出し簿への処理成功時
