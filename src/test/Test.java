@@ -1,46 +1,58 @@
 package test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import data_access.LendingBookDAO;
+import javabeans.LendBookHistroy;
+import javabeans.LendingBook;
 import javabeans.Login;
 import javabeans.UserDTO;
 import model.LoginLogic;
 
 public class Test {
 	public static void main(String[] args) {
-		Login login = new Login("川田5", "password");
+//		AddUserLogic.add("川田3", "password");
+		Login login = new Login("川田3", "password");
 		UserDTO user = LoginLogic.execute(login);
 
 		if(user != null) {
-			System.out.println("成功" + user.getPassword());
+			System.out.println("成功" + user.getId());
 		} else {
 			System.out.println("失敗" +login.getPassword());
 		}
+//
 
-//		AddUserLogic.add("川田5", "password");
 //		UserDAO dao = new UserDAO();
 //		UserDTO dto = new UserDTO(1, "川", "pass");
 //		Book book = new Book();
-//		LendingBook book = new LendingBook();
-//		book.isbn("1234567890125")
-//			.title("sample")
-//			.authors("川田!");
+		LendingBook book = new LendingBook();
+		book.title("sample3")
+			.authors("川田!!!");
+
+		book.setBooksId(2);
 //		HavingBookDAO dao2 = new HavingBookDAO();
-//		dao2.addBook(book);
-//		LendingBookDAO dao3 = new LendingBookDAO();
+//		if(dao2.addBook(book)) {
+//			System.out.println("成功");
+//		} else {
+//			System.out.println("失敗");
+//		}
+		LendingBookDAO dao3 = new LendingBookDAO();
 //
-//		List<LendBookHistroy> list = new ArrayList<>();
-//		list = dao3.getBookHistroy();
+		List<LendBookHistroy> list = new ArrayList<>();
+		list = dao3.getBookHistroy();
 //		for (LendBookHistroy lendingBook : list) {
 //			System.out.println(lendingBook.getReturnScheduleDate());
 //		}
 //		list = dao2.searchBook();
 //		book.setBooksId(1);
 //		book.setLendingBookId(6);
-//		LendingBookDAO dao2 = new LendingBookDAO();
-//		if(dao2.returnBook((LendingBook)book)) {
-//			System.out.println("成功");
-//		}else {
-//			System.out.println("失敗");
-//		}
+		LendingBookDAO dao2 = new LendingBookDAO();
+		if(dao2.lendBook(user,book)) {
+			System.out.println("成功");
+		}else {
+			System.out.println("失敗");
+		}
 
 //
 //		List<LendBookHistroy> lists = new ArrayList<>();
