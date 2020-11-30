@@ -23,7 +23,7 @@
             <th>返却期限</th>
             <th>ユーザー</th>
         </tr>
-        <%-- 以下foreach文 --%>
+        <%-- 後で消す --%>
         <tr>
             <td><img src="http://books.google.com/books/content?id=EKR4QgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"></td>
             <td>機動戦士ガンダム 逆襲のシャア―ベルトーチカ・チルドレン</td>
@@ -32,6 +32,17 @@
             <td>2020/12/20</td>
             <td>カミーユ・ビダン</td>
         </tr>
+
+        <%-- <c:forEach var="category" items="${list}"> --%>
+        <%-- <tr> --%>
+			<%-- <td><img src="http://books.google.com/books/content?id=EKR4QgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"></td> --%>
+			<%-- <td><c:out value="${○○〇.name}"/></td> --%>
+			<%-- <td><c:out value="${○○〇.writer}"/></td> --%>
+			<%-- <td><c:out value="${○○〇.company}"/></td> --%>
+			<%-- <td><c:out value="${○○〇.limitdate}"/></td> --%>
+			<%-- <td><c:out value="${○○〇.username}"/></td> --%>
+		<%-- </tr> --%>
+        <%-- </c:forEach> --%>
 </table>
 </div>
 <div class="underlay-photo"></div>

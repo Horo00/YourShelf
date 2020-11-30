@@ -38,6 +38,17 @@
 			<td>角川文庫―スニーカー文庫</td>
 			<td><input type="submit" name="checkout" value="借りる" class="checkout-submit"></td>
 			</tr>
+
+		<%-- <c:forEach var="category" items="${list}"> --%>
+		<%-- <tr> --%>
+			<%-- <td><img src="http://books.google.com/books/content?id=EKR4QgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"></td> --%>
+			<%-- <td><c:out value="${○○〇.name}"/></td> --%>
+			<%-- <td><c:out value="${○○〇.writer}"/></td> --%>
+			<%-- <td><c:out value="${○○〇.company}"/></td> --%>
+			<%-- <td><input type="submit" name="checkout" value="借りる" class="checkout-submit"></td> --%>
+		<%-- </tr> --%>
+		<%-- </c:forEach> --%>
+
 		</table>
 		<form action="/YourShelf/AddBookServlet" method="post" class="searchshelf-form-form">
         <input type="text" name="keyword" placeholder="キーワード入力" required class="searchshelf-keyword">

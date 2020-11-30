@@ -40,6 +40,16 @@
 			<td><input type="submit" name="add" value="登録" class="add-submit"></td>
 			</tr>
 
+		<%-- <c:forEach var="category" items="${list}"> --%>
+        <%-- <tr> --%>
+			<%-- <td><img src="http://books.google.com/books/content?id=EKR4QgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"></td> --%>
+			<%-- <td><c:out value="${○○〇.name}"/></td> --%>
+			<%-- <td><c:out value="${○○〇.writer}"/></td> --%>
+			<%-- <td><c:out value="${○○〇.company}"/></td> --%>
+			<%-- <td><input type="submit" name="add" value="登録" class="add-submit"></td> --%>
+		<%-- </tr> --%>
+        <%-- </c:forEach> --%>
+
 		</table>
 <%-- </c:otherwise> --%>
 <%-- </c:choose> --%>
