@@ -17,9 +17,9 @@
 			<p class="logintoyouself">YourShelfへログイン</p>
 
 
-		<input type="text" class="login-username" name="userName"
+		<input type="text" class="login-username" name="name"
 			autofocus required placeholder="ユーザー名"><br>
-		<input type="password" class="login-password" name="passWord"
+		<input type="password" class="login-password" name="password"
 			required placeholder="パスワード"><br> <input
 			type="submit" name="Login" value="ログイン" class="login-submit">
 	</form>
