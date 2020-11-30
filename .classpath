@@ -14,5 +14,9 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+<<<<<<< HEAD
+=======
+	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.22.jar"/>
+>>>>>>> branch 'developer' of https://github.com/Horo00/YourShelf.git
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
