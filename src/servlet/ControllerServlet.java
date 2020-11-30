@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import data_access.HavingBookDAO;
+import javabeans.LendingBook;
 import javabeans.Login;
 import javabeans.UserDTO;
 import model.LoginLogic;
@@ -42,6 +44,9 @@ public class ControllerServlet extends HttpServlet {
 		//リクエストパラメータの取得
 		request.setCharacterEncoding("UTF-8");
 		String value = request.getParameter("value");
+		if(value == null) {
+			value = "null";
+		}
 
 		//★TOPメニュー/一般ユーザー[書籍一覧]から飛んできた際の振り分け
 						switch(value) {
@@ -51,24 +56,24 @@ public class ControllerServlet extends HttpServlet {
 						dispatcher.forward(request, response);
 						break;
 
-						case "〇〇":  //TOPメニュー[ログイン]
+						case "loginpage":  //TOPメニュー[ログイン]
 						dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 						dispatcher.forward(request, response);
 						break;
 
-						case "〇〇":  //TOPメニュー[新規登録]
+						case "adduserpage":  //TOPメニュー[新規登録]
 						dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
 						dispatcher.forward(request, response);
 						break;
 
-						case "〇〇":  //TOPメニュー[書籍一覧]/一般ユーザー[書籍一覧]
+						case "viewbookpage":  //TOPメニュー[書籍一覧]/一般ユーザー[書籍一覧]
 						//書籍一覧データを取得
 						HavingBookDAO dao=new HavingBookDAO();
-						List<LendingBook> lists=dao.searchBook();
+						List<LendingBook> books = dao.searchBook();
 
 						//書籍一覧データをセッションスコープに保存
 						HttpSession session = request.getSession();
-						session.setAttribute("lists", lists);
+						session.setAttribute("books", books);
 
 						//書籍一覧表示画面にフォワード
 						dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewBook.jsp");
