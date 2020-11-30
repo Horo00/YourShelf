@@ -8,13 +8,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>書籍一覧 / 所蔵検索</title>
+<title>貸出完了</title>
 <link rel="stylesheet" type="text/css" href="/YourShelf/css/viewBook.css">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
 </head>
 <body>
 <div class="viewbook">
-<h3 class="message">機動戦士ガンダム 閃光のハサウェイ〈上〉を借りました。</h3>
+<p class="message">機動戦士ガンダム 閃光のハサウェイ〈上〉を借りました。</p>
 <p class="sub-messsage">返却期限は2020/12/15です。</p>
 <p class="viewbooklist">登録書籍一覧</p>
 <%-- <c:choose> --%>

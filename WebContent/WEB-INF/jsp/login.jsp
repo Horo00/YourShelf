@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>YourShelf</title>
+<title>ログイン</title>
 <link rel="stylesheet" type="text/css" href="/YourShelf/css/login.css">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
 </head>

@@ -7,13 +7,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>YourShelf</title>
+<title>返却完了</title>
 <link rel="stylesheet" type="text/css" href="/YourShelf/css/return.css">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
 </head>
 <body>
 <div class="return">
-<h3 class="message">機動戦士ガンダム 閃光のハサウェイ〈上〉を返却しました。</h3>
+<p class="message">機動戦士ガンダム 閃光のハサウェイ〈上〉を返却しました。</p>
 <p class="returnlist">返却書籍の選択</p>
 <table class="list" border="1">
         <tr>

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>YourShelf</title>
+<title>書籍返却</title>
 <link rel="stylesheet" type="text/css" href="/YourShelf/css/return.css">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
 </head>
