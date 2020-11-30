@@ -7,12 +7,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>YourShelf</title>
+<title>返却完了</title>
 <link rel="stylesheet" type="text/css" href="/YourShelf/css/return.css">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
 </head>
 <body>
 <div class="return">
-<h3 class="message">書籍を返却しました。</h1>
+<p class="message">機動戦士ガンダム 閃光のハサウェイ〈上〉を返却しました。</p>
 <p class="returnlist">返却書籍の選択</p>
 <table class="list" border="1">
         <tr>
@@ -24,7 +25,7 @@
         </tr>
         <%-- 以下foreach文 --%>
         <tr>
-            <td></td>
+            <td><img src="http://books.google.com/books/content?id=EKR4QgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"></td>
             <td>機動戦士ガンダム 逆襲のシャア―ベルトーチカ・チルドレン</td>
             <td>富野由悠季</td>
             <td>角川文庫―スニーカー文庫</td>

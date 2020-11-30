@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>新規書籍の検索</title>
 <link rel="stylesheet" type="text/css" href="/YourShelf/css/addBook.css">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
 </head>
 <body>
 <div class="addbook">

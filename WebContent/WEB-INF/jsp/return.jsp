@@ -7,8 +7,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>YourShelf</title>
+<title>書籍返却</title>
 <link rel="stylesheet" type="text/css" href="/YourShelf/css/return.css">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
 </head>
 <body>
 <div class="return">
@@ -23,7 +24,7 @@
         </tr>
         <%-- 以下foreach文 --%>
         <tr>
-            <td></td>
+            <td><img src="http://books.google.com/books/content?id=EKR4QgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"></td>
             <td>機動戦士ガンダム 逆襲のシャア―ベルトーチカ・チルドレン</td>
             <td>富野由悠季</td>
             <td>角川文庫―スニーカー文庫</td>
