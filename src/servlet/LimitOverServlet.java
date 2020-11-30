@@ -35,7 +35,7 @@ public class LimitOverServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 
-		//■Get通信(返却期限切れ一覧から/直接アクセス）********************************
+		//■Get通信(管理者ログイン画面[返却期限切れ一覧]/直接）********************************
 		//リクエストパラメータ取得
 		request.setCharacterEncoding("UTF-8");
 		String value = request.getParameter("value");
@@ -45,8 +45,7 @@ public class LimitOverServlet extends HttpServlet {
 			//TOP画面へリダイレクト
 			response.sendRedirect("/YourShelf/Index");
 
-		} else {//返却期限切れ一覧からのアクセスした場合
-
+		} else {//管理者ログイン画面[返却期限切れ一覧]からのアクセスした場合
 			//期限切れの一覧情報を取得
 			List<LendingBookDTO> list=LendingBookDAO.getLendingBookList();
 			List<LimitOverBooks> bookList=AllBooksDAO.getLimitOverBookList(list);
@@ -58,8 +57,6 @@ public class LimitOverServlet extends HttpServlet {
 			//期限切れ一覧表示画面へフォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/limitOver.jsp");
 			dispatcher.forward(request, response);
-
-
 		}
 
 	}
@@ -70,6 +67,10 @@ public class LimitOverServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+
+		//■POST通信（直接アクセス）********************************************
+			//ＴＯＰへリダイレクト
+			response.sendRedirect("/YourServlet/Index");
 	}
 
 }

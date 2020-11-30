@@ -37,7 +37,7 @@ public class ViewUserServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 
-		//■Get通信(管理者ログイン画面/直接アクセス）********************************
+		//■Get通信(管理者ログイン画面[全ユーザー情報]/直接アクセス）********************************
 		//リクエストパラメータ取得
 		request.setCharacterEncoding("UTF-8");
 		String value = request.getParameter("value");
@@ -47,7 +47,7 @@ public class ViewUserServlet extends HttpServlet {
 			//TOP画面へリダイレクト
 			response.sendRedirect("/YourShelf/Index");
 
-		} else if (value.equals(〇〇)) {//管理者ログイン画面からのアクセスした場合
+		} else if (value.equals(〇〇)) {//管理者ログイン画面[全ユーザー情報]からのアクセスした場合
 			//全ユーザー情報を取得
 			UserDAO userDAO = new UserDAO();
 			List<UserDTO> UserList = userDAO.getUserList();
