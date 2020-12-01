@@ -51,7 +51,7 @@ public class ReturnServlet extends HttpServlet {
 					//TOP画面へリダイレクト
 					response.sendRedirect("/YourShelf/Index");
 
-				} else if(value.equals(〇〇)) {//一般ユーザーメニュー[返却]からアクセス
+				} else if(value.equals("returnpage")) {//一般ユーザーメニュー[返却]からアクセス
 					//ユーザーidに該当するユーザーの借りている本の一覧を取得する
 					LendingBookDAO dao=new LendingBookDAO();
 					List<LendingBook> lendingBookList=dao.getLendingBookList(user);
@@ -63,7 +63,7 @@ public class ReturnServlet extends HttpServlet {
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/return.jsp");
 					dispatcher.forward(request, response);
 
-				}else if(value.equals(〇〇)) {//一般ユーザー[返却ボタン]から
+				}else if(value.equals("return")) {//一般ユーザー[返却ボタン]から
 					//★返却する本のデータをbookに格納
 					List<LendingBook> lendingBookList= (List<LendingBook>) session.getAttribute("lendingBookList");
 					int index=Integer.parseInt(request.getParameter("index"));
