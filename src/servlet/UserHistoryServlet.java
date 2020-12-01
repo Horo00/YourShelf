@@ -48,7 +48,7 @@ public class UserHistoryServlet extends HttpServlet {
 		//アクセス元により分岐------------------------------------------------------------------------
 		if (user == null) {//直接アクセスの場合
 			//ＴＯＰへリダイレクト
-			response.sendRedirect("/YourServlet/Index");
+			response.sendRedirect("/YourShelf/Index");
 
 		} //User情報が残っている場合
 
@@ -60,7 +60,7 @@ public class UserHistoryServlet extends HttpServlet {
 		request.setAttribute("userBookHis", userBookHis);
 
 		//履歴一覧画面へフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/YourShelf/userHistory.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userHistory.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -74,7 +74,7 @@ public class UserHistoryServlet extends HttpServlet {
 
 		//■POST通信（直接アクセス）****************************************************************
 		//ＴＯＰへリダイレクト
-		response.sendRedirect("/YourServlet/Index");
+		response.sendRedirect("/YourShelf/Index");
 
 	}
 

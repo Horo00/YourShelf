@@ -60,6 +60,22 @@ public class ControllerServlet extends HttpServlet {
 			break;
 
 		case "loginpage": //TOPメニュー[ログイン]
+			UserDTO user = (UserDTO) session.getAttribute("user");
+			//ユーザー情報がセッションに残っている場合
+			if (user != null) {
+				switch (user.getName()) {//氏名によってログイン画面を分岐
+				case "admin":
+					//ログイン成功画面(管理者)へフォワード
+					dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginAdmin.jsp");
+					dispatcher.forward(request, response);
+					break;
+				default:
+					//ログイン成功画面(一般USER)へフォワード
+					dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginOK.jsp");
+					dispatcher.forward(request, response);
+				}
+			}
+
 			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 			dispatcher.forward(request, response);
 			break;
@@ -101,11 +117,13 @@ public class ControllerServlet extends HttpServlet {
 
 		//リクエストパラメータの取得
 		request.setCharacterEncoding("UTF-8");
+
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 
 		//ログイン処理の実行
 		Login login = new Login(name, password);
+
 		LoginLogic bo = new LoginLogic();
 		UserDTO userDTO = bo.execute(login);
 
@@ -113,7 +131,7 @@ public class ControllerServlet extends HttpServlet {
 		if (userDTO != null) {//ログイン成功
 			//データをセッションスコープに保存
 			HttpSession session = request.getSession();
-			session.setAttribute("userDTO", userDTO);
+			session.setAttribute("user", userDTO);
 
 			switch (name) {//氏名によってログイン画面を分岐
 			case "admin":

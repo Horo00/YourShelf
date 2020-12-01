@@ -93,7 +93,7 @@ public class ReturnServlet extends HttpServlet {
 
 		//■POST通信（直接アクセス）********************************************************************
 		//ＴＯＰへリダイレクト
-		response.sendRedirect("/YourServlet/Index");
+		response.sendRedirect("/YourShelf/Index");
 	}
 
 }

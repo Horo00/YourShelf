@@ -52,7 +52,7 @@ public class UserHistoryForServlet extends HttpServlet {
 			return;
 
 		}
-		int index = Integer.parseInt(request.getParameter("idnex"));
+		int index = Integer.parseInt(request.getParameter("index"));
 		List<UserDTO> userList = (List<UserDTO>) session.getAttribute("userList");
 		//value=index番号のため、Index番号のユーザーに対応する「借りた履歴」を取得する
 		LendingBookDAO dao = new LendingBookDAO();
@@ -61,6 +61,7 @@ public class UserHistoryForServlet extends HttpServlet {
 		//if(AllBooksDTO!=null) {//データの取得に成功した場合
 		//取得した借りた履歴一覧情報をセッションスコープに保存
 		request.setAttribute("userBookHis", userBookHis);
+		request.setAttribute("user", userList.get(index));
 
 		//借りた履歴一覧表示画面へフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userHistory.jsp");

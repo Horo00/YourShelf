@@ -33,13 +33,14 @@ public class CheckOutServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		//■GET通信（直接アクセス）*********************************************************************
-			//ＴＯＰへリダイレクト
-			response.sendRedirect("/YourServlet/Index");
+		//ＴＯＰへリダイレクト
+		response.sendRedirect("/YourServlet/Index");
 
 	}
 
@@ -74,36 +75,33 @@ public class CheckOutServlet extends HttpServlet {
 				//※書籍情報を「book」変数に格納
 				Book book = books.get(index);
 				//★取得した書籍データをDBへ保存⇒結果をbooleanで返す
-				LendingBookDAO dao=new LendingBookDAO();
-				boolean result=dao.lendBook(loginUser,book);
+				LendingBookDAO dao = new LendingBookDAO();
+				boolean result = dao.lendBook(loginUser, book);
 
-				if(result) {//借りることに成功した場合
+				if (result) {//借りることに成功した場合
 					//借りた書籍の情報をセッションスコープに保存
-					session.setAttribute("book",book);
-
-				//貸出完了表示画面にフォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/YourShelf/checkOutOK.jsp");
-				dispatcher.forward(request, response);
-
-				}else {//借りることに失敗した場合
-					//エラーメッセージを保存
-					//String errorMsg="借りられませんでした";
-					//エラーメッセージをセッションスコープに保存
-					//HttpSession session=request.getSession();
-					//session.setAttribute("errorMsg",errorMsg);
+					session.setAttribute("book", book);
 
 					//貸出完了表示画面にフォワード
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/YourShelf/viewBook.jsp");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/checkOutOK.jsp");
+					dispatcher.forward(request, response);
+
+				} else {//借りることに失敗した場合
+						//エラーメッセージを保存
+						//String errorMsg="借りられませんでした";
+						//エラーメッセージをセッションスコープに保存
+						//HttpSession session=request.getSession();
+						//session.setAttribute("errorMsg",errorMsg);
+
+					//貸出完了表示画面にフォワード
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewBook.jsp");
 					dispatcher.forward(request, response);
 				}
 
 			} else {//ログインしていない場合
-				//ログイン画面へリダイレクト
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/YourShelf/CheckOut.jsp");
+				//ログイン画面へフォワード
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/CheckOut.jsp");
 				dispatcher.forward(request, response);
-
-				//↓は多分できない(WEB-INFの中のjspはリダイレクト不可)
-//				response.sendRedirect("/YourServlet/CheckOut.jsp");
 			}
 		}
 	}

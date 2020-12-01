@@ -46,7 +46,7 @@ public class LimitOverServlet extends HttpServlet {
 		//		String value = request.getParameter("value");
 
 		HttpSession session = request.getSession();
-		UserDTO user = (UserDTO) session.getAttribute("userDTO");
+		UserDTO user = (UserDTO) session.getAttribute("user");
 
 		//アクセス元により分岐-------------------------------------------------------
 		if (user.getId() != 0) {//管理者でログインしていない場合
@@ -82,7 +82,7 @@ public class LimitOverServlet extends HttpServlet {
 
 		//■POST通信（直接アクセス）********************************************
 		//ＴＯＰへリダイレクト
-		response.sendRedirect("/YourServlet/Index");
+		response.sendRedirect("/YourShelf/Index");
 	}
 
 }

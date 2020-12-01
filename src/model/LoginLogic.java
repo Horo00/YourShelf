@@ -10,7 +10,7 @@ public class LoginLogic {
 		String name = login.getName();
 		String password = login.getPassword();
 
-		return (name == "administrator" && password == "password");
+		return (name.equals("admin") && password.equals("password"));
 	}
 
 	public UserDTO execute(Login login) {
@@ -19,8 +19,9 @@ public class LoginLogic {
 		String password = login.getPassword();
 
 		//管理者ログインであれば管理者データとして返す
-		if((name == "admin" && password == "password")) {
-			return new UserDTO(0,"admin", "ダミーパスワード");
+		if(name.equals("admin") && password.equals("password")) {
+			UserDTO account = new UserDTO(0, name, password);
+			return account;
 		}
 
 		//ユーザーログインの場合

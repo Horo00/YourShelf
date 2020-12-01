@@ -1,9 +1,12 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,13 +18,14 @@ import data_access.HavingBookDAO;
 import helper.JumpPageHelper;
 import javabeans.Book;
 import javabeans.UserDTO;
+import model.EnvSet;
 import model.JsonData;
 
 /**
  * Servlet implementation class AddBookServlet
  */
 @WebServlet("/AddBookServlet")
-public class AddBookServlet extends HttpServlet {
+public class AddBookServlet extends HttpServlet implements EnvSet{
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -31,6 +35,16 @@ public class AddBookServlet extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	/**
+	 * @see Servlet#init(ServletConfig)
+	 */
+	public void init(ServletConfig config) throws ServletException {
+		//proxyの設定
+		System.setProperty("https.proxyHost", J701_HTTPS_PROXY_ADDRESS);
+		System.setProperty("https.proxyPort", J701_HTTPS_PROXY_PORT);
+	}
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,7 +68,7 @@ public class AddBookServlet extends HttpServlet {
 
 		} //管理者メニュー[書籍登録]からアクセスの場合
 			//書籍登録画面へフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/YourShelf/addBook.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addBook.jsp");
 		dispatcher.forward(request, response);
 
 	}
@@ -101,7 +115,7 @@ public class AddBookServlet extends HttpServlet {
 				session.setAttribute("addBookList", addBookList);
 
 				//検索結果一覧表示画面にフォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/YourShelf/searchApiResult.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/searchApiResult.jsp");
 				dispatcher.forward(request, response);
 			} else {//書籍データない場合
 				//エラーメッセージを保存
@@ -113,8 +127,8 @@ public class AddBookServlet extends HttpServlet {
 			}
 
 		} else if (value.equals("add")) {//登録ボタンからアクセスの場合
-			int index = Integer.parseInt(request.getParameter("bookIndex"));
-			List<Book> books = (List<Book>) session.getAttribute("books");
+			int index = Integer.parseInt(request.getParameter("index"));
+			List<Book> books = (List<Book>) session.getAttribute("addBookList");
 			//			String isbn = request.getParameter("〇〇");//ＩＳＢＮデータ取得
 			//			String title = request.getParameter("〇〇");//本のタイトル取得
 			//★書籍データをＡＰＩを使用して取得
@@ -126,15 +140,16 @@ public class AddBookServlet extends HttpServlet {
 			boolean result = dao.addBook(book);
 
 			if (result) {//DBへの保存成功
+				//今日の日付を登録書籍インスタンスにセット
+				books.get(index).setBoughtDate(LocalDate.now());
+
 				//検索書籍一覧情報を取得し、セッションスコープに保存
 				//川田:検索書籍一覧は既にセッションアトリビュートに保存済み
 
-				//				List<LendingBook> lists = dao.searchBook();
-				//				HttpSession session = request.getSession();
-				//				session.setAttribute("lists", lists);
+				request.setAttribute("book", books.get(index));
 
 				//登録OK表示画面にフォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/YourShelf/addBookOK.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addBookOK.jsp");
 				dispatcher.forward(request, response);
 			} else {//DBへの保存失敗
 					//エラーメッセージを保存

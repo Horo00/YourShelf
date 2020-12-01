@@ -1,6 +1,7 @@
 package javabeans;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Book implements Serializable{
 	private int booksId;
@@ -9,6 +10,7 @@ public class Book implements Serializable{
 	private int count;
 	private String publisher;
 	private String imgUrl;
+	private LocalDate boughtDate;
 
 	//借りられているかどうか。falseで非貸出中。trueで貸出中
 	private boolean isCheckedOut;
@@ -74,24 +76,11 @@ public class Book implements Serializable{
 		this.publisher = publisher;
 	}
 
-
-	public Book title(String title) {
-		this.title = title;
-		return this;
+	public LocalDate getBoughtDate() {
+		return boughtDate;
+	}
+	public void setBoughtDate(LocalDate boughtDate) {
+		this.boughtDate = boughtDate;
 	}
 
-	public Book authors(String authors) {
-		this.authors = authors;
-		return this;
-	}
-
-	public Book count(int count) {
-		this.count = count;
-		return this;
-	}
-
-	public Book publisher(String publisher) {
-		this.publisher = publisher;
-		return this;
-	}
 }

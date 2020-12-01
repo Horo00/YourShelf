@@ -17,9 +17,9 @@
             <th>登録ユーザー</th>
         </tr>
 
-        <c:forEach var="category" items="${userList}">
+        <c:forEach var="user" items="${userList}"  begin="0" step="1" varStatus="status">
         <tr>
-			<td><a href="/YourShelf/ViewUserServlet" class="selectuser">${user.name}</a></td>
+			<td><a href="/YourShelf/UserHistoryForServlet?index=${status.index}" class="selectuser">${user.name}</a></td>
 		</tr>
         </c:forEach>
 </table>

@@ -59,7 +59,7 @@ public class ViewUserServlet extends HttpServlet {
 			session.setAttribute("userList", userList);
 
 			//全ユーザー一覧表示画面へフォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/viewUser.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewUser.jsp");
 			dispatcher.forward(request, response);
 	}
 	/**

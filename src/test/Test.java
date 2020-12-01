@@ -5,33 +5,42 @@ import java.util.List;
 
 import data_access.LendingBookDAO;
 import javabeans.LendBookHistroy;
-import javabeans.LendingBook;
 import javabeans.Login;
 import javabeans.UserDTO;
 import model.LoginLogic;
 
 public class Test {
 	public static void main(String[] args) {
-//		AddUserLogic.add("川田3", "password");
-		Login login = new Login("川田3", "password");
+		Login login = new Login("admin","pass");
 		LoginLogic ll = new LoginLogic();
-		UserDTO user = ll.execute(login);
-
-		if(user != null) {
-			System.out.println("成功" + user.getId());
+		UserDTO dto = ll.execute(login);
+		if(dto != null) {
+			System.out.println("成功");
 		} else {
-			System.out.println("失敗" +login.getPassword());
+			System.out.println("失敗");
 		}
+
+
+//		AddUserLogic.add("川田3", "password");
+//		Login login = new Login("川田3", "password");
+//		LoginLogic ll = new LoginLogic();
+//		UserDTO user = ll.execute(login);
+//
+//		if(user != null) {
+//			System.out.println("成功" + user.getId());
+//		} else {
+//			System.out.println("失敗" +login.getPassword());
+//		}
 //
 
 //		UserDAO dao = new UserDAO();
 //		UserDTO dto = new UserDTO(1, "川", "pass");
 //		Book book = new Book();
-		LendingBook book = new LendingBook();
-		book.title("sample3")
-			.authors("川田!!!");
-
-		book.setBooksId(2);
+//		LendingBook book = new LendingBook();
+//		book.title("sample3")
+//			.authors("川田!!!");
+//
+//		book.setBooksId(2);
 //		HavingBookDAO dao2 = new HavingBookDAO();
 //		if(dao2.addBook(book)) {
 //			System.out.println("成功");
@@ -49,11 +58,11 @@ public class Test {
 //		book.setBooksId(1);
 //		book.setLendingBookId(6);
 		LendingBookDAO dao2 = new LendingBookDAO();
-		if(dao2.lendBook(user,book)) {
-			System.out.println("成功");
-		}else {
-			System.out.println("失敗");
-		}
+//		if(dao2.lendBook(user,book)) {
+//			System.out.println("成功");
+//		}else {
+//			System.out.println("失敗");
+//		}
 
 //
 //		List<LendBookHistroy> lists = new ArrayList<>();

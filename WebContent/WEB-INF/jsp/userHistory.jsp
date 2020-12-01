@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="history">
-<p class="historylist">今まで借りた書籍の一覧</p>
+<p class="historylist">${user.name}さんの今まで借りた書籍の一覧</p>
 <table class="list" border="1">
         <tr>
             <th>表紙画像</th>

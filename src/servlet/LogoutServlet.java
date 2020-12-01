@@ -52,7 +52,7 @@ public class LogoutServlet extends HttpServlet {
 			session = request.getSession();
 			session.invalidate();
 			// TOP画面へリダイレクト
-			response.sendRedirect("YourShelf/Index");
+			response.sendRedirect("/YourShelf/Index");
 		}
 	}
 
@@ -66,7 +66,7 @@ public class LogoutServlet extends HttpServlet {
 
 		//■POST通信（直接アクセス）********************************************************************
 				//ＴＯＰへリダイレクト
-				response.sendRedirect("/YourServlet/Index");
+				response.sendRedirect("/YourShelf/Index");
 	}
 
 }
