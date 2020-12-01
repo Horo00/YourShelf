@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
+import javabeans.LimitOverBooks;
 import javabeans.Login;
 import javabeans.UserDTO;
 
@@ -22,30 +23,28 @@ public class UserDAO {
 	 * ユーザーの名前一覧のハッシュセット。名前重複確認に使う
 	 * @return HashSet<String> ユーザーネームのセット。要素がない場合はnull
 	 */
-	public HashSet<String> getUserNameSet(){
+	public HashSet<String> getUserNameSet() {
 		final String SQL = "SELECT name FROM USER";
 		connector = new ConnectionUser();
 
-		try(Connection connection = connector.getConnection();
-				Statement statement = connection.createStatement()){
+		HashSet<String> set = new HashSet<String>();
 
-			HashSet<String> set = new HashSet<String>();
+		try (Connection connection = connector.getConnection();
+				Statement statement = connection.createStatement()) {
 
 			ResultSet rs = statement.executeQuery(SQL);
 			while (rs.next()) {
 				String name = rs.getString("name");
 				set.add(name);
 			}
-			return set;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return set;
 
 	}
-
 
 	/**
 	 * 新規登録時のユーザー登録(INSERT)メソッド
@@ -73,7 +72,7 @@ public class UserDAO {
 			if (rs.next()) {
 				//取得したidをもとにdtoを作成し、それをリターンする
 				int id = rs.getInt(1);
-				UserDTO dto = new UserDTO(id,userName, password);
+				UserDTO dto = new UserDTO(id, userName, password);
 
 				return dto;
 			}
@@ -149,5 +148,29 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public void setUsersName(List<LimitOverBooks> overBooks) {
+		final String SQL = "SELECT name FROM user WHERE id = ?";
+		connector = new ConnectionAdmin();
+
+		try (Connection connection = connector.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SQL)) {
+
+			for (LimitOverBooks limitOverBooks : overBooks) {
+				statement.setInt(1, limitOverBooks.getUserId());
+
+				ResultSet rs = statement.executeQuery();
+
+				if (rs.next()) {
+					limitOverBooks.setUserName(rs.getString("name"));
+				}
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
 	}
 }

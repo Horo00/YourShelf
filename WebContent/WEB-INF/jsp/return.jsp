@@ -29,13 +29,13 @@
 
 
 
-        <c:forEach var="books" items="${book}" begin="0" step="1" varStatus="status">
+        <c:forEach var="lendingBook" items="${lendingBookList}" begin="0" step="1" varStatus="status">
         <form action="/YourShelf/ReturnServlet?value=return" method="get">
         <tr>
-			<td><img src="${books.imgUrl}"></td>
-			<td><c:out value="${books.title}"/></td>
-			<td><c:out value="${books.authors}"/></td>
-			<td><c:out value="${books.publisher}"/></td>
+			<td><img src="${lendingBook.imgUrl}"></td>
+			<td><c:out value="${lendingBook.title}"/></td>
+			<td><c:out value="${lendingBook.authors}"/></td>
+			<td><c:out value="${lendingBook.publisher}"/></td>
 			<td><input type="submit" name="return" value="返却" class="return-submit"></td>
 			<td><input type="hidden" name="index" value="${status.index}"></td>
 		</tr>

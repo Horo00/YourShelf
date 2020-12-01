@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import data_access.BookInfoDAO;
 import data_access.LendingBookDAO;
+import data_access.UserDAO;
 import javabeans.LendingBook;
 import javabeans.LimitOverBooks;
 import javabeans.UserDTO;
@@ -63,6 +64,10 @@ public class LimitOverServlet extends HttpServlet {
 		//貸し出し中のリストの中から期限切れだけを抜き取る
 		BookInfoDAO dao2 = new BookInfoDAO();
 		List<LimitOverBooks> overBooks = dao2.getLimitOverBookList(books);
+
+		//期限切れリストに入っているIDからユーザーの名前をセットする
+		UserDAO dao3 = new UserDAO();
+		dao3.setUsersName(overBooks);
 
 		//期限切れ一覧情報をセッションスコープに保存
 		session.setAttribute("overBooks", overBooks);

@@ -13,8 +13,8 @@
 </head>
 <body>
 <div class="viewbook">
-<p class="message">${book.name}を借りました。</p>
-<p class="sub-messsage">返却期限：${overBooks.returnScheduleDate}</p>
+<p class="message">${lendBook.title}を借りました。</p>
+<p class="sub-messsage">返却期限：${lendBooks.returnScheduleDate}</p>
 <p class="viewbooklist">登録書籍一覧</p>
 <c:choose>
 <c:when test="${empty book}">
@@ -30,12 +30,12 @@
 		<th>借りるボタン</th>
 		</tr>
 
-		<c:forEach var="category" items="${book}" begin="0" step="1" varStatus="status">
+		<c:forEach var="books" items="${book}" begin="0" step="1" varStatus="status">
 		<tr>
-			<td><img src="${book.imgUrl}"></td>
-			<td><c:out value="${book.name}"/></td>
-			<td><c:out value="${book.authors}"/></td>
-			<td><c:out value="${book.publisher}"/></td>
+			<td><img src="${books.imgUrl}"></td>
+			<td><c:out value="${books.name}"/></td>
+			<td><c:out value="${books.authors}"/></td>
+			<td><c:out value="${books.publisher}"/></td>
 			<td><input type="submit" name="checkout" value="借りる" class="checkout-submit"></td>
 			<td><input type="hidden" name="index" value="${status.index}"></td>
 		</tr>

@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import data_access.UserDAO;
 import javabeans.LendingBook;
 import javabeans.Login;
 import javabeans.UserDTO;
+import model.CountSort;
 import model.LoginLogic;
 
 /**
@@ -93,6 +95,8 @@ public class ControllerServlet extends HttpServlet {
 			HavingBookDAO dao = new HavingBookDAO();
 			List<LendingBook> book = dao.searchBook();
 
+			Collections.sort(book, new CountSort());
+
 			//書籍一覧データをセッションスコープに保存
 			session.setAttribute("book", book);
 
@@ -127,6 +131,8 @@ public class ControllerServlet extends HttpServlet {
 		LoginLogic bo = new LoginLogic();
 		UserDTO userDTO = bo.execute(login);
 
+		RequestDispatcher dispatcher;
+
 		//userDTOデータの有無によって処理を分岐---------------------------------------------
 		if (userDTO != null) {//ログイン成功
 			//データをセッションスコープに保存
@@ -136,7 +142,7 @@ public class ControllerServlet extends HttpServlet {
 			switch (name) {//氏名によってログイン画面を分岐
 			case "admin":
 				//ログイン成功画面(管理者)へフォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginAdmin.jsp");
+				dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginAdmin.jsp");
 				dispatcher.forward(request, response);
 				break;
 			default:
@@ -145,8 +151,11 @@ public class ControllerServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 		} //ログイン失敗
-			//ログイン画面にリダイレクト
-		response.sendRedirect("/YourShelf/ControllerServlet");
+		//エラーメッセージをリクエストに格納
+		request.setAttribute("message", "ログインに失敗しました");
+			//ログイン画面にフォワード
+		dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

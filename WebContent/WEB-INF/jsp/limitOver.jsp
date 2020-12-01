@@ -22,14 +22,14 @@
             <th>ユーザー</th>
         </tr>
 
-        <c:forEach var="category" items="${overBooks}">
+        <c:forEach var="overBook" items="${overBooks}">
         <tr>
-			<td><img src="${overBooks.imgUrl}"></td>
-			<td><c:out value="${overBooks.name}"/></td>
-			<td><c:out value="${overBooks.authors}"/></td>
-			<td><c:out value="${overBooks.publisher}"/></td>
-			<td><c:out value="${overBooks.returnScheduleDate}"/></td>
-			<td><c:out value="${overBooks.userId}"/></td>
+			<td><img src="${overBook.imgUrl}"></td>
+			<td><c:out value="${overBook.title}"/></td>
+			<td><c:out value="${overBook.authors}"/></td>
+			<td><c:out value="${overBook.publisher}"/></td>
+			<td><c:out value="${overBook.returnScheduleDate}"/></td>
+			<td><c:out value="${overBook.userName}"/></td>
 		</tr>
         </c:forEach>
 

@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="return">
-<p class="message">${book.name}を返却しました。</p>
+<p class="message">${book.title}を返却しました。</p>
 <p class="returnlist">返却書籍の選択</p>
 <table class="list" border="1">
         <tr>
@@ -22,13 +22,13 @@
             <th>返却ボタン</th>
         </tr>
 
-        <c:forEach var="category" items="${book}" begin="0" step="1" varStatus="status">
+        <c:forEach var="lendingBook" items="${lendingBookList}" begin="0" step="1" varStatus="status">
         <form action="/YourShelf/ReturnServlet?value=return" method="get">
         <tr>
-			<td><img src="${book.imgUrl}"></td>
-			<td><c:out value="${book.name}"/></td>
-			<td><c:out value="${book.authors}"/></td>
-			<td><c:out value="${book.publisher}"/></td>
+			<td><img src="${lendingBook.imgUrl}"></td>
+			<td><c:out value="${lendingBook.name}"/></td>
+			<td><c:out value="${lendingBook.authors}"/></td>
+			<td><c:out value="${lendingBook.publisher}"/></td>
 			<td><input type="submit" name="return" value="返却" class="return-submit"></td>
 			<td><input type="hidden" name="index" value="${status.index}"></td>
 		</tr>

@@ -59,7 +59,7 @@ public class ReturnServlet extends HttpServlet {
 					//借りている本一覧情報をセッションスコープに保存
 					session.setAttribute("lendingBookList",lendingBookList);
 
-					//期限切れ一覧表示画面へフォワード
+					//書籍返却表示画面へフォワード
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/return.jsp");
 					dispatcher.forward(request, response);
 
@@ -74,8 +74,7 @@ public class ReturnServlet extends HttpServlet {
 
 					if(result) {//返却に成功した場合
 						//返却した本の情報をセッションに保存
-						session = request.getSession();
-						session.setAttribute("book",lendingBookList.get(index));
+						request.setAttribute("book",lendingBookList.get(index));
 
 						//返却結果画面へフォワード
 						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/returnOK.jsp");

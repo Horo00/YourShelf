@@ -11,9 +11,9 @@ public class Book implements Serializable{
 	private String publisher;
 	private String imgUrl;
 	private LocalDate boughtDate;
-
 	//借りられているかどうか。falseで非貸出中。trueで貸出中
 	private boolean isCheckedOut;
+
 
 	public Book() {}
 
@@ -57,6 +57,10 @@ public class Book implements Serializable{
 	}
 
 	public boolean isCheckedOut() {
+		return isCheckedOut;
+	}
+
+	public boolean getIsCheckedOut() {
 		return isCheckedOut;
 	}
 

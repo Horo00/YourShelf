@@ -30,21 +30,27 @@ public class UserNameCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String name = request.getParameter("name");
 		HttpSession session = request.getSession();
 		HashSet<String> userNameSet = (HashSet<String>) session.getAttribute("userNameSet");
-
-		String message = userNameSet.add(name) ? "登録可能です":"既に使われています";
+		String message = "";
+		if(userNameSet.add(name)) {
+			message = "登録可能です";
+			request.setAttribute("name", name);
+		} else {
+			message = "既に使われています";
+		}
 
 		request.setAttribute("message", message);
-		request.setAttribute("name", name);
+
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
 		dispatcher.forward(request, response);

@@ -15,6 +15,7 @@
 
 
 			<p class="logintoyouself">YourShelfへログイン</p>
+			<p> ${message} </p>
 
 
 		<input type="text" class="login-username" name="name"

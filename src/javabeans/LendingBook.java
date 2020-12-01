@@ -11,6 +11,9 @@ public class LendingBook extends Book implements Serializable{
 	private int lendingBookId;
 	private LocalDate checkedoutDate;
 	private LocalDate returnScheduleDate;
+	private String userName;
+
+
 
 	public LendingBook() {}
 
@@ -47,6 +50,12 @@ public class LendingBook extends Book implements Serializable{
 
 	public void setCheckedoutDate(LocalDate checkedoutDate) {
 		this.checkedoutDate = checkedoutDate;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }
