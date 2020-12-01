@@ -16,7 +16,7 @@ pageEncoding="UTF-8"%>
 <body>
 <div class="addbook">
 <p class="message">${book.name}を登録しました</p>
-<p class="date">登録日：${boughtDate.getBoughtDate()}</p>
+<p class="date">登録日：${boughtDate.boughtDate()}</p>
 <p class="booksearch">新規書籍の検索</p>
 <form action="/YourShelf/AddBookServlet?value=search" method="post">
 <input type="text" name="isbn" placeholder="ISBN" class="search-isbn"><br>

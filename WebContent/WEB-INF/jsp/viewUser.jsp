@@ -19,7 +19,7 @@
 
         <c:forEach var="category" items="${userList}">
         <tr>
-			<td><a href="/YourShelf/ViewUserServlet" class="selectuser">${user.getName}</a></td>
+			<td><a href="/YourShelf/ViewUserServlet" class="selectuser">${user.name}</a></td>
 		</tr>
         </c:forEach>
 </table>

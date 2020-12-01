@@ -23,11 +23,11 @@
 
         <c:forEach var="book" items="${userBookHis}">
         <tr>
-			<td><img src="${book.getImgUrl}"></td>
-			<td><c:out value="${userBookHis.getName}"/></td>
-			<td><c:out value="${userBookHis.getAuthors}"/></td>
-			<td><c:out value="${userBookHis.getPublisher}"/></td>
-			<td><c:out value="${userBookHis.limitdate}"/></td>
+			<td><img src="${book.imgUrl}"></td>
+			<td><c:out value="${userBookHis.name}"/></td>
+			<td><c:out value="${userBookHis.authors}"/></td>
+			<td><c:out value="${userBookHis.publisher}"/></td>
+			<td><c:out value="${userBookHis.returnScheduleDate}"/></td>
 		</tr>
         </c:forEach>
 </table>

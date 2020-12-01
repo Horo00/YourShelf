@@ -24,12 +24,12 @@
 
         <c:forEach var="category" items="${overBooks}">
         <tr>
-			<td><img src="${overBooks.getImgUrl}"></td>
-			<td><c:out value="${overBooks.getName}"/></td>
-			<td><c:out value="${overBooks.getAuthors}"/></td>
-			<td><c:out value="${overBooks.getPublisher}"/></td>
-			<td><c:out value="${overBooks.getReturnScheduleDate}"/></td>
-			<td><c:out value="${overBooks.getUserId}"/></td>
+			<td><img src="${overBooks.imgUrl}"></td>
+			<td><c:out value="${overBooks.name}"/></td>
+			<td><c:out value="${overBooks.authors}"/></td>
+			<td><c:out value="${overBooks.publisher}"/></td>
+			<td><c:out value="${overBooks.returnScheduleDate}"/></td>
+			<td><c:out value="${overBooks.userId}"/></td>
 		</tr>
         </c:forEach>
 

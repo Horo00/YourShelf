@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="return">
-<p class="message">${book.getName}を返却しました。</p>
+<p class="message">${book.name}を返却しました。</p>
 <p class="returnlist">返却書籍の選択</p>
 <table class="list" border="1">
         <tr>
@@ -26,9 +26,9 @@
         <form action="/YourShelf/ReturnServlet?value=return" method="get">
         <tr>
 			<td><img src="${book.imgUrl}"></td>
-			<td><c:out value="${book.getName}"/></td>
-			<td><c:out value="${book.getAuthors}"/></td>
-			<td><c:out value="${book.getPublisher}"/></td>
+			<td><c:out value="${book.name}"/></td>
+			<td><c:out value="${book.authors}"/></td>
+			<td><c:out value="${book.publisher}"/></td>
 			<td><input type="submit" name="return" value="返却" class="return-submit"></td>
 			<td><input type="hidden" name="index" value="${status.index}"></td>
 		</tr>

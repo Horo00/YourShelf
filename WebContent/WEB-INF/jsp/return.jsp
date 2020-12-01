@@ -26,10 +26,10 @@
         <c:forEach var="category" items="${book}" begin="0" step="1" varStatus="status">
         <form action="/YourShelf/ReturnServlet?value=return" method="get">
         <tr>
-			<td><img src="${book.getImgUrl}"></td>
-			<td><c:out value="${book.getName}"/></td>
-			<td><c:out value="${book.getAuthors}"/></td>
-			<td><c:out value="${book.getPublisher}"/></td>
+			<td><img src="${book.imgUrl}"></td>
+			<td><c:out value="${book.name}"/></td>
+			<td><c:out value="${book.authors}"/></td>
+			<td><c:out value="${book.publisher}"/></td>
 			<td><input type="submit" name="return" value="返却" class="return-submit"></td>
 			<td><input type="hidden" name="index" value="${status.index}"></td>
 		</tr>

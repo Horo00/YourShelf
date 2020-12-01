@@ -35,10 +35,10 @@ pageEncoding="UTF-8"%>
 		<c:forEach var="category" items="${addBookList}" begin="0" step="1" varStatus="status">
 		<form action="/YourShelf/AddBookServlet?value=add" method="post">
         <tr>
-			<td><img src="${addBookList.getImgUrl}"></td>
-			<td><c:out value="${addBookList.getName}"/></td>
-			<td><c:out value="${addBookList.getAuthors}"/></td>
-			<td><c:out value="${addBookList.getPublisher}"/></td>
+			<td><img src="${addBookList.imgUrl}"></td>
+			<td><c:out value="${addBookList.name}"/></td>
+			<td><c:out value="${addBookList.authors}"/></td>
+			<td><c:out value="${addBookList.publisher}"/></td>
 			<td><input type="submit" name="add" value="登録" class="add-submit"></td>
 			<td><input type="hidden" name="index" value="${status.index}"></td>
 		</tr>

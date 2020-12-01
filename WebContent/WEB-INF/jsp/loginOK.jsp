@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="mainmenu">
-<p class="welcomeuser">${user.getName}さんログイン中</p>
+<p class="welcomeuser">${user.name}さんログイン中</p>
 <a href="/YourShelf/UserHistoryForServlet" class="userhistory">貸出履歴</a>
 <a href="/YourShelf/ControllerServlet?value=viewbookpage" class="viewbook">登録書籍一覧</a>
 <a href="/YourShelf/ReturnServlet?value=returnpage" class="return">書籍返却</a>
