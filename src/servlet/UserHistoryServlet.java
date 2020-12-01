@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import data_access.LendingBookDAO;
+import javabeans.LendBookHistroy;
 import javabeans.UserDTO;
 
 /**
@@ -36,29 +39,27 @@ public class UserHistoryServlet extends HttpServlet {
 		//■GET通信（直接/一般ユーザーメニュー[履歴]から）*********************************************
 		//リクエストパラメータの取得
 		request.setCharacterEncoding("UTF-8");
-		String value = request.getParameter("value");
+
+		HttpSession session = request.getSession();
+		UserDTO user = (UserDTO) session.getAttribute("userDTO");
 
 		//アクセス元により分岐------------------------------------------------------------------------
-		if (value == null) {//直接アクセスの場合
+		if (user == null) {//直接アクセスの場合
 			//ＴＯＰへリダイレクト
 			response.sendRedirect("/YourServlet/Index");
 
-		} else if (value.equals(〇〇)) {//履歴ボタンからアクセスの場合
-			//セッションスコープからユーザデータ取得
-			UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
+		} //User情報が残っている場合
 
-			//★DBから履歴情報を取得
-			LendingBookDAO dao = new LendingBookDAO();
-			List<LendBookHistroy> bookLists = dao.getBookHistroy(userDTO);
+		//★DBから履歴情報を取得
+		LendingBookDAO dao = new LendingBookDAO();
+		List<LendBookHistroy> userBookHis = dao.getBookHistroy(user);
 
-			//★履歴一覧情報をセッションスコープに保存
-			HttpSession session = request.getSession();
-			session.setAttribute("〇〇", 〇〇);
+		//★履歴一覧情報をリクエストスコープに保存
+		request.setAttribute("userBookHis", userBookHis);
 
-			//履歴一覧画面へフォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/YourShelf/userHistory.jsp");
-			dispatcher.forward(request, response);
-		}
+		//履歴一覧画面へフォワード
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/YourShelf/userHistory.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**

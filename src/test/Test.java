@@ -14,7 +14,8 @@ public class Test {
 	public static void main(String[] args) {
 //		AddUserLogic.add("川田3", "password");
 		Login login = new Login("川田3", "password");
-		UserDTO user = LoginLogic.execute(login);
+		LoginLogic ll = new LoginLogic();
+		UserDTO user = ll.execute(login);
 
 		if(user != null) {
 			System.out.println("成功" + user.getId());

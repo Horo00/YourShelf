@@ -44,42 +44,42 @@ public class ControllerServlet extends HttpServlet {
 		//リクエストパラメータの取得
 		request.setCharacterEncoding("UTF-8");
 		String value = request.getParameter("value");
-		if(value == null) {
+		if (value == null) {
 			value = "null";
 		}
 
 		//★TOPメニュー/一般ユーザー[書籍一覧]から飛んできた際の振り分け
-						switch(value) {
-						case "null":  //valueにデータが入っていない場合
-						//◇ログイン画面にフォワード
-						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-						dispatcher.forward(request, response);
-						break;
+		switch (value) {
+		case "null": //valueにデータが入っていない場合
+			//◇ログイン画面にフォワード
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+			dispatcher.forward(request, response);
+			break;
 
-						case "loginpage":  //TOPメニュー[ログイン]
-						dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-						dispatcher.forward(request, response);
-						break;
+		case "loginpage": //TOPメニュー[ログイン]
+			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+			dispatcher.forward(request, response);
+			break;
 
-						case "adduserpage":  //TOPメニュー[新規登録]
-						dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
-						dispatcher.forward(request, response);
-						break;
+		case "adduserpage": //TOPメニュー[新規登録]
+			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
+			dispatcher.forward(request, response);
+			break;
 
-						case "viewbookpage":  //TOPメニュー[書籍一覧]/一般ユーザー[書籍一覧]
-						//書籍一覧データを取得
-						HavingBookDAO dao=new HavingBookDAO();
-						List<LendingBook> books = dao.searchBook();
+		case "viewbookpage": //TOPメニュー[書籍一覧]/一般ユーザー[書籍一覧]
+			//書籍一覧データを取得
+			HavingBookDAO dao = new HavingBookDAO();
+			List<LendingBook> book = dao.searchBook();
 
-						//書籍一覧データをセッションスコープに保存
-						HttpSession session = request.getSession();
-						session.setAttribute("books", books);
+			//書籍一覧データをセッションスコープに保存
+			HttpSession session = request.getSession();
+			session.setAttribute("book", book);
 
-						//書籍一覧表示画面にフォワード
-						dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewBook.jsp");
-						dispatcher.forward(request, response);
-						break;
-						}
+			//書籍一覧表示画面にフォワード
+			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewBook.jsp");
+			dispatcher.forward(request, response);
+			break;
+		}
 	}
 
 	/**
@@ -121,8 +121,8 @@ public class ControllerServlet extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginOK.jsp");
 				dispatcher.forward(request, response);
 			}
-		}//ログイン失敗
-		//ログイン画面にリダイレクト
+		} //ログイン失敗
+			//ログイン画面にリダイレクト
 		response.sendRedirect("/YourShelf/ControllerServlet");
 	}
 

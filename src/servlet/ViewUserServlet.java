@@ -40,30 +40,28 @@ public class ViewUserServlet extends HttpServlet {
 		//■Get通信(管理者ログイン画面[全ユーザー情報]/直接アクセス）********************************
 		//リクエストパラメータ取得
 		request.setCharacterEncoding("UTF-8");
-		String value = request.getParameter("value");
+		HttpSession session = request.getSession();
+		UserDTO user = (UserDTO) session.getAttribute("user");
+//		String value = request.getParameter("value");
 
 		//アクセス元により分岐-------------------------------------------------------
-		if (value == null) {//直接アクセスした場合
+		if (user.getId() != 0) {//管理者でない場合
 			//TOP画面へリダイレクト
 			response.sendRedirect("/YourShelf/Index");
 
-		} else if (value.equals(〇〇)) {//管理者ログイン画面[全ユーザー情報]からのアクセスした場合
+		}//管理者ログイン画面[全ユーザー情報]からのアクセスした場合
 			//全ユーザー情報を取得
 			UserDAO userDAO = new UserDAO();
-			List<UserDTO> UserList = userDAO.getUserList();
+			List<UserDTO> userList = userDAO.getUserList();
 
 			//if(UserList!=null) {//データの取得に成功した場合
 			//取得した全ユーザー情報をセッションスコープに保存
-			HttpSession session = request.getSession();
-			session.setAttribute("UserList", UserList);
+			session.setAttribute("userList", userList);
 
 			//全ユーザー一覧表示画面へフォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/viewUser.jsp");
 			dispatcher.forward(request, response);
-
-		}
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

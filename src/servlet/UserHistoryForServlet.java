@@ -11,8 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import data_access.BookInfoDAO;
-import javabeans.BookInfoDTO;
+import data_access.LendingBookDAO;
+import javabeans.LendBookHistroy;
+import javabeans.UserDTO;
 
 /**
  * Servlet implementation class UserHistoryForServlet
@@ -21,57 +22,56 @@ import javabeans.BookInfoDTO;
 public class UserHistoryForServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserHistoryForServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UserHistoryForServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		//■Get通信(全ユーザー情報一覧画面から/直接アクセス）********************************
-				//リクエストパラメータ取得
-				request.setCharacterEncoding("UTF-8");
-				String value = request.getParameter("value");
+		//リクエストパラメータ取得
+		request.setCharacterEncoding("UTF-8");
 
-				//アクセス元により分岐-------------------------------------------------------
-				if (value == null) {//直接アクセスした場合
-					//TOP画面へリダイレクト
-					response.sendRedirect("/YourShelf/Index");
+		HttpSession session = request.getSession();
+		UserDTO user = (UserDTO) session.getAttribute("user");
 
-				} else {//全ユーザー情報一覧画面からのアクセスした場合
-					//value=index番号のため、Index番号のユーザーに対応する「借りた履歴」を取得する
-					BookInfoDAO dao = new BookInfoDAO();
-					List<BookInfoDTO> AllBooksDTO = dao.searchBookList(value);//※index番号のユーザーの一覧を取得するメソッド
+		//アクセス元により分岐-------------------------------------------------------
+		if (user.getId() != 0) {//直接アクセスした場合
+			//TOP画面へリダイレクト
+			response.sendRedirect("/YourShelf/Index");
+			return;
 
-					//if(AllBooksDTO!=null) {//データの取得に成功した場合
-					//取得した借りた履歴一覧情報をセッションスコープに保存
-					HttpSession session = request.getSession();
-					session.setAttribute("AllBooksDTO", AllBooksDTO);
+		}
+		int index = Integer.parseInt(request.getParameter("idnex"));
+		List<UserDTO> userList = (List<UserDTO>) session.getAttribute("userList");
+		//value=index番号のため、Index番号のユーザーに対応する「借りた履歴」を取得する
+		LendingBookDAO dao = new LendingBookDAO();
+		List<LendBookHistroy> userBookHis = dao.getBookHistroy(userList.get(index));//※index番号のユーザーの一覧を取得するメソッド
 
-					//借りた履歴一覧表示画面へフォワード
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userHistory.jsp");
-					dispatcher.forward(request, response);
+		//if(AllBooksDTO!=null) {//データの取得に成功した場合
+		//取得した借りた履歴一覧情報をセッションスコープに保存
+		request.setAttribute("userBookHis", userBookHis);
 
-
-				}
-
-			}
-
-
-
+		//借りた履歴一覧表示画面へフォワード
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userHistory.jsp");
+		dispatcher.forward(request, response);
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 	}
