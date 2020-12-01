@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import data_access.UserDAO;
 import javabeans.UserDTO;
+import model.Hash;
 
 /**
  * Servlet implementation class AddUser
@@ -59,6 +60,9 @@ public class AddUser extends HttpServlet {
 		//データの有無の確認
 		if (name != null && name.length() != 0) {//氏名の入力有
 			if (password != null && password.length() != 0) {//パスワードの入力有
+				//passwordのハッシュ化
+				password = Hash.getHash(password);
+
 				//DBにユーザ情報を登録
 				UserDAO dao = new UserDAO();
 				UserDTO user = dao.addUser(name, password);
@@ -69,9 +73,10 @@ public class AddUser extends HttpServlet {
 					session.setAttribute("user",user);//氏名・パスの保存されたビーンズ
 
 					//一般ユーザログイン画面にフォワード
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/YourShelf/LoginOK.jsp");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginOK.jsp");
 					dispatcher.forward(request, response);
 
+					return;
 				} else {//DBへの登録失敗
 					//エラーメッセージを保存
 					//String errorMsg="ユーザー登録に失敗しました";
@@ -95,8 +100,9 @@ public class AddUser extends HttpServlet {
 
 		}
 		//TOP画面にフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/YourShelf/Index.java");
-		dispatcher.forward(request, response);
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("/YourShelf/Index.java");
+//		dispatcher.forward(request, response);
+		response.sendRedirect("http://localhost:8080/YourShelf/index.jsp");
 	}
 
 }

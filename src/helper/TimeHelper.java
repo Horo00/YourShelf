@@ -6,7 +6,10 @@ import java.time.LocalDate;
 public class TimeHelper {
 
 	public static LocalDate LimitCalc(LocalDate date) {
-		return date.plusDays(14);
+		if (date != null) {
+			return date.plusDays(14);
+		}
+		return null;
 	}
 
 	/**
@@ -15,6 +18,9 @@ public class TimeHelper {
 	 * @return LocalDate
 	 */
 	public static LocalDate dateToLocalDate(Date date) {
-		return date.toLocalDate();
+		if (date != null) {
+			return date.toLocalDate();
+		}
+		return null;
 	}
 }
