@@ -5,12 +5,14 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import data_access.HavingBookDAO;
+import helper.JumpPageHelper;
 import javabeans.Book;
 import javabeans.UserDTO;
 import model.JsonData;
@@ -18,6 +20,7 @@ import model.JsonData;
 /**
  * Servlet implementation class AddBookServlet
  */
+@WebServlet("/AddBookServlet")
 public class AddBookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -72,9 +75,13 @@ public class AddBookServlet extends HttpServlet {
 		UserDTO user = (UserDTO) session.getAttribute("user");
 
 		//アクセス元により分岐------------------------------------------------------------------------
+		if(user == null) {
+			response.sendRedirect(JumpPageHelper.INDEX);
+			return;
+		}
 		if (user.getId() != 0) {//直接アクセスの場合
 			//ＴＯＰへリダイレクト
-			response.sendRedirect("/YourServlet/Index");
+			response.sendRedirect(JumpPageHelper.INDEX);
 			return;
 		}
 
