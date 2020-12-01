@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import data_access.HavingBookDAO;
+import data_access.UserDAO;
 import javabeans.LendingBook;
 import javabeans.Login;
 import javabeans.UserDTO;
@@ -20,7 +22,7 @@ import model.LoginLogic;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/LoginServlet")
+@WebServlet("/ControllerServlet")
 public class ControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -44,6 +46,7 @@ public class ControllerServlet extends HttpServlet {
 		//リクエストパラメータの取得
 		request.setCharacterEncoding("UTF-8");
 		String value = request.getParameter("value");
+		HttpSession session = request.getSession();
 		if (value == null) {
 			value = "null";
 		}
@@ -62,17 +65,19 @@ public class ControllerServlet extends HttpServlet {
 			break;
 
 		case "adduserpage": //TOPメニュー[新規登録]
+			UserDAO userDAO = new UserDAO();
+			HashSet<String> userNameSet = userDAO.getUserNameSet();
+			session.setAttribute("userNameSet", userNameSet);
+
 			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
 			dispatcher.forward(request, response);
 			break;
-
 		case "viewbookpage": //TOPメニュー[書籍一覧]/一般ユーザー[書籍一覧]
 			//書籍一覧データを取得
 			HavingBookDAO dao = new HavingBookDAO();
 			List<LendingBook> book = dao.searchBook();
 
 			//書籍一覧データをセッションスコープに保存
-			HttpSession session = request.getSession();
 			session.setAttribute("book", book);
 
 			//書籍一覧表示画面にフォワード

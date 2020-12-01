@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,9 +31,9 @@ public class Index extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		//GET通信があれば、Index.jsp(TOPページ)にフォワード
-		RequestDispatcher dispatcher=request.getRequestDispatcher("/YourShelf/index.jsp");
-		dispatcher.forward(request,response);
-
+//		RequestDispatcher dispatcher=request.getRequestDispatcher("/YourShelf/index.jsp");
+//		dispatcher.forward(request,response);
+		response.sendRedirect("http://172.16.71.105:8080/YourShelf/index.jsp");
 	}
 
 	/**
@@ -44,5 +43,4 @@ public class Index extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 	}
-
 }
