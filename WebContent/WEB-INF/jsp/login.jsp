@@ -11,7 +11,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
 </head>
 <body>
-	<form class="login-form" action="/YourShelf" method="post">
+	<form class="login-form" action="/YourShelf/ControllerServlet" method="post">
 
 
 			<p class="logintoyouself">YourShelfへログイン</p>

@@ -14,13 +14,13 @@
 <body>
 <div class="addbook">
 <p class="booksearch">新規書籍の検索</p>
-<form action="/YourShelf/AddBookServlet" method="post">
+<form action="/YourShelf/AddBookServlet?value=search" method="post">
 <input type="text" name="isbn" placeholder="ISBN" class="search-isbn"><br>
 <input type="text" name="title" placeholder="検索キーワード" class="search-keyword"><br>
 <input type="submit" value="検索" class="search-submit">
-<input type="submit" value="リセット" class="reset-submit"><br>
+<input type="reset" value="リセット" class="reset-submit"><br>
 </form>
-<a class="backtoadmin" href="○○〇">担当者メニューに戻る</a>
+<a class="backtoadmin" href="/WEB-INF/jsp/loginAdmin.jsp">担当者メニューに戻る</a>
 </div>
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>
