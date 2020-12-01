@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import javabeans.LendingBookDTO;
+import data_access.LendingBookDAO;
+import javabeans.LendingBook;
 import javabeans.UserDTO;
 
 /**
@@ -41,25 +42,22 @@ public class ReturnServlet extends HttpServlet {
 				request.setCharacterEncoding("UTF-8");
 				String value = request.getParameter("value");
 
+				//ログインユーザー情報を取得
+				HttpSession session = request.getSession();
+				UserDTO user=(UserDTO)session.getAttribute("user");
+
 				//アクセス元により分岐-------------------------------------------------------------------
-				if (value == null) {//直接アクセスした場合
+				if (user == null) {//直接アクセスした場合
 					//TOP画面へリダイレクト
 					response.sendRedirect("/YourShelf/Index");
 
 				} else if(value.equals(〇〇)) {//一般ユーザーメニュー[返却]からアクセス
-
-					//ログインユーザー情報を取得
-					HttpSession session = request.getSession();
-					UserDTO user=(UserDTO)session.getAttribute("UserDTO");
-					int userId=user.getId();
-
 					//ユーザーidに該当するユーザーの借りている本の一覧を取得する
-					List<LendingBookDTO> lendingBooklist=LendingBookDAO.getUserLendingBookList(userId);
-
+					LendingBookDAO dao=new LendingBookDAO();
+					List<LendingBook> lendingBookList=dao.getLendingBookList(user);
 
 					//借りている本一覧情報をセッションスコープに保存
-					session.setAttribute("lendingBooklist",lendingBooklist);
-
+					session.setAttribute("lendingBookList",lendingBookList);
 
 					//期限切れ一覧表示画面へフォワード
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/return.jsp");
@@ -67,22 +65,23 @@ public class ReturnServlet extends HttpServlet {
 
 				}else if(value.equals(〇〇)) {//一般ユーザー[返却ボタン]から
 					//★返却する本のデータをbookに格納
+					List<LendingBook> lendingBookList= (List<LendingBook>) session.getAttribute("lendingBookList");
+					int index=Integer.parseInt(request.getParameter("index"));
 
 					//★該当する書籍のレンタル情報をDBで変更
 					LendingBookDAO dao=new LendingBookDAO();
-					boolean result=dao.returnBook(book);
+					boolean result=dao.returnBook(lendingBookList.get(index));
 
 					if(result) {//返却に成功した場合
 						//返却した本の情報をセッションに保存
-						HttpSession session = request.getSession();
-						session.setAttribute("book",book);
+						session = request.getSession();
+						session.setAttribute("book",lendingBookList.get(index));
 
 						//返却結果画面へフォワード
 						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/returnOK.jsp");
 						dispatcher.forward(request, response);
 					}
 				}
-
 	}
 
 	/**

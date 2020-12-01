@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import javabeans.UserDTO;
+
 /**
  * Servlet implementation class LogoutServlet
  */
@@ -36,21 +38,23 @@ public class LogoutServlet extends HttpServlet {
 		// ■Get通信（管理者ログイン画面/直接アクセス）***********************************************************************
 		// リクエストパラメータ取得
 		request.setCharacterEncoding("UTF-8");
-		String value = request.getParameter("value");
+
+		//ログインユーザー情報を取得
+		HttpSession session = request.getSession();
+		UserDTO user=(UserDTO)session.getAttribute("user");
 
 		// アクセス元により分岐--------------------------------------------------------------------------------------------------------------
-		if (value == null) {  //直接アクセスした場合
+		if (user == null) {  //直接アクセスした場合
 			//TOP画面へリダイレクト
 			response.sendRedirect("/YourShelf/Index");
 		} else {
 			//セッションスコープを破棄
-			HttpSession session = request.getSession();
+			session = request.getSession();
 			session.invalidate();
 			// TOP画面へリダイレクト
 			response.sendRedirect("YourShelf/Index");
 		}
 	}
-
 
 
 	/**
@@ -59,6 +63,10 @@ public class LogoutServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// doGet(request, response);
+
+		//■POST通信（直接アクセス）********************************************************************
+				//ＴＯＰへリダイレクト
+				response.sendRedirect("/YourServlet/Index");
 	}
 
 }

@@ -36,9 +36,8 @@ public class AddUser extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		//■GET通信（ページに直接アクセス）**********************************
-		//TOP画面にフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/YourShelf/Index.java");
-		dispatcher.forward(request, response);
+		//ＴＯＰへリダイレクト
+		response.sendRedirect("/YourServlet/Index");
 
 	}
 
@@ -62,24 +61,37 @@ public class AddUser extends HttpServlet {
 			if (password != null && password.length() != 0) {//パスワードの入力有
 				//DBにユーザ情報を登録
 				UserDAO dao = new UserDAO();
-				UserDTO userDTO = dao.addUser(name, password);
+				UserDTO user = dao.addUser(name, password);
 
-				if (userDTO!=null) {//DBへの登録成功
-					//セッションスコープに氏名を保存
+				if (user!=null) {//DBへの登録成功
+					//セッションスコープにユーザー情報を保存
 					HttpSession session = request.getSession();
-					session.setAttribute("userDTO",userDTO);//氏名・パスの保存されたビーンズ
+					session.setAttribute("user",user);//氏名・パスの保存されたビーンズ
 
 					//一般ユーザログイン画面にフォワード
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/YourShelf/LoginOK.jsp");
 					dispatcher.forward(request, response);
 
 				} else {//DBへの登録失敗
-
+					//エラーメッセージを保存
+					//String errorMsg="ユーザー登録に失敗しました";
+					//エラーメッセージをセッションスコープに保存
+					//HttpSession session=request.getSession();
+					//session.setAttribute("errorMsg",errorMsg);
 				}
 			} else {//パスワード入力なし
-
+				//エラーメッセージを保存
+				//String errorMsg="パスワードが入力されていません";
+				//エラーメッセージをセッションスコープに保存
+				//HttpSession session=request.getSession();
+				//session.setAttribute("errorMsg",errorMsg);
 			}
 		} else {//氏名入力なし
+			//エラーメッセージを保存
+			//String errorMsg="氏名が入力されていません";
+			//エラーメッセージをセッションスコープに保存
+			//HttpSession session=request.getSession();
+			//session.setAttribute("errorMsg",errorMsg);
 
 		}
 		//TOP画面にフォワード
