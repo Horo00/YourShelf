@@ -47,7 +47,7 @@ pageEncoding="UTF-8"%>
         <input type="text" name="keyword" placeholder="キーワード入力" required class="searchshelf-keyword">
         <input type="submit" value="検索" class="searchshelf-submit">
         </form>
-        <a class="backtomain" href="/YourShelf/Index">メニューに戻る</a>
+        <a class="backtomain" href="/YourShelf/ControllerServlet?value=loginpage">メニューに戻る</a>
 </div>
 
         <div class="underlay-photo"></div>

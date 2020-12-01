@@ -13,6 +13,12 @@
 <div class="return">
 <p class="returnlist">返却書籍の選択</p>
 <table class="list" border="1">
+<c:choose>
+
+<c:when test="${empty book}">
+<p>該当書籍はありません</p>
+</c:when>
+<c:otherwise>
         <tr>
             <th>表紙画像</th>
             <th>タイトル</th>
@@ -23,13 +29,13 @@
 
 
 
-        <c:forEach var="category" items="${book}" begin="0" step="1" varStatus="status">
+        <c:forEach var="books" items="${book}" begin="0" step="1" varStatus="status">
         <form action="/YourShelf/ReturnServlet?value=return" method="get">
         <tr>
-			<td><img src="${book.imgUrl}"></td>
-			<td><c:out value="${book.name}"/></td>
-			<td><c:out value="${book.authors}"/></td>
-			<td><c:out value="${book.publisher}"/></td>
+			<td><img src="${books.imgUrl}"></td>
+			<td><c:out value="${books.title}"/></td>
+			<td><c:out value="${books.authors}"/></td>
+			<td><c:out value="${books.publisher}"/></td>
 			<td><input type="submit" name="return" value="返却" class="return-submit"></td>
 			<td><input type="hidden" name="index" value="${status.index}"></td>
 		</tr>
@@ -41,6 +47,9 @@
 </div>
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>
+</c:otherwise>
+</c:choose>
+
 </body>
 <footer>
 <p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
