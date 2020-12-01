@@ -15,7 +15,7 @@
 <p class="welcomeuser">担当者ログイン中</p>
 <a href="/YourShelf/ViewUserServlet" class="viewuser">登録ユーザー確認</a>
 <a href="/YourShelf/LimitOverServlet" class="limitover">返却期限切れ確認</a>
-<a href="/YourShelf/〇〇〇/◇◇◇" class="viewbook">登録書籍一覧</a>
+<a href="/YourShelf/ControllerServlet?value=viewbookpage" class="viewbook">登録書籍一覧</a>
 <a href="/YourShelf/AddBookServlet" class="addbook">書籍登録</a>
 <a href="/YourShelf/LogoutServlet" class="logout">ログアウト</a>
 </div>

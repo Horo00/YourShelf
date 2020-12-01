@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
-<%-- <%@ page import="〇〇〇,java.util.List"%> --%>
-<%-- getAttribure文 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +11,7 @@
 </head>
 <body>
 <div class="return">
-<p class="message">機動戦士ガンダム 閃光のハサウェイ〈上〉を返却しました。</p>
+<p class="message">${book.getName}を返却しました。</p>
 <p class="returnlist">返却書籍の選択</p>
 <table class="list" border="1">
         <tr>
@@ -23,14 +21,19 @@
             <th>出版社</th>
             <th>返却ボタン</th>
         </tr>
-        <%-- 以下foreach文 --%>
+
+        <c:forEach var="category" items="${book}" begin="0" step="1" varStatus="status">
+        <form action="/YourShelf/ReturnServlet?value=return" method="get">
         <tr>
-            <td><img src="http://books.google.com/books/content?id=EKR4QgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"></td>
-            <td>機動戦士ガンダム 逆襲のシャア―ベルトーチカ・チルドレン</td>
-            <td>富野由悠季</td>
-            <td>角川文庫―スニーカー文庫</td>
-            <td><input type="submit" name="return" value="返却" class="return-submit"></td>
-        </tr>
+			<td><img src="${book.imgUrl}"></td>
+			<td><c:out value="${book.getName}"/></td>
+			<td><c:out value="${book.getAuthors}"/></td>
+			<td><c:out value="${book.getPublisher}"/></td>
+			<td><input type="submit" name="return" value="返却" class="return-submit"></td>
+			<td><input type="hidden" name="index" value="${status.index}"></td>
+		</tr>
+		</form>
+        </c:forEach>
 </table>
 </div>
 <div class="underlay-photo"></div>

@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
-<%-- <%@ page import="〇〇〇,java.util.List"%> --%>
-<%-- getAttribure文 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,10 +16,12 @@
         <tr>
             <th>登録ユーザー</th>
         </tr>
-        <%-- 以下foreach文 --%>
+
+        <c:forEach var="category" items="${userList}">
         <tr>
-            <td><a href="/〇〇〇/◇◇◇" class="selectuser">シャア・アズナブル</a></td>
-        </tr>
+			<td><a href="/YourShelf/ViewUserServlet" class="selectuser">${user.getName}</a></td>
+		</tr>
+        </c:forEach>
 </table>
 </div>
 <div class="underlay-photo"></div>

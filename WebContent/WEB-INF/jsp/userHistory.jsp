@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
-<%-- <%@ page import="〇〇〇,java.util.List"%> --%>
-<%-- getAttribure文 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,14 +20,16 @@
             <th>出版社</th>
             <th>返却期限</th>
         </tr>
-        <%-- 以下foreach文 --%>
+
+        <c:forEach var="book" items="${userBookHis}">
         <tr>
-            <td><img src="http://books.google.com/books/content?id=EKR4QgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"></td>
-            <td>機動戦士ガンダム 逆襲のシャア―ベルトーチカ・チルドレン</td>
-            <td>富野由悠季</td>
-            <td>角川文庫―スニーカー文庫</td>
-            <td>2020/12/20</td>
-        </tr>
+			<td><img src="${book.getImgUrl}"></td>
+			<td><c:out value="${userBookHis.getName}"/></td>
+			<td><c:out value="${userBookHis.getAuthors}"/></td>
+			<td><c:out value="${userBookHis.getPublisher}"/></td>
+			<td><c:out value="${userBookHis.limitdate}"/></td>
+		</tr>
+        </c:forEach>
 </table>
 </div>
 <div class="underlay-photo"></div>
