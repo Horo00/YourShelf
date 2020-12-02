@@ -93,6 +93,7 @@ public class ReturnServlet extends HttpServlet {
 			if(result) {//返却に成功した場合
 				//返却した本の情報をセッションに保存
 				request.setAttribute("book",lendingBookList.get(index));
+				lendingBookList.remove(index);
 
 				//返却結果画面へフォワード
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/returnOK.jsp");

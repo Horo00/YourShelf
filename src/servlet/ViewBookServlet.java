@@ -54,13 +54,13 @@ public class ViewBookServlet extends HttpServlet {
 		String keyword = request.getParameter("keyword");
 
 //		 取得した結果を保存するListを作成
-		List<LendingBook> selectBook = SearchBook.search(book,keyword);
+		List<LendingBook> searchBook = SearchBook.search(book,keyword);
 
 //		 取得したArrayListをセッションスコープに保存
-		session.setAttribute("searchBook", selectBook);
+		session.setAttribute("searchBook", searchBook);
 
 		// 結果を表示するJSPファイルにフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewBook.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewSearchBook.jsp");
 		dispatcher.forward(request, response);
 	}
 }

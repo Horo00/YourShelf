@@ -91,7 +91,7 @@ public class CheckOutServlet extends HttpServlet {
 			books = (List<Book>) session.getAttribute("book");
 		}
 		if (value.equals("search")) {
-			books = (List<Book>) session.getAttribute("selectBook");
+			books = (List<Book>) session.getAttribute("searchBook");
 		}
 
 		//※書籍情報を「book」変数に格納
