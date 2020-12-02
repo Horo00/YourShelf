@@ -44,7 +44,7 @@ pageEncoding="UTF-8"%>
 			<td><c:out value="${books.count}"/></td>
 			<c:choose>
 			<c:when test="${books.isCheckedOut == true}">
-			<td><input type="submit" value="貸出中" disabled class="checkoutnow-submit"></td>
+			<td><p class="nowlending">貸出中</p></td>
 			</c:when>
 			<c:otherwise>
 			<td><input type="submit" name="checkout" value="借りる" class="checkout-submit"></td>
@@ -65,9 +65,9 @@ pageEncoding="UTF-8"%>
 </c:otherwise>
 </c:choose>
 
-
-</body>
 <footer>
 <p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
 </footer>
+</body>
+
 </html>

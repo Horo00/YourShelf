@@ -82,7 +82,7 @@ public class LendingBookDAO {
 		//返却日がnull(まだ返却されていない)ところを抜き出す
 		//①ユーザーID
 		final String SQL =
-				"SELECT lending_book_id,title,checkedout_date FROM lending_book WHERE id = ? AND return_date is NULL;";
+				"SELECT lending_book_id,title,books_id,checkedout_date FROM lending_book WHERE id = ? AND return_date is NULL";
 		connector = new ConnectionUser();
 
 		try (Connection connection = connector.getConnection();
@@ -97,6 +97,7 @@ public class LendingBookDAO {
 				LendingBook book = new LendingBook();
 				book.setLendingBookId(rs.getInt("lending_book_id"));
 				book.setTitle(rs.getString("title"));
+				book.setBooksId(rs.getInt("books_id"));
 				book.setCheckedoutDate(rs.getDate("checkedout_date"));
 
 				//本の詳細を取得し、bookインスタンスにセットする
@@ -176,7 +177,7 @@ public class LendingBookDAO {
 	public List<LendBookHistroy> getBookHistroy(UserDTO user) {
 		//SQLの設定
 		//①ユーザーID
-		final String SQL = "SELECT lending_book_id,title,checkedout_date,return_date FROM lending_book WHERE id = ?";
+		final String SQL = "SELECT lending_book_id,title,books_id,checkedout_date,return_date FROM lending_book WHERE id = ?";
 		connector = new ConnectionUser();
 
 		try (Connection connection = connector.getConnection();
@@ -191,6 +192,7 @@ public class LendingBookDAO {
 				LendBookHistroy book = new LendBookHistroy();
 				book.setLendingBookId(rs.getInt("lending_book_id"));
 				book.setTitle(rs.getString("title"));
+				book.setBooksId(rs.getInt("books_id"));
 				book.setCheckedoutDate(rs.getDate("checkedout_date"));
 				book.setReturnDate(rs.getDate("return_date"));
 
@@ -225,7 +227,7 @@ public class LendingBookDAO {
 		//SQLの設定
 		//①userId
 		//②isbn
-		final String SQL = "INSERT INTO lending_book(lending_book_id,id,title,checkedout_date) VALUES(NULL,?,?,date(now()))";
+		final String SQL = "INSERT INTO lending_book(lending_book_id,id,title,books_id,checkedout_date) VALUES(NULL,?,?,?,date(now()))";
 		connector = new ConnectionUser();
 
 		try (Connection connection = connector.getConnection()) {
@@ -237,6 +239,7 @@ public class LendingBookDAO {
 
 				statement.setInt(1, user.getId());
 				statement.setString(2, book.getTitle());
+				statement.setInt(3, book.getBooksId());
 
 				int successCount = statement.executeUpdate();
 

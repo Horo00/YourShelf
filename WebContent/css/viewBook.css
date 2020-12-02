@@ -10,6 +10,7 @@ body {
   display: -webkit-box;
   display: flex;
   overflow: hidden;
+
 }
 
 footer { width: 100%; height: 60px; position: absolute; bottom: 0; }
@@ -67,7 +68,7 @@ footer { width: 100%; height: 60px; position: absolute; bottom: 0; }
   -webkit-transition: 250ms background ease-in;
   transition: 250ms background ease-in;
 }
-.searchshelf-submit:hover, .searchshelf-submit:focus, .checkout-submit:hover, .checkout-submit:focus, .checkoutnow-submit:hover, .checkoutnow-submit:focus {
+.searchshelf-submit:hover, .searchshelf-submit:focus, .checkout-submit:hover, .checkout-submit:focus {
   background: white;
   color: black;
   -webkit-transition: 250ms background ease-in;
@@ -75,7 +76,7 @@ footer { width: 100%; height: 60px; position: absolute; bottom: 0; }
 }
 
 
-.footerCopy {
+.footerCopy, .nowlending {
 	color: #f0ffff;
 }
 [class*=underlay] {
