@@ -58,74 +58,62 @@ public class CheckOutServlet extends HttpServlet {
 		RequestDispatcher dispatcher;
 
 		//index値が入っていない場合などは暫定処置としてトップページにリダイレクトさせる
-		try {
-			//一般ユーザー[借りる]ボタンからアクセスの場合
-			//ログイン確認のためセッションスコープからユーザ情報を取得
-			HttpSession session = request.getSession();
-			UserDTO loginUser = (UserDTO) session.getAttribute("user");
+		//一般ユーザー[借りる]ボタンからアクセスの場合
+		//ログイン確認のためセッションスコープからユーザ情報を取得
+		HttpSession session = request.getSession();
+		UserDTO loginUser = (UserDTO) session.getAttribute("user");
 
-			if (loginUser == null) {//ログインをしていない場合（セッションスコープにユーザー情報がない場合）
-				//ログイン画面へフォワード
-				dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginOK.jsp");
-				dispatcher.forward(request, response);
-				return;
-			}
-
-			if(loginUser.getId() == 0) {
-				//管理者でログインしている場合
-				//何もせずログイン画面(管理者)へフォワード
-				dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginAdmin.jsp");
-				dispatcher.forward(request, response);
-				return;
-			}
-
-			int index = Integer.parseInt(request.getParameter("index"));//どの位置の本が押されたか取得
-			//セッションに保存されている所有書籍リストを取得
-			List<Book> books = (List<Book>) session.getAttribute("book");
-
-			//※書籍情報を「book」変数に格納
-			Book lendBook = books.get(index);
-
-			//もし該当書籍が借りられている場合所有書籍一覧に戻す
-			if (lendBook.isCheckedOut()) {
-				dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewBook.jsp");
-				dispatcher.forward(request, response);
-				return;
-			}
-			//★取得した書籍データをDBへ保存⇒結果をbooleanで返す
-			LendingBookDAO dao = new LendingBookDAO();
-			boolean result = dao.lendBook(loginUser, lendBook);
-
-			if (result) {//借りることに成功した場合
-				//借りた書籍の情報をセッションスコープに保存
-				request.setAttribute("lendBook", lendBook);
-
-				//借りられた本のビーンズのカウントを１上げる
-				lendBook.addCount();
-
-				//貸出完了表示画面にフォワード
-				dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/checkOutOK.jsp");
-				dispatcher.forward(request, response);
-				return;
-
-			} else {//借りることに失敗した場合
-					//エラーメッセージを保存
-					//String errorMsg="借りられませんでした";
-					//エラーメッセージをセッションスコープに保存
-					//HttpSession session=request.getSession();
-					//session.setAttribute("errorMsg",errorMsg);
-
-				//貸出完了表示画面にフォワード
-				dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewBook.jsp");
-				dispatcher.forward(request, response);
-				return;
-			}
-		} catch (Exception e) {
-			//例外発生時,ＴＯＰへリダイレクト
+		if (loginUser == null) {//ログインをしていない場合（セッションスコープにユーザー情報がない場合）
+			//ログイン画面へフォワード
+			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginOK.jsp");
+			dispatcher.forward(request, response);
+			return;
 		}
-		dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginOK.jsp");
-		dispatcher.forward(request, response);
-		return;
+
+		if (loginUser.getId() == 0) {
+			//管理者でログインしている場合
+			//何もせずログイン画面(管理者)へフォワード
+			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginAdmin.jsp");
+			dispatcher.forward(request, response);
+			return;
+		}
+
+		int index = Integer.parseInt(request.getParameter("index"));//どの位置の本が押されたか取得
+		//セッションに保存されている所有書籍リストを取得
+		List<Book> books = (List<Book>) session.getAttribute("book");
+
+		//※書籍情報を「book」変数に格納
+		Book lendBook = books.get(index);
+
+		//もし該当書籍が借りられている場合所有書籍一覧に戻す
+		if (lendBook.isCheckedOut()) {
+			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewBook.jsp");
+			dispatcher.forward(request, response);
+			return;
+		}
+		//★取得した書籍データをDBへ保存⇒結果をbooleanで返す
+		LendingBookDAO dao = new LendingBookDAO();
+		boolean result = dao.lendBook(loginUser, lendBook);
+
+		if (result) {//借りることに成功した場合
+			//借りた書籍の情報をセッションスコープに保存
+			request.setAttribute("lendBook", lendBook);
+
+			//借りられた本のビーンズのカウントを１上げる
+			lendBook.addCount();
+
+			//貸出完了表示画面にフォワード
+			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/checkOutOK.jsp");
+			dispatcher.forward(request, response);
+			return;
+
+		} else {//借りることに失敗した場合
+			//貸出完了表示画面にフォワード
+			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewBook.jsp");
+			dispatcher.forward(request, response);
+			return;
+		}
+
 	}
 
 }
