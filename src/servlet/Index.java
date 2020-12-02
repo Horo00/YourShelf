@@ -31,8 +31,8 @@ public class Index extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		//GET通信があれば、Index.jsp(TOPページ)にフォワード
-//		response.sendRedirect("http://172.16.71.105:8080/YourShelf/index.jsp");
-		response.sendRedirect("http://localhost:8080/YourShelf/index.jsp");
+		response.sendRedirect("http://172.16.71.105:8080/YourShelf/index.jsp");
+//		response.sendRedirect("http://localhost:8080/YourShelf/index.jsp");
 	}
 
 	/**
