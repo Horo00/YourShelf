@@ -15,7 +15,7 @@
 <c:choose>
 
 <c:when test="${empty lendingBookList}">
-<p class=nonlist>該当書籍はありません</p>
+<p class="nonlist">該当書籍はありません</p>
 </c:when>
 <c:otherwise>
         <table class="list" border="1">
@@ -44,11 +44,12 @@
 
 
 </table>
+</c:otherwise>
+</c:choose>
 <a class="backtomain" href="/YourShelf/ControllerServlet?value=loginpage">メニューに戻る</a>
 </div>
 
-</c:otherwise>
-</c:choose>
+
 </body>
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>

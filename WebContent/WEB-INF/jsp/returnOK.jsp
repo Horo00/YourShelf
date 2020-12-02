@@ -26,7 +26,7 @@
         <form action="/YourShelf/ReturnServlet?value=return" method="get">
         <tr>
 			<td><img src="${lendingBook.imgUrl}"></td>
-			<td><c:out value="${lendingBook.name}"/></td>
+			<td><c:out value="${lendingBook.title}"/></td>
 			<td><c:out value="${lendingBook.authors}"/></td>
 			<td><c:out value="${lendingBook.publisher}"/></td>
 			<td><input type="submit" name="return" value="返却" class="return-submit"></td>
