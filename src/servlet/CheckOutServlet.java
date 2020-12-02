@@ -100,6 +100,9 @@ public class CheckOutServlet extends HttpServlet {
 				//借りた書籍の情報をセッションスコープに保存
 				request.setAttribute("lendBook", lendBook);
 
+				//借りられた本のビーンズのカウントを１上げる
+				lendBook.addCount();
+
 				//貸出完了表示画面にフォワード
 				dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/checkOutOK.jsp");
 				dispatcher.forward(request, response);

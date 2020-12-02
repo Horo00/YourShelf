@@ -87,4 +87,7 @@ public class Book implements Serializable{
 		this.boughtDate = boughtDate;
 	}
 
+	public void addCount() {
+		this.count++;
+	}
 }

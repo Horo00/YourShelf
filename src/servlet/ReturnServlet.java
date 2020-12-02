@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import data_access.LendingBookDAO;
+import helper.JumpPageHelper;
 import javabeans.LendingBook;
 import javabeans.UserDTO;
 
@@ -63,23 +64,6 @@ public class ReturnServlet extends HttpServlet {
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/return.jsp");
 					dispatcher.forward(request, response);
 
-				}else if(value.equals("return")) {//一般ユーザー[返却ボタン]から
-					//★返却する本のデータをbookに格納
-					List<LendingBook> lendingBookList= (List<LendingBook>) session.getAttribute("lendingBookList");
-					int index=Integer.parseInt(request.getParameter("index"));
-
-					//★該当する書籍のレンタル情報をDBで変更
-					LendingBookDAO dao=new LendingBookDAO();
-					boolean result=dao.returnBook(lendingBookList.get(index));
-
-					if(result) {//返却に成功した場合
-						//返却した本の情報をセッションに保存
-						request.setAttribute("book",lendingBookList.get(index));
-
-						//返却結果画面へフォワード
-						RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/returnOK.jsp");
-						dispatcher.forward(request, response);
-					}
 				}
 	}
 
@@ -89,10 +73,32 @@ public class ReturnServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		String value = request.getParameter("value");
+		if(value == null) {
+			response.sendRedirect(JumpPageHelper.INDEX);
+			return;
+		}
 
-		//■POST通信（直接アクセス）********************************************************************
-		//ＴＯＰへリダイレクト
-		response.sendRedirect("/YourShelf/Index");
+		if(value.equals("return")) {//一般ユーザー[返却ボタン]から
+			//★返却する本のデータをbookに格納
+			HttpSession session = request.getSession();
+			List<LendingBook> lendingBookList= (List<LendingBook>) session.getAttribute("lendingBookList");
+			int index=Integer.parseInt(request.getParameter("index"));
+
+			//★該当する書籍のレンタル情報をDBで変更
+			LendingBookDAO dao=new LendingBookDAO();
+			boolean result=dao.returnBook(lendingBookList.get(index));
+
+			if(result) {//返却に成功した場合
+				//返却した本の情報をセッションに保存
+				request.setAttribute("book",lendingBookList.get(index));
+
+				//返却結果画面へフォワード
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/returnOK.jsp");
+				dispatcher.forward(request, response);
+			}
+		}
 	}
 
 }

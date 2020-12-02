@@ -125,7 +125,7 @@ public class JsonData extends HttpServlet implements EnvSet {
 
 			//検索結果0の場合、no_result.jspへフォワードする
 			if (count == 0) {
-				rd = request.getRequestDispatcher("/no_result.jsp");
+				rd = request.getRequestDispatcher("/WEB-INF/jsp/searchApiResult.jsp");
 				rd.forward(request, response);
 				return null;
 			}
