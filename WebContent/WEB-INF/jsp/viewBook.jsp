@@ -13,6 +13,10 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 <div class="viewbook">
+<form action="/YourShelf//ViewBookServlet" method="post" class="searchshelf-form-form">
+        <input type="text" name="keyword" placeholder="キーワード入力" required class="searchshelf-keyword">
+        <input type="submit" value="検索" class="searchshelf-submit">
+</form>
 <p class="viewbooklist">登録書籍一覧</p>
 <c:choose>
 
@@ -26,16 +30,18 @@ pageEncoding="UTF-8"%>
 		<th>タイトル</th>
 		<th>著者</th>
 		<th>出版社</th>
+		<th>貸出回数</th>
 		<th>借りるボタン</th>
 		</tr>
 
 		<c:forEach var="books" items="${book}" begin="0" step="1" varStatus="status">
-		<form action="/YourShelf/AddBookServlet?value=add" method="post">
+		<form action="/YourShelf/CheckOutServlet" method="post">
 		<tr>
 			<td><img src="${books.imgUrl}" alt="${books.imgUrl}"></td>
 			<td><c:out value="${books.title}"/></td>
 			<td><c:out value="${books.authors}"/></td>
 			<td><c:out value="${books.publisher}"/></td>
+			<td><c:out value="${books.count}"/></td>
 			<td><input type="submit" name="checkout" value="借りる" class="checkout-submit"></td>
 			<td><input type="hidden" name="index" value="${status.index}"></td>
 		</tr>
@@ -43,10 +49,7 @@ pageEncoding="UTF-8"%>
 		</c:forEach>
 
 		</table>
-		<form action="/YourShelf//ViewBookServlet" method="post" class="searchshelf-form-form">
-        <input type="text" name="keyword" placeholder="キーワード入力" required class="searchshelf-keyword">
-        <input type="submit" value="検索" class="searchshelf-submit">
-        </form>
+
         <a class="backtomain" href="/YourShelf/ControllerServlet?value=loginpage">メニューに戻る</a>
 </div>
 

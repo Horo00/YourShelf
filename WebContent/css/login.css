@@ -55,7 +55,7 @@ input:focus :-ms-input-placeholder {
   color: black;
 }
 
-.login-username, .login-password {
+.login-username, .login-password, .backtomain {
   background: transparent;
   border: 0 solid;
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
