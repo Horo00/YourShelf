@@ -56,7 +56,7 @@ footer { width: 100%; height: 60px; position: absolute; bottom: 0; }
 }
 
 
-.checkout-submit, .searchshelf-submit {
+.checkout-submit, .searchshelf-submit, .checkoutnow-submit {
   border: 1px solid white;
   background: transparent;
   color: white;
@@ -67,7 +67,7 @@ footer { width: 100%; height: 60px; position: absolute; bottom: 0; }
   -webkit-transition: 250ms background ease-in;
   transition: 250ms background ease-in;
 }
-.searchshelf-submit:hover, .searchshelf-submit:focus, .checkout-submit:hover, .checkout-submit:focus {
+.searchshelf-submit:hover, .searchshelf-submit:focus, .checkout-submit:hover, .checkout-submit:focus, .checkoutnow-submit:hover, .checkoutnow-submit:focus {
   background: white;
   color: black;
   -webkit-transition: 250ms background ease-in;
