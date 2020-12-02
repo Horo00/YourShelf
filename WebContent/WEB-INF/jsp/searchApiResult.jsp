@@ -54,7 +54,7 @@ pageEncoding="UTF-8"%>
 
 
 <a class="backtosearch" href="/YourShelf/AddBookServlet">新規書籍検索に戻る</a>
-<a class="backtoadmin" href="/WEB-INF/jsp/loginAdmin.jsp">担当者メニューに戻る</a>
+<a class="backtomain" href="/YourShelf/ControllerServlet?value=loginpage">担当者メニューに戻る</a>
 </div>
 </body>
 <div class="underlay-photo"></div>

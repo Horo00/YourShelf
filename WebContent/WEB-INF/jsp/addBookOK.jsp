@@ -24,7 +24,7 @@ pageEncoding="UTF-8"%>
 <input type="submit" value="検索" class="search-submit">
 <input type="submit" value="リセット" class="reset-submit"><br>
 </form>
-<a class="backtoadmin" href="/WEB-INF/jsp/loginAdmin.jsp">担当者メニューに戻る</a>
+<a class="backtomain" href="/YourShelf/ControllerServlet?value=loginpage">担当者メニューに戻る</a>
 </div>
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>

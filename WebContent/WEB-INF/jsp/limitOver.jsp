@@ -35,7 +35,7 @@
 
 
 </table>
-<a class="backtoadmin" href="/YourShelf/ControllerServlet?value=loginpage">担当者メニューに戻る</a>
+<a class="backtomain" href="/YourShelf/ControllerServlet?value=loginpage">担当者メニューに戻る</a>
 </div>
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>
