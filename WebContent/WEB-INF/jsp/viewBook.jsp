@@ -42,7 +42,14 @@ pageEncoding="UTF-8"%>
 			<td><c:out value="${books.authors}"/></td>
 			<td><c:out value="${books.publisher}"/></td>
 			<td><c:out value="${books.count}"/></td>
+			<c:choose>
+			<c:when test="${books.isCheckedOut == true}">
+			<td><input type="submit" value="貸出中" disabled class="checkoutnow-submit"></td>
+			</c:when>
+			<c:otherwise>
 			<td><input type="submit" name="checkout" value="借りる" class="checkout-submit"></td>
+			</c:otherwise>
+			</c:choose>
 			<td><input type="hidden" name="index" value="${status.index}"></td>
 		</tr>
 		</form>
