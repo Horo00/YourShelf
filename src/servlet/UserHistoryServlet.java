@@ -43,7 +43,7 @@ public class UserHistoryServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		HttpSession session = request.getSession();
-		UserDTO user = (UserDTO) session.getAttribute("userDTO");
+		UserDTO user = (UserDTO) session.getAttribute("user");
 
 		//アクセス元により分岐------------------------------------------------------------------------
 		if (user == null) {//直接アクセスの場合

@@ -62,11 +62,11 @@ public class CheckOutServlet extends HttpServlet {
 			//一般ユーザー[借りる]ボタンからアクセスの場合
 			//ログイン確認のためセッションスコープからユーザ情報を取得
 			HttpSession session = request.getSession();
-			UserDTO loginUser = (UserDTO) session.getAttribute("UserDTO");
+			UserDTO loginUser = (UserDTO) session.getAttribute("user");
 
 			if (loginUser == null) {//ログインをしていない場合（セッションスコープにユーザー情報がない場合）
 				//ログイン画面へフォワード
-				dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+				dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginOK.jsp");
 				dispatcher.forward(request, response);
 				return;
 			}
@@ -116,6 +116,7 @@ public class CheckOutServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			//例外発生時,ＴＯＰへリダイレクト
 			response.sendRedirect("/YourShelf/Index");
 		}
