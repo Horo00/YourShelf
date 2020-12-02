@@ -8,20 +8,31 @@ import javabeans.LendingBook;
 public class SearchBook {
 
 	public static List<LendingBook> search(List<LendingBook> book, String keyword) {
-		List<LendingBook> selectBook = new ArrayList<LendingBook>();
-		for (LendingBook lendingBook : book) {
-			//タイトルの中にキーワードが含まれていればselectBookに格納する
-			if(lendingBook.getTitle().contains(keyword)) {
-				selectBook.add(lendingBook);
-				continue;
-			}
+		String[] words = keyword.split("[ 　]",0);
 
-			//作者名の中にキーワードが含まれていればselectBookに格納する
-			if(lendingBook.getAuthors().contains(keyword)) {
-				selectBook.add(lendingBook);
+		List<LendingBook> searchBook = new ArrayList<LendingBook>();
+		for (LendingBook lendingBook : book) {
+			int count = 0;
+
+			for (String word : words) {
+				boolean isCount = true;
+				//タイトルの中にキーワードが含まれていればカウントを上げる
+				if(lendingBook.getTitle().contains(word)) {
+					count++;
+					isCount = false;
+				}
+
+				//作者の中にキーワードが含まれていればカウントを上げる
+				if(lendingBook.getAuthors().contains(word) && isCount) {
+					count++;
+				}
+
+				if(count == words.length) {
+					searchBook.add(lendingBook);
+				}
 			}
 		}
-		return selectBook;
+		return searchBook;
 
 	}
 }
