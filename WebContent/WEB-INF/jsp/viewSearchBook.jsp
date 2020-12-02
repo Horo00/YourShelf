@@ -17,10 +17,10 @@ pageEncoding="UTF-8"%>
         <input type="text" name="keyword" placeholder="キーワード入力" required class="searchshelf-keyword">
         <input type="submit" value="検索" class="searchshelf-submit">
 </form>
-<p class="viewbooklist">登録書籍一覧</p>
+<p class="viewbooklist">検索結果</p>
 <c:choose>
 
-<c:when test="${empty book}">
+<c:when test="${empty searchBook}">
 <p>該当書籍はありません</p>
 </c:when>
 <c:otherwise>
@@ -34,8 +34,8 @@ pageEncoding="UTF-8"%>
 		<th>借りるボタン</th>
 		</tr>
 
-		<c:forEach var="books" items="${book}" begin="0" step="1" varStatus="status">
-		<form action="/YourShelf/CheckOutServlet?value=all" method="post">
+		<c:forEach var="books" items="${searchBook}" begin="0" step="1" varStatus="status">
+		<form action="/YourShelf/CheckOutServlet?value=search" method="post">
 		<tr>
 			<td><img src="${books.imgUrl}" alt="${books.imgUrl}"></td>
 			<td><c:out value="${books.title}"/></td>

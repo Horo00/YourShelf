@@ -36,11 +36,9 @@
 
 </table>
 <a class="backtomain" href="/YourShelf/ControllerServlet?value=loginpage">担当者メニューに戻る</a>
+<p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
 </div>
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>
 </body>
-<footer>
-<p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
-</footer>
 </html>

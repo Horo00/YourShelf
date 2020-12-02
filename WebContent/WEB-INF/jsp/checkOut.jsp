@@ -16,12 +16,10 @@
 <p class="nonuser">YourShelfにログインしていません</p>
 <a href="/YourShelf/LoginServlet" class="login">ログイン</a>
 <a href="/YourShelf/AddUser" class="adduser">新規ユーザー登録</a>
+<p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
 </div>
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>
 </body>
-<footer>
-<p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
-</footer>
 
 </html>

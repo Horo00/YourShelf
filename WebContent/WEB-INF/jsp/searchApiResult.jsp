@@ -55,11 +55,9 @@ pageEncoding="UTF-8"%>
 
 <a class="backtosearch" href="/YourShelf/AddBookServlet">新規書籍検索に戻る</a>
 <a class="backtomain" href="/YourShelf/ControllerServlet?value=loginpage">担当者メニューに戻る</a>
+<p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
 </div>
 </body>
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>
-<footer>
-<p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
-</footer>
 </html>

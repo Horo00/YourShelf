@@ -23,11 +23,10 @@
 		<input type="password" class="login-password" name="password"
 			required placeholder="パスワード"><br> <input
 			type="submit" name="Login" value="ログイン" class="login-submit">
+			<p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
 	</form>
+
 	<div class="underlay-photo"></div>
 	<div class="underlay-black"></div>
 </body>
-<footer>
-<p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
-</footer>
 </html>

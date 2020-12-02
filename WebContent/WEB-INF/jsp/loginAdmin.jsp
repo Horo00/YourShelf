@@ -18,11 +18,10 @@
 <a href="/YourShelf/ControllerServlet?value=viewbookpage" class="viewbook">登録書籍一覧</a>
 <a href="/YourShelf/AddBookServlet" class="addbook">書籍登録</a>
 <a href="/YourShelf/LogoutServlet" class="logout">ログアウト</a>
+<p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
 </div>
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>
 </body>
-<footer>
-<p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
-</footer>
+
 </html>

@@ -47,13 +47,11 @@
 </c:otherwise>
 </c:choose>
 <a class="backtomain" href="/YourShelf/ControllerServlet?value=loginpage">メニューに戻る</a>
+<p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
 </div>
 
 
 </body>
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>
-<footer>
-<p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
-</footer>
 </html>

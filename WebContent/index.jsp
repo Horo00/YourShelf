@@ -18,11 +18,9 @@
 <a href="/YourShelf/ControllerServlet?value=loginpage" class="login">ログイン</a>
 <a href="/YourShelf/ControllerServlet?value=adduserpage" class="adduser">ユーザー登録</a>
 <a href="/YourShelf/ControllerServlet?value=viewbookpage" class="viewbook">登録書籍一覧</a>
+<p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
 </div>
 <div class="underlay-photo"></div>
 <div class="underlay-black"></div>
 </body>
-<footer>
-<p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
-</footer>
 </html>
