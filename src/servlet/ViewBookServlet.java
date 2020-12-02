@@ -57,7 +57,7 @@ public class ViewBookServlet extends HttpServlet {
 		List<LendingBook> selectBook = SearchBook.search(book,keyword);
 
 //		 取得したArrayListをセッションスコープに保存
-		request.setAttribute("book", selectBook);
+		session.setAttribute("searchBook", selectBook);
 
 		// 結果を表示するJSPファイルにフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewBook.jsp");

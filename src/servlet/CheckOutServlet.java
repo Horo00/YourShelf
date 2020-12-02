@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -79,8 +80,19 @@ public class CheckOutServlet extends HttpServlet {
 		}
 
 		int index = Integer.parseInt(request.getParameter("index"));//どの位置の本が押されたか取得
+
+		//全書籍データからか、検索された後の書籍データからかのチェック
+		String value = request.getParameter("value");
+
+		List<Book> books = new ArrayList<Book>();
+
 		//セッションに保存されている所有書籍リストを取得
-		List<Book> books = (List<Book>) session.getAttribute("book");
+		if (value.equals("all")) {
+			books = (List<Book>) session.getAttribute("book");
+		}
+		if (value.equals("search")) {
+			books = (List<Book>) session.getAttribute("selectBook");
+		}
 
 		//※書籍情報を「book」変数に格納
 		Book lendBook = books.get(index);
