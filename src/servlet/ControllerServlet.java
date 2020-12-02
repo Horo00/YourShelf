@@ -95,10 +95,12 @@ public class ControllerServlet extends HttpServlet {
 			HavingBookDAO dao = new HavingBookDAO();
 			List<LendingBook> book = dao.searchBook();
 
-			Collections.sort(book, new CountSort());
+			if (book != null) {
+				Collections.sort(book, new CountSort());
 
-			//書籍一覧データをセッションスコープに保存
-			session.setAttribute("book", book);
+				//書籍一覧データをセッションスコープに保存
+				session.setAttribute("book", book);
+			}
 
 			//書籍一覧表示画面にフォワード
 			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewBook.jsp");
@@ -124,22 +126,22 @@ public class ControllerServlet extends HttpServlet {
 
 		String name = request.getParameter("name");
 
-//		//nameパラメータが入っていない場合（未入力や重複チェックボタンが押されていない場合)
-//		//処理を行わず新規登録画面に戻す
-//		if(name.length() == 0 || name == null) {
-//			request.setAttribute("message", "名前を入力し、重複チェックボタンを押してください");
-//			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
-//			dispatcher.forward(request, response);
-//		}
+		//		//nameパラメータが入っていない場合（未入力や重複チェックボタンが押されていない場合)
+		//		//処理を行わず新規登録画面に戻す
+		//		if(name.length() == 0 || name == null) {
+		//			request.setAttribute("message", "名前を入力し、重複チェックボタンを押してください");
+		//			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
+		//			dispatcher.forward(request, response);
+		//		}
 
 		String password = request.getParameter("password");
-//		String passwordCheck = request.getParameter("password-check");
-//		//２つのパスワードが違っていた場合、処理を行わず新規登録画面に戻す
-//		if(!password.equals(passwordCheck)){
-//			request.setAttribute("message", "パスワードを確認してください");
-//			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
-//			dispatcher.forward(request, response);
-//		}
+		//		String passwordCheck = request.getParameter("password-check");
+		//		//２つのパスワードが違っていた場合、処理を行わず新規登録画面に戻す
+		//		if(!password.equals(passwordCheck)){
+		//			request.setAttribute("message", "パスワードを確認してください");
+		//			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
+		//			dispatcher.forward(request, response);
+		//		}
 
 		//ログイン処理の実行
 		Login login = new Login(name, password);
@@ -167,9 +169,9 @@ public class ControllerServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 		} //ログイン失敗
-		//エラーメッセージをリクエストに格納
+			//エラーメッセージをリクエストに格納
 		request.setAttribute("message", "ログインに失敗しました");
-			//ログイン画面にフォワード
+		//ログイン画面にフォワード
 		dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 		dispatcher.forward(request, response);
 	}
