@@ -37,7 +37,7 @@
 		<c:forEach var="books" items="${book}" begin="0" step="1" varStatus="status">
 		<tr>
 			<td><img src="${books.imgUrl}"></td>
-			<td><c:out value="${books.name}"/></td>
+			<td><c:out value="${books.title}"/></td>
 			<td><c:out value="${books.authors}"/></td>
 			<td><c:out value="${books.publisher}"/></td>
 			<td><input type="submit" name="checkout" value="借りる" class="checkout-submit"></td>
