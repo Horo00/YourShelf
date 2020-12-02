@@ -66,8 +66,10 @@ public class LimitOverServlet extends HttpServlet {
 		List<LimitOverBooks> overBooks = dao2.getLimitOverBookList(books);
 
 		//期限切れリストに入っているIDからユーザーの名前をセットする
-		UserDAO dao3 = new UserDAO();
-		dao3.setUsersName(overBooks);
+		if (overBooks != null) {
+			UserDAO dao3 = new UserDAO();
+			dao3.setUsersName(overBooks);
+		}
 
 		//期限切れ一覧情報をセッションスコープに保存
 		session.setAttribute("overBooks", overBooks);

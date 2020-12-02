@@ -40,6 +40,9 @@ public class JsonData extends HttpServlet implements EnvSet {
 		String isbn = request.getParameter("isbn");
 		String title = request.getParameter("title");
 
+		//タイトルは複数キーワードの文字列に置き換える
+		title = title.replaceAll(" ", ",").replaceAll("　",",");
+
 		//接続URL
 		String requestUrl = null;
 

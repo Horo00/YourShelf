@@ -54,55 +54,60 @@ public class AddUser extends HttpServlet {
 
 		//パラメータから情報を取得
 		request.setCharacterEncoding("UTF-8");
-		String name = request.getParameter("name");
-		String password = request.getParameter("password");
+		String name = "";
+		String password = "";
+		String passwordCheck = "";
 
-		//データの有無の確認
-		if (name != null && name.length() != 0) {//氏名の入力有
-			if (password != null && password.length() != 0) {//パスワードの入力有
-				//passwordのハッシュ化
-				password = Hash.getHash(password);
-
-				//DBにユーザ情報を登録
-				UserDAO dao = new UserDAO();
-				UserDTO user = dao.addUser(name, password);
-
-				if (user!=null) {//DBへの登録成功
-					//セッションスコープにユーザー情報を保存
-					HttpSession session = request.getSession();
-					session.setAttribute("user",user);//氏名・パスの保存されたビーンズ
-
-					//一般ユーザログイン画面にフォワード
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginOK.jsp");
-					dispatcher.forward(request, response);
-
-					return;
-				} else {//DBへの登録失敗
-					//エラーメッセージを保存
-					//String errorMsg="ユーザー登録に失敗しました";
-					//エラーメッセージをセッションスコープに保存
-					//HttpSession session=request.getSession();
-					//session.setAttribute("errorMsg",errorMsg);
-				}
-			} else {//パスワード入力なし
-				//エラーメッセージを保存
-				//String errorMsg="パスワードが入力されていません";
-				//エラーメッセージをセッションスコープに保存
-				//HttpSession session=request.getSession();
-				//session.setAttribute("errorMsg",errorMsg);
+		//入力項目チェック。不備があれば登録画面に戻す
+		try {
+			name = request.getParameter("name");
+			//nameパラメータが入っていない場合（未入力や重複チェックボタンが押されていない場合)
+			if (name == null || name.length() == 0) {
+				request.setAttribute("message", "名前を入力し、重複チェックボタンを押してください");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
+				dispatcher.forward(request, response);
+				return;
 			}
-		} else {//氏名入力なし
-			//エラーメッセージを保存
-			//String errorMsg="氏名が入力されていません";
-			//エラーメッセージをセッションスコープに保存
-			//HttpSession session=request.getSession();
-			//session.setAttribute("errorMsg",errorMsg);
-
+			password = request.getParameter("password");
+			passwordCheck = request.getParameter("password-check");
+			//２つのパスワードが違っていた場合
+			if (!password.equals(passwordCheck)) {
+				request.setAttribute("message", "パスワードを確認してください");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
+				dispatcher.forward(request, response);
+				return;
+			}
+			//nullポなどの例外発生時
+		} catch (Exception e) {
+			request.setAttribute("message", "入力項目を確認してください");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
+			dispatcher.forward(request, response);
+			return;
 		}
-		//TOP画面にフォワード
-//		RequestDispatcher dispatcher = request.getRequestDispatcher("/YourShelf/Index.java");
-//		dispatcher.forward(request, response);
-		response.sendRedirect("http://localhost:8080/YourShelf/index.jsp");
+
+		//データの整合性が取れた場合
+		//passwordのハッシュ化
+		password = Hash.getHash(password);
+
+		//DBにユーザ情報を登録
+		UserDAO dao = new UserDAO();
+		UserDTO user = dao.addUser(name, password);
+
+		if (user != null) {//DBへの登録成功
+			//セッションスコープにユーザー情報を保存
+			HttpSession session = request.getSession();
+			session.setAttribute("user", user);//氏名・パスの保存されたビーンズ
+
+			//一般ユーザログイン画面にフォワード
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginOK.jsp");
+			dispatcher.forward(request, response);
+
+			return;
+		}
+		//DBへの登録失敗
+		request.setAttribute("message", "新規登録に失敗しました");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

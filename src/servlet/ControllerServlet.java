@@ -123,7 +123,23 @@ public class ControllerServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		String name = request.getParameter("name");
+
+//		//nameパラメータが入っていない場合（未入力や重複チェックボタンが押されていない場合)
+//		//処理を行わず新規登録画面に戻す
+//		if(name.length() == 0 || name == null) {
+//			request.setAttribute("message", "名前を入力し、重複チェックボタンを押してください");
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
+//			dispatcher.forward(request, response);
+//		}
+
 		String password = request.getParameter("password");
+//		String passwordCheck = request.getParameter("password-check");
+//		//２つのパスワードが違っていた場合、処理を行わず新規登録画面に戻す
+//		if(!password.equals(passwordCheck)){
+//			request.setAttribute("message", "パスワードを確認してください");
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
+//			dispatcher.forward(request, response);
+//		}
 
 		//ログイン処理の実行
 		Login login = new Login(name, password);
