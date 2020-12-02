@@ -31,6 +31,7 @@
 		<th>タイトル</th>
 		<th>著者</th>
 		<th>出版社</th>
+		<th>貸出回数</th>
 		<th>借りるボタン</th>
 		</tr>
 
@@ -40,7 +41,15 @@
 			<td><c:out value="${books.title}"/></td>
 			<td><c:out value="${books.authors}"/></td>
 			<td><c:out value="${books.publisher}"/></td>
+			<td><c:out value="${books.count}"/></td>
+			<c:choose>
+			<c:when test="${books.isCheckedOut == true}">
+			<td><p class="nowlending">貸出中</p></td>
+			</c:when>
+			<c:otherwise>
 			<td><input type="submit" name="checkout" value="借りる" class="checkout-submit"></td>
+			</c:otherwise>
+			</c:choose>
 			<td><input type="hidden" name="index" value="${status.index}"></td>
 		</tr>
 		</c:forEach>

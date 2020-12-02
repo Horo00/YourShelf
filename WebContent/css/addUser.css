@@ -9,7 +9,7 @@ body {
   font-weight: 100;
   display: -webkit-box;
   display: flex;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 footer { width: 100%; height: 60px; position: absolute; bottom: 0; }
@@ -43,7 +43,7 @@ input:focus :-ms-input-placeholder {
   padding: .5rem;
 }
 
-.add-username, .add-pass, .add-pass-check, .backtomain {
+.add-username, .add-pass, .add-pass-check, .backtomain, .addmessage {
   background: transparent;
   border: 0 solid;
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);

@@ -9,7 +9,7 @@ body {
   font-weight: 100;
   display: -webkit-box;
   display: flex;
-  overflow: hidden;
+/*   overflow: hidden; */
   height: 100vh;
 }
 

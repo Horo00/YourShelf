@@ -101,6 +101,7 @@ public class CheckOutServlet extends HttpServlet {
 
 			//借りられた本のビーンズのカウントを１上げる
 			lendBook.addCount();
+			lendBook.setCheckedOut(true);
 
 			//貸出完了表示画面にフォワード
 			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/checkOutOK.jsp");

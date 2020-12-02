@@ -65,9 +65,9 @@ pageEncoding="UTF-8"%>
 </c:otherwise>
 </c:choose>
 
+
+</body>
 <footer>
 <p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
 </footer>
-</body>
-
 </html>

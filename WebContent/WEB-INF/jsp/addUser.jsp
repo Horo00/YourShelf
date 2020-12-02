@@ -16,8 +16,8 @@
 <form action="/YourShelf/UserNameCheckServlet" method="post">
 <p class="adduser">登録情報の入力</p>
 <input class="add-username" type="text" name="name" placeholder="ユーザー名" value="${name}" required>
-<input class="name-check" type="submit" value="ユーザー名の使用状況確認"><br>
-<p> ${message} </p>
+<input class="name-check" type="submit" value="ユーザー名の使用状況確認">
+<p class="addmessage"> ${message} </p>
 </form>
 
 
