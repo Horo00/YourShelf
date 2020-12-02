@@ -66,7 +66,7 @@ public class CheckOutServlet extends HttpServlet {
 
 		if (loginUser == null) {//ログインをしていない場合（セッションスコープにユーザー情報がない場合）
 			//ログイン画面へフォワード
-			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginOK.jsp");
+			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}

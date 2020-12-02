@@ -21,7 +21,7 @@ pageEncoding="UTF-8"%>
 <c:choose>
 
 <c:when test="${empty searchBook}">
-<p>該当書籍はありません</p>
+<p class="nonlist">該当書籍はありません</p>
 </c:when>
 <c:otherwise>
 		<table class="list" border="1">
@@ -56,16 +56,18 @@ pageEncoding="UTF-8"%>
 		</c:forEach>
 
 		</table>
+		</c:otherwise>
+        </c:choose>
 
         <a class="backtomain" href="/YourShelf/ControllerServlet?value=loginpage">メニューに戻る</a>
         <p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
 </div>
 
-        <div class="underlay-photo"></div>
-        <div class="underlay-black"></div>
-</c:otherwise>
-</c:choose>
+
+
 
 
 </body>
+<div class="underlay-photo"></div>
+<div class="underlay-black"></div>
 </html>

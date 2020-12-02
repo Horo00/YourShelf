@@ -40,14 +40,14 @@ public class JsonData extends HttpServlet implements EnvSet {
 		String isbn = request.getParameter("isbn");
 		String title = request.getParameter("title");
 
-		//タイトルは複数キーワードの文字列に置き換える
-		title = title.replaceAll(" ", ",").replaceAll("　",",");
-
 		//接続URL
 		String requestUrl = null;
 
 		//ISBNが入力されていたらISBNで検索、入力されていなかったら書名等で検索
 		if (isbn.equals("")) {
+			//タイトルは複数キーワードの文字列に置き換える
+			title = title.replaceAll(" ", ",").replaceAll("　",",");
+
 			//書名等で検索
 			requestUrl = GOOGLE_BOOKS_API_TITLE + title;
 

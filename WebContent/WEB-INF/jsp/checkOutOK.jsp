@@ -14,7 +14,7 @@
 <body>
 <div class="viewbook">
 <p class="message">${lendBook.title}を借りました。</p>
-<p class="sub-messsage">返却期限：${lendBooks.returnScheduleDate}</p>
+<p class="sub-messsage">返却期限：${lendBook.returnScheduleDate}</p>
 <form action="/YourShelf/AddBookServlet" method="post" class="searchshelf-form-form">
         <input type="text" name="keyword" placeholder="キーワード入力" required class="searchshelf-keyword">
         <input type="submit" value="検索" class="searchshelf-submit">
@@ -36,6 +36,7 @@
 		</tr>
 
 		<c:forEach var="books" items="${book}" begin="0" step="1" varStatus="status">
+		<form action="/YourShelf/CheckOutServlet?value=all" method="post">
 		<tr>
 			<td><img src="${books.imgUrl}"></td>
 			<td><c:out value="${books.title}"/></td>
@@ -52,6 +53,7 @@
 			</c:choose>
 			<td><input type="hidden" name="index" value="${status.index}"></td>
 		</tr>
+		</form>
 		</c:forEach>
 		</table>
 

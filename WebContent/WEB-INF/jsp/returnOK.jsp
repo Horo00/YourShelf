@@ -23,7 +23,7 @@
         </tr>
 
         <c:forEach var="lendingBook" items="${lendingBookList}" begin="0" step="1" varStatus="status">
-        <form action="/YourShelf/ReturnServlet?value=return" method="get">
+        <form action="/YourShelf/ReturnServlet?value=return" method="post">
         <tr>
 			<td><img src="${lendingBook.imgUrl}"></td>
 			<td><c:out value="${lendingBook.title}"/></td>
