@@ -97,7 +97,11 @@ public class ReturnServlet extends HttpServlet {
 				//返却結果画面へフォワード
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/returnOK.jsp");
 				dispatcher.forward(request, response);
+				return;
 			}
+			response.sendRedirect(JumpPageHelper.INDEX);
+			return;
+
 		}
 	}
 
