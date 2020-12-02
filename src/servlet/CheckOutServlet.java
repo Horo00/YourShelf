@@ -106,6 +106,7 @@ public class CheckOutServlet extends HttpServlet {
 				//貸出完了表示画面にフォワード
 				dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/checkOutOK.jsp");
 				dispatcher.forward(request, response);
+				return;
 
 			} else {//借りることに失敗した場合
 					//エラーメッセージを保存
@@ -117,12 +118,14 @@ public class CheckOutServlet extends HttpServlet {
 				//貸出完了表示画面にフォワード
 				dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/viewBook.jsp");
 				dispatcher.forward(request, response);
+				return;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			//例外発生時,ＴＯＰへリダイレクト
-			response.sendRedirect("/YourShelf/Index");
 		}
+		dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginOK.jsp");
+		dispatcher.forward(request, response);
+		return;
 	}
 
 }

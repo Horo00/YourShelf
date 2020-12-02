@@ -54,16 +54,13 @@ CREATE TABLE lending_book
 	id int unsigned zerofill NOT NULL COMMENT 'ユーザーテーブルの主キー',
 	-- 本のタイトル
 	title varchar(255) NOT NULL COMMENT '本のタイトル',
-	-- 所蔵本の主キーID
-	books_id int unsigned zerofill NOT NULL COMMENT '所蔵本の主キーID',
+	books_id int unsigned zerofill NOT NULL,
 	-- 貸出日
 	checkedout_date date NOT NULL COMMENT '貸出日',
 	-- 返却された日にupdateされる日付
 	return_date date COMMENT '返却された日にupdateされる日付',
 	PRIMARY KEY (lending_book_id),
-	UNIQUE (lending_book_id),
-	UNIQUE (title),
-	UNIQUE (books_id)
+	UNIQUE (lending_book_id)
 );
 
 
@@ -86,14 +83,6 @@ CREATE TABLE user
 ALTER TABLE lending_book
 	ADD FOREIGN KEY (title)
 	REFERENCES book_info (title)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE lending_book
-	ADD FOREIGN KEY (books_id)
-	REFERENCES having_book (books_id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
