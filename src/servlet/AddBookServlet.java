@@ -152,12 +152,8 @@ public class AddBookServlet extends HttpServlet implements EnvSet{
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addBookOK.jsp");
 				dispatcher.forward(request, response);
 			} else {//DBへの保存失敗
-					//エラーメッセージを保存
-				String errorMsg = "登録に失敗しました";
-				//エラーメッセージをセッションスコープに保存
-				session.setAttribute("errorMsg", errorMsg);
-
-				//ToDo失敗時の画面遷移
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/searchApiResult.jsp");
+				dispatcher.forward(request, response);
 			}
 
 		}

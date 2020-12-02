@@ -19,7 +19,7 @@ public class BookInfoDAO {
 	/**
 	 * HavingBookDAOのaddBook()メソッドからのみ呼び出されるメソッド
 	 * 引数で受け取ったbookの情報を書籍情報テーブルに書き加える。
-	 * isbnが被る可能性があるのでトランザクション処理は行わない。
+	 * タイトルが被る可能性があるのでトランザクション処理は行わない。
 	 * @param book
 	 */
 	public void addBookInfo(Book book) {
