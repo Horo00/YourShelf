@@ -43,7 +43,7 @@ input:focus :-ms-input-placeholder {
   padding: .5rem;
 }
 
-.add-username, .add-pass, .add-pass-check, .backtomain, .addmessage, .footerCopy{
+.add-username, .add-pass, .add-pass-check, .backtomain, .addmessage, .footerCopy, .backtotop{
   background: transparent;
   border: 0 solid;
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);

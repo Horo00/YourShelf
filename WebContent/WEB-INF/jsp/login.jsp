@@ -23,6 +23,7 @@
 		<input type="password" class="login-password" name="password"
 			required placeholder="パスワード"><br> <input
 			type="submit" name="Login" value="ログイン" class="login-submit">
+			<a class="backtotop" href="/YourShelf/Index">トップメニューに戻る</a>
 			<p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
 	</form>
 

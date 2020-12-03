@@ -27,6 +27,7 @@
 <input class="add-pass-check" type="password" name="password-check" required placeholder="確認用パスワード"><br>
 <input class="add-submit" type="submit" value="登録">
 </form>
+<a class="backtotop" href="/YourShelf/Index">トップメニューに戻る</a>
 <p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
 </div>
 

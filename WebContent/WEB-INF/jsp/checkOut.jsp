@@ -16,6 +16,7 @@
 <p class="nonuser">YourShelfにログインしていません</p>
 <a href="/YourShelf/LoginServlet" class="login">ログイン</a>
 <a href="/YourShelf/AddUser" class="adduser">新規ユーザー登録</a>
+<a class="backtotop" href="/YourShelf/Index">トップメニューに戻る</a>
 <p class="footerCopy">Copyright YourShelf All Rights Reservsed.</p>
 </div>
 <div class="underlay-photo"></div>
