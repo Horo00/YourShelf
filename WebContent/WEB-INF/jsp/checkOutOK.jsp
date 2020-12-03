@@ -15,7 +15,7 @@
 <div class="viewbook">
 <p class="message">${lendBook.title}を借りました。</p>
 <p class="sub-messsage">返却期限：${lendBook.returnScheduleDate}</p>
-<form action="/YourShelf/AddBookServlet" method="post" class="searchshelf-form-form">
+<form action="/YourShelf//ViewBookServlet" method="post" class="searchshelf-form-form">
         <input type="text" name="keyword" placeholder="キーワード入力" required class="searchshelf-keyword">
         <input type="submit" value="検索" class="searchshelf-submit">
 </form>
