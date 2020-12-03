@@ -41,8 +41,7 @@ CREATE TABLE having_book
 	is_lending tinyint COMMENT '0で貸し出し中でない
 1で貸し出し中',
 	PRIMARY KEY (books_id),
-	UNIQUE (books_id),
-	UNIQUE (title)
+	UNIQUE (books_id)
 );
 
 

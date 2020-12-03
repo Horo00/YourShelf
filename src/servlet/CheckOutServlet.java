@@ -126,7 +126,5 @@ public class CheckOutServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 			return;
 		}
-
 	}
-
 }

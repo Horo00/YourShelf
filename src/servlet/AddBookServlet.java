@@ -143,9 +143,6 @@ public class AddBookServlet extends HttpServlet implements EnvSet{
 				//今日の日付を登録書籍インスタンスにセット
 				books.get(index).setBoughtDate(LocalDate.now());
 
-				//検索書籍一覧情報を取得し、セッションスコープに保存
-				//川田:検索書籍一覧は既にセッションアトリビュートに保存済み
-
 				request.setAttribute("book", books.get(index));
 
 				//登録OK表示画面にフォワード
